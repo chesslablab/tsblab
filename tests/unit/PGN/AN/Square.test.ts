@@ -1,11 +1,12 @@
+import UnknownNotationError from '../../../../src/error/UnknownNotationError';
 import Square from '../../../../src/PGN/AN/Square';
 import { expect } from 'chai';
 
 describe('Square.validate()', () => {
-  it ('foo is not valid', () => {
-    expect(Square.validate('foo')).to.be.false;
+  it ('foo throws UnknownNotationError', () => {
+    expect(() => Square.validate('foo')).to.throw(UnknownNotationError);
   });
   it ('e4 is valid', () => {
-    expect(Square.validate('e4')).to.be.true;
+    expect(Square.validate('e4')).to.equal('e4');
   });
 });

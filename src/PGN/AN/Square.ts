@@ -1,10 +1,11 @@
 import UnknownNotationError from '../../error/UnknownNotationError';
+import ValidationInterface from '../ValidationInterface';
 
-class Square {
-  static readonly regex = '[a-h]{1}[1-8]{1}';
+class Square implements ValidationInterface {
+  private regex: string = '[a-h]{1}[1-8]{1}';
 
-  public static validate = (value: string): string => {
-    if (!new RegExp(Square.regex).test(value)) {
+  validate = (value: string): string => {
+    if (!new RegExp(this.regex).test(value)) {
       throw new UnknownNotationError;
     }
 

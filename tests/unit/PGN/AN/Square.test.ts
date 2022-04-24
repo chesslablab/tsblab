@@ -14,3 +14,10 @@ describe('Square.validate()', () => {
     expect(square.validate('e4')).to.equal('e4');
   });
 });
+
+describe('Square.values()', () => {
+  const square = new Square();
+  it ('Returns the constant values', () => {
+    expect(square.values()).to.eql(['[a-h]{1}[1-8]{1}']);
+  });
+});

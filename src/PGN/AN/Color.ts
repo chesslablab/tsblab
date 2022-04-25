@@ -3,9 +3,16 @@ import AbstractNotation from '../AbstractNotation';
 import ValidationInterface from '../ValidationInterface';
 
 class Color extends AbstractNotation implements ValidationInterface {
-  private readonly w: string = 'w';
+  public static readonly W: string = 'w';
 
-  private readonly b: string = 'b';
+  public static readonly B: string = 'b';
+
+  values = (): string[] => {
+    return [
+      Color.W,
+      Color.B
+    ];
+  }
 
   validate = (value: string): string => {
     if (!this.values().includes(value)) {
@@ -16,11 +23,11 @@ class Color extends AbstractNotation implements ValidationInterface {
   };
 
   opp = (color: string): string => {
-    if (color === this.w) {
-      return this.b;
+    if (color === Color.W) {
+      return Color.B;
     }
 
-    return this.w;
+    return Color.W;
   };
 }
 

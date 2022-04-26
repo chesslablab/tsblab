@@ -10,6 +10,6 @@ The GNU General Public License.
 
 ### Contributions
 
-See the [contributing guidelines](https://github.com/chesslablab/php-chess/blob/master/CONTRIBUTING.md).
+See the [contributing guidelines](https://github.com/chesslablab/ts-chess/blob/master/CONTRIBUTING.md).
 
 Happy learning and coding! Thank you, and keep it up.

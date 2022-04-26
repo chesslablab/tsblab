@@ -25,8 +25,6 @@ $ git checkout -b issue/236-update-to-MUI-5
 That's it! For further information please visit:
 
 - [Why TypeScript and PHP Are Good Friends](https://medium.com/geekculture/why-typescript-and-php-are-good-friends-964360fb75f6)
-- [PHP Chess](https://github.com/chesslablab/php-chess)
-- [PHP Chess Docs](https://php-chess.readthedocs.io/en/latest/)
 
 ---
 

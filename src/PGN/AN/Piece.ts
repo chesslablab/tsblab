@@ -1,7 +1,7 @@
 import AbstractNotation from "../AbstractNotation";
 
 
-class Piece extends AbstractNotation{
+class Piece extends AbstractNotation {
     public static readonly B: string = 'B';
     public static readonly K: string = 'K';
     public static readonly N: string = 'N';
@@ -9,7 +9,7 @@ class Piece extends AbstractNotation{
     public static readonly Q: string = 'Q';
     public static readonly R: string = 'R';
 
-    values=(): string[] => {
+    values = (): string[] => {
         return [
             Piece.B,
             Piece.K,
@@ -17,9 +17,9 @@ class Piece extends AbstractNotation{
             Piece.P,
             Piece.Q,
             Piece.R
-        ]
+        ];
     }
     
 }
 
-export default Piece
+export default Piece;

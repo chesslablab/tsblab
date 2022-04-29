@@ -1,6 +1,6 @@
 interface ValidationInterface
 {
-  validate = (value: string) => string;
+  validate : (value: string) => string;
 }
 
 export default ValidationInterface;

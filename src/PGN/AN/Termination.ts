@@ -10,10 +10,10 @@ class Termination extends AbstractNotation{
 
     values=(): string[] => {
         return [
-            Termination.WHITE_WINS,
-            Termination.BLACK_WINS,
-            Termination.DRAW,
-            Termination.UNKNOWN
+        Termination.WHITE_WINS,
+        Termination.BLACK_WINS,
+        Termination.DRAW,
+        Termination.UNKNOWN
         ]
     }
     

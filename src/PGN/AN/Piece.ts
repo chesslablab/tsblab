@@ -11,12 +11,12 @@ class Piece extends AbstractNotation {
 
     values = (): string[] => {
         return [
-            Piece.B,
-            Piece.K,
-            Piece.N,
-            Piece.P,
-            Piece.Q,
-            Piece.R
+        Piece.B,
+        Piece.K,
+        Piece.N,
+        Piece.P,
+        Piece.Q,
+        Piece.R
         ];
     }
     

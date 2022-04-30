@@ -3,7 +3,6 @@ import Color from '../../PGN/AN/Color';
 import Piece from '../../PGN/AN/Piece';
 import ValidationInterface from '../ValidationInterface';
 
-
 class CastlingAbility implements ValidationInterface {
   public static readonly START: string = 'KQkq';
 

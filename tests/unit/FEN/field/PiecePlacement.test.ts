@@ -8,7 +8,7 @@ describe('PiecePlacement.validate()', () => {
         expect(() => piecePlacement.validate('-')).to.throw(UnknownNotationError);
     });
     it ('/////// is valid', () =>{
-        expect(piecePlacement.validate('///////')).to.equal('///////')
-    })
+        expect(piecePlacement.validate('///////')).to.equal('///////');
+    });
 
 })

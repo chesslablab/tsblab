@@ -12,6 +12,13 @@ class King {
             'current': 'e1',
             'next': 'g1'
           }
+        },
+        [Castle.LONG]: {
+          'sqs': [ 'b1', 'c1', 'd1' ],
+          'sq': {
+            'current': 'e1',
+            'next': 'c1'
+          }
         }
       }
     }

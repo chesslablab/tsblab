@@ -43,7 +43,7 @@ describe('Move.toObj()', () => {
       color: 'w',
       id: Piece.B,
       sq: {
-        current: null,
+        current: '',
         next: 'g5'  
       }  
     }; 
@@ -59,7 +59,7 @@ describe('Move.toObj()', () => {
       color: 'b',
       id: Piece.R,
       sq: {
-        current: null,
+        current: '',
         next: 'a5'  
       }  
     };  
@@ -107,7 +107,7 @@ describe('Move.toObj()', () => {
       color: 'w',
       id: Piece.K,
       sq: {
-        current: null,
+        current: '',
         next: 'g7'  
       }  
     };  
@@ -213,7 +213,7 @@ describe('Move.toObj()', () => {
       color: 'b',
       id: Piece.N,
       sq: {
-        current: null,
+        current: '',
         next: 'e4'  
       }  
     };  

@@ -66,7 +66,7 @@ class Move extends AbstractNotation implements ValidationInterface{
           color: validatedColor,
           id: Piece.K,
           sq: {
-            current: null,
+            current: '',
             next: pgn.slice(-2)
           }
       };
@@ -99,7 +99,7 @@ class Move extends AbstractNotation implements ValidationInterface{
         color: validatedColor,
         id: Piece.K,
         sq: {
-          current: null,
+          current: '',
           next: pgn.slice(-2)
         }
       };
@@ -165,7 +165,7 @@ class Move extends AbstractNotation implements ValidationInterface{
         id: Piece.P,
         newId: isCheck ? pgn.slice(-2, -1) : pgn.slice(-1),
         sq: {
-          current: null,
+          current: '',
           next: pgn.slice(0, 2)
         }
       };
@@ -179,7 +179,7 @@ class Move extends AbstractNotation implements ValidationInterface{
         id: Piece.P,
         newId: isCheck ? pgn.slice(-2, -1) : pgn.slice(-1),
         sq: {
-          current: null,
+          current: '',
           next: pgn.slice(2, 4)
         }
       };

@@ -1,5 +1,4 @@
-interface ValidationInterface
-{
+interface ValidationInterface{
   validate : (value: string) => string;
 }
 

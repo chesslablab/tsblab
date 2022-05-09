@@ -62,7 +62,7 @@ class Tag extends AbstractNotation{
         isValid = true;
       }
     }
-    console.log("---->",tag,isValid)
+
     if (!isValid) {
       throw new UnknownNotationError;
     }

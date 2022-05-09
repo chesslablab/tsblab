@@ -57,12 +57,12 @@ class Tag extends AbstractNotation{
 
   validate = (tag: string): Object => {
     let isValid = false;
-    for (let val of Array(this.values)) {
-      if (tag.match(new RegExp('^\[' + val + ' \"(.*)\"\]$'))) {
+    for (let val of this.values()) {
+      if (tag.match(new RegExp('^\\[' + val + ' \\"(.*)\\"\\]$'))) {
         isValid = true;
       }
     }
-
+    console.log("---->",tag,isValid)
     if (!isValid) {
       throw new UnknownNotationError;
     }

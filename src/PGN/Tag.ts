@@ -149,3 +149,5 @@ class Tag extends AbstractNotation{
   }
   
 }
+
+export default Tag;

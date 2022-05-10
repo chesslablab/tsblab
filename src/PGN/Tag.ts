@@ -1,8 +1,7 @@
-import UnknownNotationError from "../error/UnknownNotationError";
-import AbstractNotation from "./AbstractNotation";
+import UnknownNotationError from '../error/UnknownNotationError';
+import AbstractNotation from './AbstractNotation';
 
-class Tag extends AbstractNotation{
-
+class Tag extends AbstractNotation {
   public static readonly EVENT = 'Event';
 	public static readonly SITE = 'Site';
 	public static readonly DATE = 'Date';
@@ -146,8 +145,7 @@ class Tag extends AbstractNotation{
       Tag.WHITE_RD,
       Tag.BLACK_RD
     ]
-  }
-  
+  }  
 }
 
 export default Tag;

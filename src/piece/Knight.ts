@@ -1,82 +1,85 @@
 import Square from "../PGN/AN/Square";
+import AbstractPiece from "./AbstractPiece";
 
-class Knight {
+class Knight extends AbstractPiece {
   constructor(color: string, sq: string) {
-    // super(color,sq)
-    this.mobility()
+    super(color, sq);
+    this.mobility = [];
+    this.calcMobility();
   }
-  protected mobility = (): Object => {
+
+  protected calcMobility = (): AbstractPiece => {
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) - 1);
-      let rank = "this.sq[1]".charCodeAt(0) - 2;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) - 1);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) + 2);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) - 2);
-      let rank = "this.sq[1]".charCodeAt(0) + 1;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) - 2);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) + 1);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) - 2);
-      let rank = "this.sq[1]".charCodeAt(0) - 1;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) - 2);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 1);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) - 1);
-      let rank = "this.sq[1]".charCodeAt(0) - 2;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) - 1);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 2);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) + 1);
-      let rank = "this.sq[1]".charCodeAt(0) - 2;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) + 1);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 2);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) + 2);
-      let rank = "this.sq[1]".charCodeAt(0) - 1;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) + 2);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 1);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) + 2);
-      let rank = "this.sq[1]".charCodeAt(0) + 1;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) + 2);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) + 1);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
     try {
-      let file = String.fromCharCode("this.sq[0]".charCodeAt(0) + 1);
-      let rank = "this.sq[1]".charCodeAt(0) + 2;
+      const file = String.fromCharCode(this.sq[0].charCodeAt(0) + 1);
+      const rank = String.fromCharCode(this.sq[1].charCodeAt(0) + 2);
       if (new Square().validate(file + rank)) {
-        //this.mobility.push(file + rank)
+        this.mobility.push(file + rank);
       }
     } catch (e) {
-      
+
     }
 
     return this

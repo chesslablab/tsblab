@@ -14,7 +14,7 @@ describe('Knight.getMobility()', () => {
       'f5',
       'e6'
     ];
-    // expect(knight.getMobility()).to.eql(mobility)
+    expect(knight.getMobility()).to.eql(mobility);
   });
   it ('travel d4', () => {
     let knight=new Knight('w', 'd4');
@@ -28,7 +28,7 @@ describe('Knight.getMobility()', () => {
       'f5',
       'e6'
     ];
-    // expect(knight.getMobility()).to.eql(mobility)
+    expect(knight.getMobility()).to.eql(mobility);
   });
   it ('travel b1', () => {
     let knight=new Knight('w', 'b1');
@@ -37,6 +37,6 @@ describe('Knight.getMobility()', () => {
       'd2',
       'c3'
     ];
-    // expect(knight.getMobility()).to.eql(mobility)
+    expect(knight.getMobility()).to.eql(mobility);
   });
 });

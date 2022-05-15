@@ -3,7 +3,7 @@ abstract class AbstractPiece {
 
   protected sq: string;
 
-  protected mobility: string[];
+  protected mobility: any;
 
   public constructor(color: string, sq: string) {
     this.color = color;

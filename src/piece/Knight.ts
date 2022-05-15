@@ -2,6 +2,8 @@ import Square from "../PGN/AN/Square";
 import AbstractPiece from "./AbstractPiece";
 
 class Knight extends AbstractPiece {
+  protected mobility: string[];
+
   constructor(color: string, sq: string) {
     super(color, sq);
     this.mobility = [];

@@ -5,7 +5,7 @@ abstract class AbstractPiece {
 
   protected sq: string;
 
-  protected mobility: string[];
+  protected mobility: any;
 
   protected board: Board;
 

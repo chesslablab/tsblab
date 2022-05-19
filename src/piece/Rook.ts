@@ -2,25 +2,22 @@ import Square from "../PGN/AN/Square";
 import Piece from "../PGN/AN/Piece";
 import AbstractPiece from "./AbstractPiece";
 import Slider from "./Slider";
+import RookMobility from './RookMobility';
 
 class Rook extends Slider {
+  protected mobility: RookMobility;
+
   private type: string;
 
   constructor(color: string, sq: string, type: string) {
     if (!['castle short', 'castle long', 'promoted', 'slider'].includes(type)) {
-            throw new Error('Unknown Piece Type');
+      throw new Error('Unknown Piece Type');
     }
     super(color, sq, Piece.R);
-      this.type = type;
-      this.mobility = {
-      up: [],
-      bottom: [],
-      left: [],
-      right: []
-      };
-    
-      this.calcMobility()
-    }
+    this.type = type;
+
+    this.calcMobility();
+  }
 
   protected calcMobility(): AbstractPiece {
     try {
@@ -31,7 +28,7 @@ class Rook extends Slider {
         rank = String.fromCharCode(rank.charCodeAt(0) + 1);
       }
     } catch (e) {
-      
+
     }
     try {
       let file = this.sq[0];
@@ -41,7 +38,7 @@ class Rook extends Slider {
         rank = String.fromCharCode(rank.charCodeAt(0) - 1);
       }
     } catch (e) {
-      
+
     }
     try {
       let file = String.fromCharCode(this.sq[0].charCodeAt(0) - 1);
@@ -51,7 +48,7 @@ class Rook extends Slider {
         file = String.fromCharCode(file.charCodeAt(0) - 1);
       }
     } catch (e) {
-      
+
     }
     try {
       let file = String.fromCharCode(this.sq[0].charCodeAt(0) + 1);
@@ -61,12 +58,11 @@ class Rook extends Slider {
         file = String.fromCharCode(file.charCodeAt(0) + 1);
       }
     } catch (e) {
-      
+
     }
 
     return this;
   }
-
 }
 
 export default Rook;

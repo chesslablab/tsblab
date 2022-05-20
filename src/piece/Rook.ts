@@ -14,6 +14,12 @@ class Rook extends Slider {
       throw new Error('Unknown Piece Type');
     }
     super(color, sq, Piece.R);
+    this.mobility = {
+      up: [],
+      bottom: [],
+      left: [],
+      right: []
+    };
     this.type = type;
 
     this.calcMobility();
@@ -23,8 +29,9 @@ class Rook extends Slider {
     try {
       let file = this.sq[0];
       let rank = String.fromCharCode(this.sq[1].charCodeAt(0) + 1);
+      console.log(file + rank);
       while (new Square().validate(file + rank)) {
-        this.mobility["up"].push(file + rank);
+        this.mobility.up.push(file + rank);
         rank = String.fromCharCode(rank.charCodeAt(0) + 1);
       }
     } catch (e) {
@@ -34,7 +41,7 @@ class Rook extends Slider {
       let file = this.sq[0];
       let rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 1);
       while (new Square().validate(file + rank)) {
-        this.mobility["down"].push(file + rank);
+        this.mobility.bottom.push(file + rank);
         rank = String.fromCharCode(rank.charCodeAt(0) - 1);
       }
     } catch (e) {
@@ -44,7 +51,7 @@ class Rook extends Slider {
       let file = String.fromCharCode(this.sq[0].charCodeAt(0) - 1);
       let rank = this.sq[1];
       while (new Square().validate(file + rank)) {
-        this.mobility["left"].push(file + rank);
+        this.mobility.left.push(file + rank);
         file = String.fromCharCode(file.charCodeAt(0) - 1);
       }
     } catch (e) {
@@ -54,7 +61,7 @@ class Rook extends Slider {
       let file = String.fromCharCode(this.sq[0].charCodeAt(0) + 1);
       let rank = this.sq[1];
       while (new Square().validate(file + rank)) {
-        this.mobility["right"].push(file + rank);
+        this.mobility.right.push(file + rank);
         file = String.fromCharCode(file.charCodeAt(0) + 1);
       }
     } catch (e) {

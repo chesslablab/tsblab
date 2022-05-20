@@ -1,8 +1,10 @@
+import PieceTypeError from '../error/PieceTypeError';
 import Square from "../PGN/AN/Square";
 import Piece from "../PGN/AN/Piece";
 import AbstractPiece from "./AbstractPiece";
-import Slider from "./Slider";
 import RookMobility from './RookMobility';
+import RookType from './RookType';
+import Slider from "./Slider";
 
 class Rook extends Slider {
   protected mobility: RookMobility;
@@ -10,16 +12,19 @@ class Rook extends Slider {
   private type: string;
 
   constructor(color: string, sq: string, type: string) {
-    if (!['castle short', 'castle long', 'promoted', 'slider'].includes(type)) {
-      throw new Error('Unknown Piece Type');
+    if (!RookType.all().includes(type)) {
+      throw new PieceTypeError;
     }
+
     super(color, sq, Piece.R);
+
     this.mobility = {
       up: [],
       bottom: [],
       left: [],
       right: []
     };
+
     this.type = type;
 
     this.calcMobility();

@@ -7,7 +7,10 @@ abstract class AbstractPiece {
 
   protected mobility: any;
 
-  protected board: Board;
+  // TODO:
+  // Add a basic Board to make the tests pass in the simplest possible way
+  
+  // protected board: Board;
 
   public constructor(color: string, sq: string) {
     this.color = color;

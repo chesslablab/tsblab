@@ -24,4 +24,3 @@ describe('Rook.getMobility()', () => {
     expect(rook.getMobility()).to.eql(mobility);
   });
 });
-

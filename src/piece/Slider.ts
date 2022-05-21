@@ -2,8 +2,13 @@ import AbstractPiece from "./AbstractPiece";
 
 abstract class Slider extends AbstractPiece {
   constructor(color: string, sq: string, id: string) {
-    super(color, sq);    
+    super(color, sq);
   }
+
+  // TODO:
+  // Add a basic Board to make the tests pass in the simplest possible way.
+
+  /*
   public sqs(): string[] {
     let sqs = [];
     for (let direction of this.getMobility()) {
@@ -40,6 +45,7 @@ abstract class Slider extends AbstractPiece {
 
     return sqs;
   }
+  */
 }
 
 export default Slider;

@@ -5,7 +5,7 @@ abstract class AbstractPiece {
 
   protected sq: string;
 
-  protected mobility: any;
+  protected mobility: object;
 
   // TODO:
   // Add a basic Board to make the tests pass in the simplest possible way
@@ -19,7 +19,7 @@ abstract class AbstractPiece {
 
   protected abstract calcMobility(): AbstractPiece;
 
-  getMobility(): any {
+  getMobility(): object {
     return this.mobility;
   }
 

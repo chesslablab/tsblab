@@ -1,4 +1,3 @@
-
 class RookType {
   public static readonly CASTLE_SHORT: string = 'castle short';
   public static readonly CASTLE_LONG: string = 'castle long';

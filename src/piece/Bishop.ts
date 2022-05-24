@@ -3,17 +3,15 @@ import BishopMobility from './BishopMobility';
 import Square from '../PGN/AN/Square';
 
 class Bishop extends AbstractPiece {
-  protected mobility: BishopMobility;
+  protected mobility: BishopMobility = {
+    upLeft: [],
+    upRight: [],
+    bottomLeft: [],
+    bottomRight: []
+  };
 
   constructor(color: string, sq: string) {
     super(color, sq);
-    this.mobility = {
-      upLeft: [],
-      upRight: [],
-      bottomLeft: [],
-      bottomRight: []
-    };
-
     this.calcMobility()
   }
 

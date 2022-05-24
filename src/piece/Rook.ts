@@ -7,7 +7,12 @@ import RookType from './RookType';
 import Slider from "./Slider";
 
 class Rook extends Slider {
-  protected mobility: RookMobility;
+  protected mobility: RookMobility = {
+    up: [],
+    bottom: [],
+    left: [],
+    right: []
+  };
 
   private type: string;
 
@@ -15,18 +20,8 @@ class Rook extends Slider {
     if (!RookType.all().includes(type)) {
       throw new PieceTypeError;
     }
-
     super(color, sq, Piece.R);
-
-    this.mobility = {
-      up: [],
-      bottom: [],
-      left: [],
-      right: []
-    };
-
     this.type = type;
-
     this.calcMobility();
   }
 

@@ -23,7 +23,7 @@ class Queen extends Slider {
     };
 
     return this;
-  }  
+  }
 }
 
 export default Queen;

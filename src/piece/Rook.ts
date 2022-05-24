@@ -34,7 +34,6 @@ class Rook extends Slider {
     try {
       let file = this.sq[0];
       let rank = String.fromCharCode(this.sq[1].charCodeAt(0) + 1);
-      console.log(file + rank);
       while (new Square().validate(file + rank)) {
         this.mobility.up.push(file + rank);
         rank = String.fromCharCode(rank.charCodeAt(0) + 1);

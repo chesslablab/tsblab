@@ -9,7 +9,7 @@ abstract class AbstractPiece {
 
   // TODO:
   // Add a basic Board to make the tests pass in the simplest possible way
-  
+
   // protected board: Board;
 
   public constructor(color: string, sq: string) {
@@ -19,7 +19,7 @@ abstract class AbstractPiece {
 
   protected abstract calcMobility(): AbstractPiece;
 
-  getMobility(): string[] {
+  getMobility(): any {
     return this.mobility;
   }
 

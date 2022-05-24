@@ -6,8 +6,8 @@ class Bishop extends AbstractPiece {
   protected mobility: BishopMobility = {
     upLeft: [],
     upRight: [],
-    bottomLeft: [],
-    bottomRight: []
+    downLeft: [],
+    downRight: []
   };
 
   constructor(color: string, sq: string) {
@@ -42,7 +42,7 @@ class Bishop extends AbstractPiece {
       let file = String.fromCharCode(this.sq[0].charCodeAt(0) - 1);
       let rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 1);
       while (new Square().validate(file + rank)) {
-        this.mobility.bottomLeft.push(file + rank);
+        this.mobility.downLeft.push(file + rank);
         file = String.fromCharCode(file.charCodeAt(0) - 1);
         rank = String.fromCharCode(rank.charCodeAt(0) - 1);
       }
@@ -53,7 +53,7 @@ class Bishop extends AbstractPiece {
       let file = String.fromCharCode(this.sq[0].charCodeAt(0) + 1);
       let rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 1);
       while (new Square().validate(file + rank)) {
-        this.mobility.bottomRight.push(file + rank);
+        this.mobility.downRight.push(file + rank);
         file = String.fromCharCode(file.charCodeAt(0) + 1);
         rank = String.fromCharCode(rank.charCodeAt(0) - 1);
       }

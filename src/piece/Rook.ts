@@ -9,7 +9,7 @@ import Slider from "./Slider";
 class Rook extends Slider {
   protected mobility: RookMobility = {
     up: [],
-    bottom: [],
+    down: [],
     left: [],
     right: []
   };
@@ -40,7 +40,7 @@ class Rook extends Slider {
       let file = this.sq[0];
       let rank = String.fromCharCode(this.sq[1].charCodeAt(0) - 1);
       while (new Square().validate(file + rank)) {
-        this.mobility.bottom.push(file + rank);
+        this.mobility.down.push(file + rank);
         rank = String.fromCharCode(rank.charCodeAt(0) - 1);
       }
     } catch (e) {

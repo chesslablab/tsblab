@@ -1,8 +1,8 @@
 interface BishopMobility {
   upLeft: string[],
   upRight: string[],
-  bottomLeft: string[],
-  bottomRight: string[]
+  downLeft: string[],
+  downRight: string[]
 }
 
 export default BishopMobility;

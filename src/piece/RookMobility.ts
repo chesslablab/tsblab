@@ -1,6 +1,6 @@
 interface RookMobility {
   up: string[],
-  bottom: string[],
+  down: string[],
   left: string[],
   right: string[]
 }

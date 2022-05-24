@@ -7,8 +7,8 @@ describe('Bishop.getMobility()', () => {
     let mobility = {
       upLeft: [],
       upRight: ['b3', 'c4', 'd5', 'e6', 'f7', 'g8'],
-      bottomLeft: [],
-      bottomRight: ['b1']
+      downLeft: [],
+      downRight: ['b1']
     };
     expect(bishop.getMobility()).to.eql(mobility);
   });
@@ -17,8 +17,8 @@ describe('Bishop.getMobility()', () => {
     let mobility = {
       upLeft: ['c6', 'b7', 'a8'],
       upRight: ['e6', 'f7', 'g8'],
-      bottomLeft: ['c4', 'b3', 'a2'],
-      bottomRight: ['e4', 'f3', 'g2', 'h1']
+      downLeft: ['c4', 'b3', 'a2'],
+      downRight: ['e4', 'f3', 'g2', 'h1']
     };
     expect(bishop.getMobility()).to.eql(mobility);
   });
@@ -27,8 +27,8 @@ describe('Bishop.getMobility()', () => {
     let mobility = {
       upLeft: [],
       upRight: [],
-      bottomLeft: [],
-      bottomRight: ['b7', 'c6', 'd5', 'e4', 'f3', 'g2', 'h1']
+      downLeft: [],
+      downRight: ['b7', 'c6', 'd5', 'e4', 'f3', 'g2', 'h1']
     };
     expect(bishop.getMobility()).to.eql(mobility);
   });

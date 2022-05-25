@@ -1,8 +1,12 @@
 import Castle from '../PGN/AN/Castle';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
+import AbstractPiece from './AbstractPiece';
+import Bishop from "./Bishop";
+import Rook from "./Rook";
+import RookType from "./RookType";
 
-class King {
+class King extends AbstractPiece {
   public static readonly CASTLING_RULE: object = {
     [Color.W]: {
       [Piece.K]: {
@@ -68,6 +72,33 @@ class King {
         }
       }
     }
+  }
+
+  private rook: Rook;
+
+  private bishop: Bishop;
+
+  constructor(color: string, sq: string) {
+    super(color, sq);
+    this.rook = new Rook(color, sq, RookType.SLIDER);
+    this.bishop = new Bishop(color, sq);
+    this.calcMobility();
+  }
+
+  protected calcMobility(): AbstractPiece {
+    this.mobility = {};
+    const queenMobility = {
+      ...this.rook.getMobility(),
+      ...this.bishop.getMobility()
+    };
+    const entries = Object.entries(queenMobility).forEach(item => {
+      item[1] = item[1][0];
+      if (item[1]) {
+        this.mobility[item[0]] = item[1]
+      }
+    });
+
+    return this;
   }
 }
 

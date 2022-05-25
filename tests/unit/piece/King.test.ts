@@ -22,3 +22,31 @@ describe('King.CASTLING_RULE', () => {
       .to.eql([ 'f8', 'g8' ]);
   });
 });
+
+describe('King.getMobility()', () => {
+  it ('a2', () => {
+    let king = new King('w', 'a2');
+    let mobility = {
+      up: 'a3',
+      down: 'a1',
+      right: 'b2',
+      upRight: 'b3',
+      downRight: 'b1'
+    };
+    expect(king.getMobility()).to.eql(mobility);
+  });
+  it ('d5', () => {
+    let king = new King('w', 'd5');
+    let mobility = {
+      up: 'd6',
+      down: 'd4',
+      left: 'c5',
+      right: 'e5',
+      upLeft: 'c6',
+      upRight: 'e6',
+      downLeft: 'c4',
+      downRight: 'e4',
+    };
+    expect(king.getMobility()).to.eql(mobility);
+  });
+});

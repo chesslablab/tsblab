@@ -81,7 +81,7 @@ class Pawn extends AbstractPiece {
     }
 
     for (let sq of this.captureSqs) {
-      if (this.board.getSqEval().used[this.getOppColor].includes(sq)) {
+      if (this.board.getSqEval().used[this.getOppColor()].includes(sq)) {
         sqs.push(sq);
       }
     }
@@ -140,3 +140,5 @@ class Pawn extends AbstractPiece {
     return (this.move.newId && Number(this.getMove().sq.next[1]) === this.ranks.promotion);
   }
 }
+
+export default Pawn;

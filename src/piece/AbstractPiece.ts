@@ -40,6 +40,10 @@ abstract class AbstractPiece {
   getMove(): object {
     return this.move;
   }
+
+  getSq(): string {
+    return this.sq;
+  }
 }
 
 export default AbstractPiece;

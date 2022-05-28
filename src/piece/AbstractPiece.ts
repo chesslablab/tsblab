@@ -1,3 +1,4 @@
+import Board from "../Board";
 import Color from "../PGN/AN/Color";
 
 abstract class AbstractPiece {
@@ -7,14 +8,19 @@ abstract class AbstractPiece {
 
   protected mobility: object;
 
+  protected id: string;
+
+  protected move: object;
+
   // TODO:
   // Add a basic Board to make the tests pass in the simplest possible way
 
-  // protected board: Board;
+  protected board: Board;
 
-  public constructor(color: string, sq: string) {
+  public constructor(color: string, sq: string, id: string) {
     this.color = color;
     this.sq = sq;
+    this.id = id;
   }
 
   protected abstract calcMobility(): AbstractPiece;
@@ -29,6 +35,10 @@ abstract class AbstractPiece {
 
   getOppColor(): string {
     return new Color().opp(this.color);
+  }
+
+  getMove(): object {
+    return this.move;
   }
 }
 

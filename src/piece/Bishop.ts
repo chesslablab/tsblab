@@ -1,6 +1,7 @@
 import AbstractPiece from './AbstractPiece';
 import BishopMobility from './BishopMobility';
 import Square from '../PGN/AN/Square';
+import Piece from '../PGN/AN/Piece';
 
 class Bishop extends AbstractPiece {
   protected mobility: BishopMobility = {
@@ -11,7 +12,7 @@ class Bishop extends AbstractPiece {
   };
 
   constructor(color: string, sq: string) {
-    super(color, sq);
+    super(color, sq, Piece.B);
     this.calcMobility()
   }
 

@@ -70,75 +70,75 @@ class Pawn extends AbstractPiece {
     return this;
   }
 
-  public sqs(): string[] {
-    let sqs = [];
-    for (let sq of this.mobility) {
-      if (this.board.getSqEval().free.includes(sq)) {
-        sqs.push(sq);
-      } else {
-        break;
-      }
-    }
+  // public sqs(): string[] {
+  //   let sqs = [];
+  //   for (let sq of this.mobility) {
+  //     if (this.board.getSqEval().free.includes(sq)) {
+  //       sqs.push(sq);
+  //     } else {
+  //       break;
+  //     }
+  //   }
 
-    for (let sq of this.captureSqs) {
-      if (this.board.getSqEval().used[this.getOppColor()].includes(sq)) {
-        sqs.push(sq);
-      }
-    }
+  //   for (let sq of this.captureSqs) {
+  //     if (this.board.getSqEval().used[this.getOppColor()].includes(sq)) {
+  //       sqs.push(sq);
+  //     }
+  //   }
 
-    if (this.board.getLastHistory() && 
-        this.board.getLastHistory().move.id === Piece.P && 
-        this.board.getLastHistory().move.color === this.getOppColor()) {
-      if (this.color === Color.W) {
-        if (Number(this.sq[1]) === 5) {
-          let captureSquare = this.board.getLastHistory().move.sq.next[0] + 
-          (this.board.getLastHistory().move.sq.next[1] + 1);
-          if (this.captureSqs.includes(captureSquare)) {
-            this.enPassantSq = this.board.getLastHistory().move.sq.next;
-            sqs.push(captureSquare);
-          }
-        }
-      } else if (this.color === Color.B) {
-        if (Number(this.sq[1]) === 4) {
-          let captureSquare = this.board.getLastHistory().move.sq.next[0] + 
-          (this.board.getLastHistory().move.sq.next[1] - 1);
-          if (this.captureSqs.includes(captureSquare)) {
-            this.enPassantSq = this.board.getLastHistory().move.sq.next;
-            sqs.push(captureSquare);
-          }
-        }
-      }
-    }
+  //   if (this.board.getLastHistory() && 
+  //       this.board.getLastHistory().move.id === Piece.P && 
+  //       this.board.getLastHistory().move.color === this.getOppColor()) {
+  //     if (this.color === Color.W) {
+  //       if (Number(this.sq[1]) === 5) {
+  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] + 
+  //         (this.board.getLastHistory().move.sq.next[1] + 1);
+  //         if (this.captureSqs.includes(captureSquare)) {
+  //           this.enPassantSq = this.board.getLastHistory().move.sq.next;
+  //           sqs.push(captureSquare);
+  //         }
+  //       }
+  //     } else if (this.color === Color.B) {
+  //       if (Number(this.sq[1]) === 4) {
+  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] + 
+  //         (this.board.getLastHistory().move.sq.next[1] - 1);
+  //         if (this.captureSqs.includes(captureSquare)) {
+  //           this.enPassantSq = this.board.getLastHistory().move.sq.next;
+  //           sqs.push(captureSquare);
+  //         }
+  //       }
+  //     }
+  //   }
 
-    return sqs;
-  }
+  //   return sqs;
+  // }
 
-  public defendedSqs(): string[] {
-    let sqs = [];
-    for (let sq of this.captureSqs) {
-      if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
-        sqs.push(sq);
-      }
-    }
+  // public defendedSqs(): string[] {
+  //   let sqs = [];
+  //   for (let sq of this.captureSqs) {
+  //     if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
+  //       sqs.push(sq);
+  //     }
+  //   }
 
-    return sqs;
-  }
+  //   return sqs;
+  // }
 
-  public getRanks(): PawnRanks {
-    return this.ranks;
-  }
+  // public getRanks(): PawnRanks {
+  //   return this.ranks;
+  // }
 
-  public getCapturedSqs(): string[] {
-    return this.captureSqs;
-  }
+  // public getCapturedSqs(): string[] {
+  //   return this.captureSqs;
+  // }
 
-  public getEnPassantSqs(): string {
-    return this.enPassantSq;
-  }
+  // public getEnPassantSqs(): string {
+  //   return this.enPassantSq;
+  // }
 
-  public isPromoted(): boolean {
-    return (this.move.newId && Number(this.getMove().sq.next[1]) === this.ranks.promotion);
-  }
+  // public isPromoted(): boolean {
+  //   return (this.move.newId && Number(this.getMove().sq.next[1]) === this.ranks.promotion);
+  // }
 }
 
 export default Pawn;

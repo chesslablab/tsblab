@@ -7,18 +7,6 @@ import Rook from './piece/Rook';
 import RookType from './piece/RookType';
 
 class Board extends Map {
-  private turn: string = '';
-  private captures: object = {
-    [Color.W]: [],
-    [Color.B]: []
-  };
-  private history: any[] = [];
-  private castlingAbility: string;
-  private observers: any[];
-  private defenseEval: object;
-  private pressureEval: object;
-  private spaceEval: object;
-  private sqEval: object;
 
   constructor() {
     super();
@@ -32,17 +20,6 @@ class Board extends Map {
     this.set(7, new Rook(Color.W, 'h1', RookType.CASTLE_SHORT));
   }
 
-  public getSqEval(): object {
-    return this.sqEval;
-  }
-
-  public getLastHistory(): object {
-    if (this.history.length !== 0) {
-      return this.history[this.history.length - 1];
-    }
-
-    return null;
-  }
 }
 
 export default Board;

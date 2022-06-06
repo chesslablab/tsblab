@@ -79,7 +79,7 @@ class King extends AbstractPiece {
   private bishop: Bishop;
 
   constructor(color: string, sq: string) {
-    super(color, sq);
+    super(color, sq, Piece.K);
     this.rook = new Rook(color, sq, RookType.SLIDER);
     this.bishop = new Bishop(color, sq);
     this.calcMobility();

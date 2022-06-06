@@ -7,6 +7,7 @@ import Rook from './piece/Rook';
 import RookType from './piece/RookType';
 
 class Board extends Map {
+
   constructor() {
     super();
     this.set(0, new Rook(Color.W, 'a1', RookType.CASTLE_LONG));
@@ -18,6 +19,7 @@ class Board extends Map {
     this.set(6, new Knight(Color.W, 'g1'));
     this.set(7, new Rook(Color.W, 'h1', RookType.CASTLE_SHORT));
   }
+
 }
 
 export default Board;

@@ -1,3 +1,4 @@
+import Piece from "../PGN/AN/Piece";
 import Square from "../PGN/AN/Square";
 import AbstractPiece from "./AbstractPiece";
 
@@ -5,7 +6,7 @@ class Knight extends AbstractPiece {
   protected mobility: string[] = [];
 
   constructor(color: string, sq: string) {
-    super(color, sq);
+    super(color, sq, Piece.K);
     this.calcMobility();
   }
 

@@ -17,7 +17,7 @@ class SqEvaluation extends AbstractEvaluation {
     };
   }
 
-  public eval = (feature: string): any => {
+  public eval = (feature: string): object => {
     let pieces = [];
     for (const piece of this.board.values()) {
       pieces.push(piece);
@@ -45,20 +45,20 @@ class SqEvaluation extends AbstractEvaluation {
     return all;
   }
 
-  private free = (pieces: AbstractPiece[]): any => {
+  private free = (pieces: AbstractPiece[]): string[] => {
     let used = this.used(pieces);
-    let used_all = [...used[Color.B], ...used[Color.W]]
+    let used_all = [...used[Color.B], ...used[Color.W]];
 
-    return this.all().filter(square => !used_all.includes(square))
+    return this.all().filter(square => !used_all.includes(square));
   }
 
-  private used = (pieces: AbstractPiece[]): any => {
+  private used = (pieces: AbstractPiece[]): object => {
     let used = {
       [Color.W]: [],
       [Color.B]: []
     };
     for (let piece of pieces) {
-      used[piece.getColor()].push(piece.getSq())
+      used[piece.getColor()].push(piece.getSq());
     }
 
     return used;

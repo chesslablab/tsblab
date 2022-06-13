@@ -1,7 +1,7 @@
-import Board from "../Board";
-import Color from "../PGN/AN/Color";
-import AbstractPiece from "../piece/AbstractPiece";
-import AbstractEvaluation from "./AbstractEvaluation";
+import Board from '../Board';
+import Color from '../PGN/AN/Color';
+import AbstractPiece from '../piece/AbstractPiece';
+import AbstractEvaluation from './AbstractEvaluation';
 
 class SqEvaluation extends AbstractEvaluation {
   static NAME: string = 'Square';
@@ -18,16 +18,12 @@ class SqEvaluation extends AbstractEvaluation {
   }
 
   public eval = (feature: string): object => {
-    let pieces = [];
-    for (const piece of this.board.values()) {
-      pieces.push(piece);
-    }
     switch (feature) {
       case SqEvaluation.TYPE_FREE:
-        this.result = this.free(pieces);
+        this.result = this.free(this.board);
         break;
       case SqEvaluation.TYPE_USED:
-        this.result = this.used(pieces);
+        this.result = this.used(this.board);
         break;
     }
 
@@ -45,21 +41,21 @@ class SqEvaluation extends AbstractEvaluation {
     return all;
   }
 
-  private free = (pieces: AbstractPiece[]): string[] => {
+  private free = (pieces: Map<number, AbstractPiece>): string[] => {
     let used = this.used(pieces);
-    let used_all = [...used[Color.B], ...used[Color.W]];
+    let usedSqs = [...used[Color.B], ...used[Color.W]];
 
-    return this.all().filter(square => !used_all.includes(square));
+    return this.all().filter(sq => !usedSqs.includes(sq));
   }
 
-  private used = (pieces: AbstractPiece[]): object => {
+  private used = (pieces: Map<number, AbstractPiece>): object => {
     let used = {
       [Color.W]: [],
       [Color.B]: []
     };
-    for (let piece of pieces) {
+    pieces.forEach((piece, key) => {
       used[piece.getColor()].push(piece.getSq());
-    }
+    });
 
     return used;
   }

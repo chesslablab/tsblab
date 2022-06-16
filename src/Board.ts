@@ -46,17 +46,6 @@ class Board extends Map {
     this.set(31, new Knight(Color.B, 'h7'));
   }
 
-  public valid = (): boolean => {
-    return true;
-  }
-
-  public current = (): AbstractPiece => {
-    return this.get(1);
-  }
-
-  public rewind = (): void => {
-
-  }
 }
 
 export default Board;

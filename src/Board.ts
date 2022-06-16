@@ -1,4 +1,6 @@
 import Color from './PGN/AN/Color';
+import Piece from './PGN/AN/Piece';
+import AbstractPiece from './piece/AbstractPiece';
 import Bishop from './piece/Bishop';
 import King from './piece/King';
 import Knight from './piece/Knight';
@@ -42,6 +44,18 @@ class Board extends Map {
     this.set(29, new Knight(Color.B, 'f7'));
     this.set(30, new Knight(Color.B, 'g7'));
     this.set(31, new Knight(Color.B, 'h7'));
+  }
+
+  public valid = (): boolean => {
+    return true;
+  }
+
+  public current = (): AbstractPiece => {
+    return this.get(1);
+  }
+
+  public rewind = (): void => {
+
   }
 }
 

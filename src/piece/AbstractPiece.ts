@@ -44,6 +44,10 @@ abstract class AbstractPiece {
   getSq(): string {
     return this.sq;
   }
+
+  getId(): string {
+    return this.id;
+  }
 }
 
 export default AbstractPiece;

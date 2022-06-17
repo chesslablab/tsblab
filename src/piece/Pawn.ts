@@ -40,7 +40,7 @@ class Pawn extends AbstractPiece {
         this.mobility.push(this.file + this.ranks.next);
       }
     } catch (e) {
-      
+
     }
 
     if (this.sq[1] === '2' && this.ranks.initial === 2) {
@@ -50,7 +50,7 @@ class Pawn extends AbstractPiece {
     }
 
     try {
-      this.file = String.fromCharCode(this.file.charCodeAt(0) - 1);
+      this.file = String.fromCharCode(this.sq[0].charCodeAt(0) - 1);
       if (new Square().validate(this.file + this.ranks.next)) {
         this.captureSqs.push(this.file + this.ranks.next);
       }
@@ -59,7 +59,7 @@ class Pawn extends AbstractPiece {
     }
 
     try {
-      this.file = String.fromCharCode(this.file.charCodeAt(0) + 1);
+      this.file = String.fromCharCode(this.sq[0].charCodeAt(0) + 1);
       if (new Square().validate(this.file + this.ranks.next)) {
         this.captureSqs.push(this.file + this.ranks.next);
       }
@@ -86,12 +86,12 @@ class Pawn extends AbstractPiece {
   //     }
   //   }
 
-  //   if (this.board.getLastHistory() && 
-  //       this.board.getLastHistory().move.id === Piece.P && 
+  //   if (this.board.getLastHistory() &&
+  //       this.board.getLastHistory().move.id === Piece.P &&
   //       this.board.getLastHistory().move.color === this.getOppColor()) {
   //     if (this.color === Color.W) {
   //       if (Number(this.sq[1]) === 5) {
-  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] + 
+  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] +
   //         (this.board.getLastHistory().move.sq.next[1] + 1);
   //         if (this.captureSqs.includes(captureSquare)) {
   //           this.enPassantSq = this.board.getLastHistory().move.sq.next;
@@ -100,7 +100,7 @@ class Pawn extends AbstractPiece {
   //       }
   //     } else if (this.color === Color.B) {
   //       if (Number(this.sq[1]) === 4) {
-  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] + 
+  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] +
   //         (this.board.getLastHistory().move.sq.next[1] - 1);
   //         if (this.captureSqs.includes(captureSquare)) {
   //           this.enPassantSq = this.board.getLastHistory().move.sq.next;
@@ -128,9 +128,9 @@ class Pawn extends AbstractPiece {
   //   return this.ranks;
   // }
 
-  // public getCapturedSqs(): string[] {
-  //   return this.captureSqs;
-  // }
+  public getCaptureSqs(): string[] {
+    return this.captureSqs;
+  }
 
   // public getEnPassantSqs(): string {
   //   return this.enPassantSq;

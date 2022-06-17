@@ -27,9 +27,7 @@ class SpaceEvaluation extends AbstractEvaluation {
       [Color.W]: [],
       [Color.B]: []
     };
-    this.board.rewind();
-    while (this.board.valid()) {
-      const piece = this.board.current();
+    this.board.forEach((piece, key) => {
       let uniqueSqs;
       switch (piece.getId()) {
         case Piece.K:
@@ -67,8 +65,7 @@ class SpaceEvaluation extends AbstractEvaluation {
           this.result[piece.getColor()] = [...uniqueSqs];
           break;
       }
-      this.board.next();
-    }
+    });
 
     this.result[Color.W].sort();
     this.result[Color.B].sort();

@@ -17,7 +17,7 @@ class SqEvaluation extends AbstractEvaluation {
     };
   }
 
-  public eval = (feature: string): object => {
+  public eval = (feature: string): any => {
     switch (feature) {
       case SqEvaluation.TYPE_FREE:
         this.result = this.free(this.board);

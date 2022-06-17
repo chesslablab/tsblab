@@ -28,10 +28,10 @@ class SpaceEvaluation extends AbstractEvaluation {
       [Color.B]: []
     };
     this.board.forEach((piece, key) => {
-      let uniqueSqs;
+      let sqs;
       switch (piece.getId()) {
         case Piece.K:
-          uniqueSqs = new Set([
+          sqs = new Set([
             ...this.result[piece.getColor()],
             ...this.sqEval[SqEvaluation.TYPE_FREE].filter((freeSq) => {
               const mobility = piece.getMobility();
@@ -44,10 +44,10 @@ class SpaceEvaluation extends AbstractEvaluation {
               return false;
             })
           ]);
-          this.result[piece.getColor()] = [...uniqueSqs];
+          this.result[piece.getColor()] = [...sqs];
           break;
         case Piece.P:
-          const sqs = this.sqEval[SqEvaluation.TYPE_FREE]
+          sqs = this.sqEval[SqEvaluation.TYPE_FREE]
             .filter(sq => piece.getCaptureSqs().includes(sq));
           this.result[piece.getColor()] = [
             ...new Set([
@@ -57,13 +57,14 @@ class SpaceEvaluation extends AbstractEvaluation {
           ];
           break;
         default:
-          uniqueSqs = new Set([
-            ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()].filter((usedSq) => {
-              return piece.getSq().includes(usedSq);
-            })
-          ]);
-          this.result[piece.getColor()] = [...uniqueSqs];
+          sqs = this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
+            .filter(sq => piece.getSq().includes(sq));
+          this.result[piece.getColor()] = [
+            ...new Set([
+              ...this.result[piece.getColor()],
+              ...sqs
+            ])
+          ];
           break;
       }
     });

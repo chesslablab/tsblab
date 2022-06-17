@@ -47,13 +47,14 @@ class SpaceEvaluation extends AbstractEvaluation {
           this.result[piece.getColor()] = [...uniqueSqs];
           break;
         case Piece.P:
-          uniqueSqs = new Set([
-            ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_FREE].filter((freeSq) => {
-              return piece.getCaptureSqs().includes(freeSq);
-            })
-          ]);
-          this.result[piece.getColor()] = [...uniqueSqs];
+          const sqs = this.sqEval[SqEvaluation.TYPE_FREE]
+            .filter(sq => piece.getCaptureSqs().includes(sq));
+          this.result[piece.getColor()] = [
+            ...new Set([
+              ...this.result[piece.getColor()],
+              ...sqs
+            ])
+          ];
           break;
         default:
           uniqueSqs = new Set([

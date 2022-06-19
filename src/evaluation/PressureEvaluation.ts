@@ -7,7 +7,7 @@ import SqEvaluation from './SqEvaluation';
 class PressureEvaluation extends AbstractEvaluation {
   static NAME: string = 'Pressure';
 
-  private sqEval: any;
+  private sqEval: object;
 
   constructor(board: Board) {
     super(board);
@@ -16,7 +16,7 @@ class PressureEvaluation extends AbstractEvaluation {
       [SqEvaluation.TYPE_FREE]: sqEvaluation.eval(SqEvaluation.TYPE_FREE),
       [SqEvaluation.TYPE_USED]: sqEvaluation.eval(SqEvaluation.TYPE_USED)
     };
-
+    
     this.result = {
       [Color.W]: [],
       [Color.B]: []

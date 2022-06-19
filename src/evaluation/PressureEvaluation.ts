@@ -1,8 +1,8 @@
-import Board from "../Board";
-import Color from "../PGN/AN/Color";
-import Piece from "../PGN/AN/Piece";
-import AbstractEvaluation from "./AbstractEvaluation";
-import SqEvaluation from "./SqEvaluation";
+import Board from '../Board';
+import Color from '../PGN/AN/Color';
+import Piece from '../PGN/AN/Piece';
+import AbstractEvaluation from './AbstractEvaluation';
+import SqEvaluation from './SqEvaluation';
 
 class PressureEvaluation extends AbstractEvaluation {
   static NAME: string = 'Pressure';

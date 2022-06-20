@@ -33,16 +33,9 @@ class SpaceEvaluation extends AbstractEvaluation {
         case Piece.K:
           sqs = new Set([
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_FREE].filter((freeSq) => {
-              const mobility = piece.getMobility();
-              for (let mobilityElement in mobility) {
-                if (mobility[mobilityElement].includes(freeSq)) {
-                  return true;
-                }
-              }
-
-              return false;
-            })
+            ...this.sqEval[SqEvaluation.TYPE_FREE].filter(freeSq =>
+              Array.from(piece.getMobility()).forEach(sq => freeSq.includes(sq))
+            )
           ]);
           this.result[piece.getColor()] = [...sqs];
           break;

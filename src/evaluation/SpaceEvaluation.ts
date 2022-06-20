@@ -41,7 +41,7 @@ class SpaceEvaluation extends AbstractEvaluation {
           break;
         case Piece.P:
           sqs = this.sqEval[SqEvaluation.TYPE_FREE]
-            .filter(sq => piece.getCaptureSqs().includes(sq));
+            .filter(freeSq => piece.getCaptureSqs().includes(freeSq));
           this.result[piece.getColor()] = [
             ...new Set([
               ...this.result[piece.getColor()],
@@ -51,7 +51,7 @@ class SpaceEvaluation extends AbstractEvaluation {
           break;
         default:
           sqs = this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
-            .filter(sq => piece.getSq().includes(sq));
+            .filter(usedSq => piece.getSq().includes(usedSq));
           this.result[piece.getColor()] = [
             ...new Set([
               ...this.result[piece.getColor()],

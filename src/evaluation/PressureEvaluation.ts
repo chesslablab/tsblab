@@ -16,7 +16,7 @@ class PressureEvaluation extends AbstractEvaluation {
       [SqEvaluation.TYPE_FREE]: sqEvaluation.eval(SqEvaluation.TYPE_FREE),
       [SqEvaluation.TYPE_USED]: sqEvaluation.eval(SqEvaluation.TYPE_USED)
     };
-    
+
     this.result = {
       [Color.W]: [],
       [Color.B]: []
@@ -29,28 +29,22 @@ class PressureEvaluation extends AbstractEvaluation {
         case Piece.K:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()].filter((sq) => {
-              const mobility = piece.getMobility();
-              for (let mobilityElement in mobility) {
-                if (mobility[mobilityElement].includes(sq)) {
-                  return true;
-                }
-              }
-            })
+            ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
+              .filter(usedSq => Array.from(piece.getMobility()).forEach(sq => usedSq.includes(sq)))
           ];
           break;
         case Piece.P:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
             ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
-            .filter(sq => piece.getCaptureSqs().includes(sq))
+              .filter(usedSq => piece.getCaptureSqs().includes(usedSq))
           ];
           break;
         default:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
             ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
-            .filter(sq => piece.getSq().includes(sq))
+              .filter(usedSq => piece.getSq().includes(usedSq))
           ];
           break;
       }

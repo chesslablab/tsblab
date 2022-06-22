@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import Board from '../../../src/Board';
-import SqEvaluation from '../../../src/evaluation/SqEvaluation';
+import SqEval from '../../../src/eval/SqEval';
 
-describe('SqEvaluation.eval()', () => {
+describe('SqEval.eval()', () => {
   it('is started', () => {
     let board = new Board();
-    let sqEval = new SqEvaluation(board).eval(SqEvaluation.TYPE_FREE);
+    let sqEval = new SqEval(board).eval(SqEval.TYPE_FREE);
     let expected = [
       'a3', 'a4', 'a5', 'a6', 'b3',
       'b4', 'b5', 'b6', 'c3', 'c4',

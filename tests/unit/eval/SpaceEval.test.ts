@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import Board from '../../../src/Board';
-import SpaceEvaluation from '../../../src/evaluation/SpaceEvaluation';
+import SpaceEval from '../../../src/eval/SpaceEval';
 
-describe('SpaceEvaluation.eval()', () => {
+describe('SpaceEval.eval()', () => {
   it('is started', () => {
-    let spEval = (new SpaceEvaluation(new Board())).eval();
+    let spEval = (new SpaceEval(new Board())).eval();
     let expected = {
       'w': [
         'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3'
@@ -16,7 +16,7 @@ describe('SpaceEvaluation.eval()', () => {
     expect(spEval).to.eql(expected);
   });
   // it('is OpenSicilian', () => {
-  //   let spEval = (new SpaceEvaluation(new Board())).eval();
+  //   let spEval = (new SpaceEval(new Board())).eval();
   //   let expected = {
   //     'w': [
   //       'a3', 'a4', 'a6', 'b1', 'b3', 'b5', 'c4', 'c6',
@@ -32,7 +32,7 @@ describe('SpaceEvaluation.eval()', () => {
   //   expect(spEval).to.eql(expected);
   // });
   // it('is ClosedSicilian', () => {
-  //   let spEval = (new SpaceEvaluation(new Board())).eval();
+  //   let spEval = (new SpaceEval(new Board())).eval();
   //   let expected = {
   //     'w': [
   //       'a3', 'a4', 'b1', 'b3', 'b5', 'c4', 'd2', 'd5',

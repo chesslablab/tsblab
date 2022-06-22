@@ -1,20 +1,20 @@
 import Board from '../Board';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
-import AbstractEvaluation from './AbstractEvaluation';
-import SqEvaluation from './SqEvaluation';
+import AbstractEval from './AbstractEval';
+import SqEval from './SqEval';
 
-class PressureEvaluation extends AbstractEvaluation {
+class PressureEval extends AbstractEval {
   static NAME: string = 'Pressure';
 
   private sqEval: object;
 
   constructor(board: Board) {
     super(board);
-    let sqEvaluation = new SqEvaluation(board);
+    let sqEval = new SqEval(board);
     this.sqEval = {
-      [SqEvaluation.TYPE_FREE]: sqEvaluation.eval(SqEvaluation.TYPE_FREE),
-      [SqEvaluation.TYPE_USED]: sqEvaluation.eval(SqEvaluation.TYPE_USED)
+      [SqEval.TYPE_FREE]: sqEval.eval(SqEval.TYPE_FREE),
+      [SqEval.TYPE_USED]: sqEval.eval(SqEval.TYPE_USED)
     };
 
     this.result = {
@@ -29,21 +29,21 @@ class PressureEvaluation extends AbstractEvaluation {
         case Piece.K:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
+            ...this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
               .filter(usedSq => Array.from(piece.getMobility()).forEach(sq => usedSq.includes(sq)))
           ];
           break;
         case Piece.P:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
+            ...this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
               .filter(usedSq => piece.getCaptureSqs().includes(usedSq))
           ];
           break;
         default:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
+            ...this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
               .filter(usedSq => piece.getSq().includes(usedSq))
           ];
           break;
@@ -57,4 +57,4 @@ class PressureEvaluation extends AbstractEvaluation {
   }
 }
 
-export default PressureEvaluation;
+export default PressureEval;

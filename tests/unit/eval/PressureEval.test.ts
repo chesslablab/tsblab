@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import Board from '../../../src/Board';
-import PressureEvaluation from '../../../src/evaluation/PressureEvaluation';
+import PressureEval from '../../../src/eval/PressureEval';
 
-describe('PressureEvaluation.eval()', () => {
+describe('PressureEval.eval()', () => {
   it('is started', () => {
-    let pressEval = (new PressureEvaluation(new Board())).eval();
+    let pressEval = (new PressureEval(new Board())).eval();
     let expected = {
       'w': [],
       'b': [],
@@ -13,7 +13,7 @@ describe('PressureEvaluation.eval()', () => {
   });
   // it('is Open Sicilian', () => {
   //   let board = new OpenSicilian(new Board()).play();
-  //   let pressEval = (new PressureEvaluation(board)).eval();
+  //   let pressEval = (new PressureEval(board)).eval();
   //   let expected = {
   //     'w': [],
   //     'b': ['e4'],
@@ -22,7 +22,7 @@ describe('PressureEvaluation.eval()', () => {
   // });
   // it('is Closed Sicilian', () => {
   //   let board = new ClosedSicilian(new Board()).play();
-  //   let pressEval = (new PressureEvaluation(board)).eval();
+  //   let pressEval = (new PressureEval(board)).eval();
   //   let expected = {
   //     'w': [],
   //     'b': ['c3'],
@@ -38,7 +38,7 @@ describe('PressureEvaluation.eval()', () => {
   //   board.play('w', 'Bb5');
   //   board.play('b', 'a6');
   //   board.play('w', 'Nxe5');
-  //   let pressEval = (new PressureEvaluation(board)).eval();
+  //   let pressEval = (new PressureEval(board)).eval();
   //   let expected = {
   //     'w': ['a6', 'c6', 'c6', 'd7', 'f7'],
   //     'b': ['b5', 'e5'],

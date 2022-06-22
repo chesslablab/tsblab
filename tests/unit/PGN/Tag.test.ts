@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import UnknownNotationError from '../../../src/error/UnknownNotationError';
 import Tag from '../../../src/PGN/Tag';
 
-describe('Tag.validate()', () => {
+describe('tag.validate()', () => {
   const tag = new Tag()
   it ('Foo throws exception', () => {
     expect(() => tag.validate('Foo')).to.throw(UnknownNotationError);

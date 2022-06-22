@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Knight from '../../../src/piece/Knight';
 
-describe('Knight.getMobility()', () => {
+describe('knight.getMobility()', () => {
   it ('d4', () => {
     let knight = new Knight('w', 'd4');
     let mobility = [

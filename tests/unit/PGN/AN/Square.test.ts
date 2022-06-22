@@ -2,7 +2,7 @@ import UnknownNotationError from '../../../../src/error/UnknownNotationError';
 import Square from '../../../../src/PGN/AN/Square';
 import { expect } from 'chai';
 
-describe('Square.validate()', () => {
+describe('square.validate()', () => {
   const square = new Square();
   it ('a9 throws UnknownNotationError', () => {
     expect(() => square.validate('a9')).to.throw(UnknownNotationError);
@@ -15,7 +15,7 @@ describe('Square.validate()', () => {
   });
 });
 
-describe('Square.values()', () => {
+describe('square.values()', () => {
   const square = new Square();
   it ('Returns the constant values', () => {
     expect(square.values()).to.eql(['[a-h]{1}[1-8]{1}']);

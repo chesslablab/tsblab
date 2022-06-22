@@ -3,7 +3,7 @@ import UnknownNotationError from '../../../../src/error/UnknownNotationError';
 import CastlingAbility from '../../../../src/FEN/field/CastlingAbility';
 import Piece from '../../../../src/PGN/AN/Piece';
 
-describe('CastlingAbility.validate()', () => {
+describe('castlingAbility.validate()', () => {
   const castlingAbility = new CastlingAbility();
   it ('foobar throws UnknownNotationError', () => {
     expect(() => castlingAbility.validate('foobar')).to.throw(UnknownNotationError);
@@ -46,7 +46,7 @@ describe('CastlingAbility.validate()', () => {
   });
 })
 
-describe('CastlingAbility.remove()', () => {
+describe('castlingAbility.remove()', () => {
   const castlingAbility = new CastlingAbility();
   it ('Remove K from KQkq', () => {
     expect(castlingAbility.remove('KQkq','w',[Piece.K])).to.equal('Qkq');
@@ -68,7 +68,7 @@ describe('CastlingAbility.remove()', () => {
   });
 })
 
-describe('CastlingAbility.castle()', () => {
+describe('castlingAbility.castle()', () => {
   const castlingAbility = new CastlingAbility();
   it ('Castle w from KQkq', () => {
     expect(castlingAbility.castle('KQkq','w')).to.equal('kq');

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Board from '../../../src/Board';
 import PressureEval from '../../../src/eval/PressureEval';
 
-describe('PressureEval.eval()', () => {
+describe('pressEval.eval()', () => {
   it('is started', () => {
     let pressEval = (new PressureEval(new Board())).eval();
     let expected = {
@@ -44,5 +44,5 @@ describe('PressureEval.eval()', () => {
   //     'b': ['b5', 'e5'],
   //   };
   //   expect(pressEval).to.eql(expected);
-  // });  
+  // });
 });

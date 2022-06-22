@@ -2,7 +2,7 @@ import UnknownNotationError from '../../../../src/error/UnknownNotationError';
 import SideToMove from '../../../../src/FEN/field/SideToMove';
 import { expect } from 'chai';
 
-describe('SideToMove.validate()', () => {
+describe('sideToMove.validate()', () => {
   const sideToMove = new SideToMove();
   it ('green throws UnknownNotationError', () => {
     expect(() => sideToMove.validate('green')).to.throw(UnknownNotationError);

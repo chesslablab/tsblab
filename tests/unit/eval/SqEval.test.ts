@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Board from '../../../src/Board';
 import SqEval from '../../../src/eval/SqEval';
 
-describe('SqEval.eval()', () => {
+describe('sqEval.eval()', () => {
   it('is started', () => {
     let board = new Board();
     let sqEval = new SqEval(board).eval(SqEval.TYPE_FREE);

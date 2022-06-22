@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Board from '../../../src/Board';
 import SpaceEval from '../../../src/eval/SpaceEval';
 
-describe('SpaceEval.eval()', () => {
+describe('spaceEval.eval()', () => {
   it('is started', () => {
     let spEval = (new SpaceEval(new Board())).eval();
     let expected = {

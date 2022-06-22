@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Bishop from '../../../src/piece/Bishop';
 
-describe('Bishop.getMobility()', () => {
+describe('bishop.getMobility()', () => {
   it ('a2', () => {
     let bishop = new Bishop('w', 'a2');
     let mobility = {

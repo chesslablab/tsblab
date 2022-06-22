@@ -9,7 +9,7 @@ describe('new Board', () => {
   });
 });
 
-describe('Board.getPieceBySq()', () => {
+describe('board.getPieceBySq()', () => {
   it('a1 is a rook', () => {
     const piece = new Board().getPieceBySq('a1');
     expect(piece.getId()).to.eql(Piece.R);

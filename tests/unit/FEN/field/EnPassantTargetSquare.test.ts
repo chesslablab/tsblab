@@ -2,7 +2,7 @@ import UnknownNotationError from '../../../../src/error/UnknownNotationError';
 import EnPassantTargetSquare from '../../../../src/FEN/field/EnPassantTargetSquare';
 import { expect } from 'chai';
 
-describe('EnPassantTargetSquare.validate()', () => {
+describe('enPassantTargetSquare.validate()', () => {
   const enPassantTargetSquare = new EnPassantTargetSquare();
   it ('a9 throws UnknownNotationError', () => {
     expect(() => enPassantTargetSquare.validate('a9')).to.throw(UnknownNotationError);

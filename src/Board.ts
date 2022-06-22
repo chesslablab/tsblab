@@ -45,6 +45,16 @@ class Board extends Map {
     this.set(30, new Pawn(Color.B, 'g7'));
     this.set(31, new Pawn(Color.B, 'h7'));
   }
+
+  getPieceBySq(sq: string): AbstractPiece|null {
+    for (let [key, piece] of this) {
+      if (piece.getSq() === sq) {
+        return piece;
+      }
+    }
+
+    return null;
+  }
 }
 
 export default Board;

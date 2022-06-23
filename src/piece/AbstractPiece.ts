@@ -1,4 +1,5 @@
 import Board from "../Board";
+import MoveShape from '../PGN/MoveShape';
 import Color from "../PGN/AN/Color";
 
 abstract class AbstractPiece {
@@ -34,7 +35,7 @@ abstract class AbstractPiece {
     return new Color().opp(this.color);
   }
 
-  getMove(): object {
+  getMove(): MoveShape {
     return this.move;
   }
 

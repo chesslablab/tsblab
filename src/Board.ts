@@ -95,6 +95,18 @@ class Board extends Map {
     return true;
   }
 
+  private leavesInCheck(piece: AbstractPiece): boolean {
+    // TODO
+
+    return false;
+  }
+
+  private move(piece: AbstractPiece): boolean {
+    // TODO
+
+    return true;
+  }
+
   private isLegalMove(move: MoveShape): boolean {
     let isLegalMove = false;
     const pieces = this.pickPiece(move);
@@ -104,7 +116,7 @@ class Board extends Map {
           return this.move(piece);
         }
       }
-    } else if (piece = pieces[0]) {
+    } else if (const piece = pieces[0]) {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
         if (piece.getMove().type === Move.CASTLE_SHORT) {
           !piece.sqCastleShort() ?: isLegalMove = this.castle(piece);
@@ -123,20 +135,6 @@ class Board extends Map {
     const obj = Move.toObj(color, pgn);
 
     return this.isValidMove(obj) && this.isLegalMove(obj);
-  }
-
-  private move(piece: AbstractPiece): boolean
-  {
-      // TODO
-
-      return true;
-  }
-
-  private leavesInCheck(piece: AbstractPiece): boolean
-  {
-      // TODO
-
-      return false;
   }
 }
 

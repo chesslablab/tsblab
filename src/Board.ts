@@ -124,6 +124,13 @@ class Board extends Map {
 
     return this.isValidMove(obj) && this.isLegalMove(obj);
   }
+
+  private leavesInCheck(piece: AbstractPiece): boolean
+  {
+      // TODO
+
+      return false;
+  }
 }
 
 export default Board;

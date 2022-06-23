@@ -70,6 +70,15 @@ class Board extends Map {
     return null;
   }
 
+  private pickPiece(move: MoveShape): Array<AbstractPiece>
+  {
+      let found = [];
+
+      // TODO
+
+      return found;
+  }
+
   private isValidMove(move: MoveShape): boolean {
     if (move.color !== this.turn) {
       return false;
@@ -86,7 +95,7 @@ class Board extends Map {
     return true;
   }
 
-  private isLegalMove(move: object): boolean {
+  private isLegalMove(move: MoveShape): boolean {
     let isLegalMove = false;
     const pieces = this.pickPiece(move);
     if (pieces.length > 1) {

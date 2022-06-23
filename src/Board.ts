@@ -107,6 +107,12 @@ class Board extends Map {
     return true;
   }
 
+  private castle(king: King): boolean {
+    // TODO
+
+    return true;
+  }
+
   private isLegalMove(move: MoveShape): boolean {
     let isLegalMove = false;
     const pieces = this.pickPiece(move);
@@ -120,7 +126,7 @@ class Board extends Map {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
         if (piece instanceof King && piece.getMove().type === Move.CASTLE_SHORT) {
           !piece.sqCastleShort() ?: isLegalMove = this.castle(piece);
-        } else if (piece instanceof King && piece.getMove()->type === Move.CASTLE_LONG) {
+        } else if (piece instanceof King && piece.getMove().type === Move.CASTLE_LONG) {
           !piece.sqCastleLong() ?: isLegalMove = this.castle(piece);
         } else {
           isLegalMove = this.move(piece);

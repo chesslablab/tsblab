@@ -117,6 +117,21 @@ class King extends AbstractPiece {
       return null;
   }
 
+  sqCastleLong(): null|string
+  {
+      const rule = King.CASTLING_RULE[this.getColor()][Piece.K][Castle.LONG];
+
+      if (new CastlingAbility().long(this.board.getCastlingAbility(), this.getColor())) {
+          const arrayDiff = this.board.getSqEval().free.filter(sq => rule['sqs'].includes(sq));
+          const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
+          if (arrayDiff.length === 0 && arrayIntersect.length === 0) {
+              return rule['sq']['next'];
+          }
+      }
+
+      return null;
+  }
+
   getCastleRook(map: any): null|Rook
   {
       const rule = King.CASTLING_RULE[this.getColor()][Piece.R];

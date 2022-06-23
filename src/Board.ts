@@ -118,9 +118,9 @@ class Board extends Map {
       }
     } else if (const piece = pieces[0]) {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
-        if (piece.getMove().type === Move.CASTLE_SHORT) {
+        if (piece instanceof King && piece.getMove().type === Move.CASTLE_SHORT) {
           !piece.sqCastleShort() ?: isLegalMove = this.castle(piece);
-        } else if (piece.getMove()->type === Move.CASTLE_LONG) {
+        } else if (piece instanceof King && piece.getMove()->type === Move.CASTLE_LONG) {
           !piece.sqCastleLong() ?: isLegalMove = this.castle(piece);
         } else {
           isLegalMove = this.move(piece);

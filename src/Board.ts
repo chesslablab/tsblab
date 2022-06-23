@@ -1,7 +1,7 @@
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
 import Move from './PGN/Move';
-import MoveJson from './PGN/MoveJson';
+import MoveShape from './PGN/MoveShape';
 import AbstractPiece from './piece/AbstractPiece';
 import Bishop from './piece/Bishop';
 import King from './piece/King';
@@ -70,7 +70,7 @@ class Board extends Map {
     return null;
   }
 
-  private isValidMove(move: MoveJson): boolean {
+  private isValidMove(move: MoveShape): boolean {
     if (move.color !== this.turn) {
       return false;
     } else if (

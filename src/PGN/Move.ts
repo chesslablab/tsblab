@@ -1,7 +1,7 @@
 import UnknownNotationError from "../error/UnknownNotationError";
 import King from "../piece/King";
 import AbstractNotation from "./AbstractNotation";
-import MoveJson from "./MoveJson";
+import MoveShape from "./MoveShape";
 import ValidationInterface from "./ValidationInterface";
 import Castle from "./AN/Castle";
 import Check from "./AN/Check";
@@ -55,7 +55,7 @@ class Move extends AbstractNotation implements ValidationInterface {
     throw new UnknownNotationError;
   }
 
-  static toObj = (color: string, pgn: string): MoveJson => {
+  static toObj = (color: string, pgn: string): MoveShape => {
     const isCheck = pgn.slice(-1) === '+' || pgn.slice(-1) === '#'
     const validatedColor = new Color().validate(color)
     if (pgn.match(new RegExp('^' + Move.KING + '$'))) {

@@ -1,4 +1,4 @@
-interface MoveJson {
+interface MoveShape {
   pgn: string,
   isCapture: boolean,
   isCheck: boolean,
@@ -12,4 +12,4 @@ interface MoveJson {
   }
 }
 
-export default MoveJson;
+export default MoveShape;

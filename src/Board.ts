@@ -87,9 +87,27 @@ class Board extends Map {
   }
 
   private isLegalMove(move: object): boolean {
-    // TODO
+    let isLegalMove = false;
+    const pieces = this.pickPiece(move);
+    if (pieces.length > 1) {
+      for (let piece of pieces) {
+        if (piece.isMovable() && !this.leavesInCheck(piece)) {
+          return this.move(piece);
+        }
+      }
+    } else if (piece = pieces[0]) {
+      if (piece.isMovable() && !this.leavesInCheck(piece)) {
+        if (piece.getMove().type === Move.CASTLE_SHORT) {
+          !piece.sqCastleShort() ?: isLegalMove = this.castle(piece);
+        } else if (piece.getMove()->type === Move.CASTLE_LONG) {
+          !piece.sqCastleLong() ?: isLegalMove = this.castle(piece);
+        } else {
+          isLegalMove = this.move(piece);
+        }
+      }
+    }
 
-    return true;
+    return isLegalMove;
   }
 
   play(color: string, pgn: string): boolean {

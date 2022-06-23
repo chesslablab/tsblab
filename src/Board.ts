@@ -1,5 +1,6 @@
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
+import Move from './PGN/Move';
 import AbstractPiece from './piece/AbstractPiece';
 import Bishop from './piece/Bishop';
 import King from './piece/King';
@@ -54,6 +55,24 @@ class Board extends Map {
     }
 
     return null;
+  }
+
+  play(color: string, pgn: string): boolean {
+    const obj = Move.toObj(color, pgn);
+
+    return this.isValidMove(obj) && this.isLegalMove(obj);
+  }
+
+  private isValidMove(move: object): boolean {
+    // TODO
+
+    return true;
+  }
+
+  private isLegalMove(move: object): boolean {
+    // TODO
+
+    return true;
   }
 }
 

@@ -2,7 +2,7 @@ import UnknownNotationError from '../../../../src/error/UnknownNotationError';
 import Color from '../../../../src/PGN/AN/Color';
 import { expect } from 'chai';
 
-describe('Color.validate()', () => {
+describe('color.validate()', () => {
   const color = new Color();
   it ('green throws UnknownNotationError', () => {
     expect(() => color.validate('green')).to.throw(UnknownNotationError);
@@ -15,7 +15,7 @@ describe('Color.validate()', () => {
   });
 });
 
-describe('Color.opp()', () => {
+describe('color.opp()', () => {
   const color = new Color();
   it ('w returns b', () => {
     expect(color.opp('w')).to.eql('b');

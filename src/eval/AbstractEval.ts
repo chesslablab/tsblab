@@ -1,7 +1,7 @@
 import Board from '../Board';
 import Piece from '../PGN/AN/Piece';
 
-abstract class AbstractEvaluation {
+abstract class AbstractEval {
   protected board: Board;
 
   protected result: object;
@@ -21,4 +21,4 @@ abstract class AbstractEvaluation {
   }
 }
 
-export default AbstractEvaluation;
+export default AbstractEval;

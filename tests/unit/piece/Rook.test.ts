@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Rook from '../../../src/piece/Rook';
 import RookType from '../../../src/piece/RookType';
 
-describe('Rook.getMobility()', () => {
+describe('rook.getMobility()', () => {
   it ('a2', () => {
     let rook = new Rook('w', 'a2', RookType.PROMOTED);
     let mobility = {

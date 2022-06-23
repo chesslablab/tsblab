@@ -1,20 +1,20 @@
 import Board from '../Board';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
-import AbstractEvaluation from './AbstractEvaluation';
-import SqEvaluation from './SqEvaluation';
+import AbstractEval from './AbstractEval';
+import SqEval from './SqEval';
 
-class SpaceEvaluation extends AbstractEvaluation {
+class SpaceEval extends AbstractEval {
   static NAME: string = 'Space';
 
   private sqEval: object;
 
   public constructor(board: Board) {
     super(board);
-    const sqEvaluation = new SqEvaluation(board);
+    const sqEval = new SqEval(board);
     this.sqEval = {
-      [SqEvaluation.TYPE_FREE]: sqEvaluation.eval(SqEvaluation.TYPE_FREE),
-      [SqEvaluation.TYPE_USED]: sqEvaluation.eval(SqEvaluation.TYPE_USED)
+      [SqEval.TYPE_FREE]: sqEval.eval(SqEval.TYPE_FREE),
+      [SqEval.TYPE_USED]: sqEval.eval(SqEval.TYPE_USED)
     };
     this.result = {
       [Color.W]: [],
@@ -33,22 +33,15 @@ class SpaceEvaluation extends AbstractEvaluation {
         case Piece.K:
           sqs = new Set([
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEvaluation.TYPE_FREE].filter((freeSq) => {
-              const mobility = piece.getMobility();
-              for (let mobilityElement in mobility) {
-                if (mobility[mobilityElement].includes(freeSq)) {
-                  return true;
-                }
-              }
-
-              return false;
-            })
+            ...this.sqEval[SqEval.TYPE_FREE].filter(freeSq =>
+              Array.from(piece.getMobility()).forEach(sq => freeSq.includes(sq))
+            )
           ]);
           this.result[piece.getColor()] = [...sqs];
           break;
         case Piece.P:
-          sqs = this.sqEval[SqEvaluation.TYPE_FREE]
-            .filter(sq => piece.getCaptureSqs().includes(sq));
+          sqs = this.sqEval[SqEval.TYPE_FREE]
+            .filter(freeSq => piece.getCaptureSqs().includes(freeSq));
           this.result[piece.getColor()] = [
             ...new Set([
               ...this.result[piece.getColor()],
@@ -57,8 +50,8 @@ class SpaceEvaluation extends AbstractEvaluation {
           ];
           break;
         default:
-          sqs = this.sqEval[SqEvaluation.TYPE_USED][piece.getOppColor()]
-            .filter(sq => piece.getSq().includes(sq));
+          sqs = this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
+            .filter(usedSq => piece.getSq().includes(usedSq));
           this.result[piece.getColor()] = [
             ...new Set([
               ...this.result[piece.getColor()],
@@ -76,4 +69,4 @@ class SpaceEvaluation extends AbstractEvaluation {
   }
 }
 
-export default SpaceEvaluation;
+export default SpaceEval;

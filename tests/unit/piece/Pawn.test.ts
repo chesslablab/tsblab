@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Pawn from '../../../src/piece/Pawn';
 
-describe('Pawn.getMobility()', () => {
+describe('pawn.getMobility()', () => {
   it ('a2', () => {
     let pawn = new Pawn('w', 'a2');
     let position = 'a2';

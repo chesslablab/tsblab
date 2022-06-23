@@ -56,6 +56,16 @@ class Board extends Map {
 
     return pieces;
   }
+  
+  getPieceBySq(sq: string): AbstractPiece|null {
+    for (let piece of this.values()) {
+      if (piece.getSq() === sq) {
+        return piece;
+      }
+    }
+
+    return null;
+  }
 }
 
 export default Board;

@@ -23,7 +23,7 @@ describe('King.CASTLING_RULE', () => {
   });
 });
 
-describe('King.getMobility()', () => {
+describe('king.getMobility()', () => {
   it ('a2', () => {
     let king = new King('w', 'a2');
     let mobility = {

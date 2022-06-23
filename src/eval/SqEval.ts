@@ -1,9 +1,9 @@
 import Board from '../Board';
 import Color from '../PGN/AN/Color';
 import AbstractPiece from '../piece/AbstractPiece';
-import AbstractEvaluation from './AbstractEvaluation';
+import AbstractEval from './AbstractEval';
 
-class SqEvaluation extends AbstractEvaluation {
+class SqEval extends AbstractEval {
   static NAME: string = 'Square';
   static TYPE_FREE: string = 'free';
   static TYPE_USED: string = 'used';
@@ -19,10 +19,10 @@ class SqEvaluation extends AbstractEvaluation {
 
   public eval = (feature: string): any => {
     switch (feature) {
-      case SqEvaluation.TYPE_FREE:
+      case SqEval.TYPE_FREE:
         this.result = this.free(this.board);
         break;
-      case SqEvaluation.TYPE_USED:
+      case SqEval.TYPE_USED:
         this.result = this.used(this.board);
         break;
     }
@@ -61,4 +61,4 @@ class SqEvaluation extends AbstractEvaluation {
   }
 }
 
-export default SqEvaluation;
+export default SqEval;

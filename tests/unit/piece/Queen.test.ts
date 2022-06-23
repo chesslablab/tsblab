@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Queen from '../../../src/piece/Queen';
 
-describe('Queen.getMobility()', () => {
+describe('queen.getMobility()', () => {
   it ('a2', () => {
     let queen = new Queen('w', 'a2');
     let mobility = {
@@ -14,7 +14,7 @@ describe('Queen.getMobility()', () => {
       downLeft: [],
       downRight: ['b1']
     };
-    expect(queen.getMobility()).to.eql(mobility);    
+    expect(queen.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
     let queen = new Queen('w', 'd5');
@@ -28,11 +28,11 @@ describe('Queen.getMobility()', () => {
       downLeft: ['c4', 'b3', 'a2'],
       downRight: ['e4', 'f3', 'g2', 'h1']
     };
-    expect(queen.getMobility()).to.eql(mobility);    
+    expect(queen.getMobility()).to.eql(mobility);
   });
 });
 
-describe('Queen.sqs()', () => {
+describe('queen.sqs()', () => {
   // let board = new BenoniFianchettoVariation(new Board()).play();
   // let queen = board.getPieceBySq('d1');
   // let expected = ['e1', 'c2', 'b3'];

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Board from '../../../src/Board';
-import MaterialEval from '../../../src/evaluation/MaterialEval';
+import MaterialEval from '../../../src/eval/MaterialEval';
 
 describe('materialEval.eval()', () => {
   it('is starting position', () => {

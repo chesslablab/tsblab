@@ -17,6 +17,8 @@ class Board extends Map {
 
   private castlingAbility: string;
 
+  private sqEval: object;
+
   constructor() {
     super();
     this.set(0, new Rook(Color.W, 'a1', RookType.CASTLE_LONG));
@@ -66,6 +68,10 @@ class Board extends Map {
 
   getCastlingAbility(): string {
     return this.castlingAbility;
+  }
+
+  getSqEval(): object {
+    return this.sqEval;
   }
 
   getPieceBySq(sq: string): AbstractPiece|null {

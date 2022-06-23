@@ -12,9 +12,6 @@ abstract class AbstractPiece {
 
   protected move: object;
 
-  // TODO:
-  // Add a basic Board to make the tests pass in the simplest possible way
-
   protected board: Board;
 
   public constructor(color: string, sq: string, id: string) {
@@ -47,6 +44,14 @@ abstract class AbstractPiece {
 
   getId(): string {
     return this.id;
+  }
+
+  isMovable(): boolean {
+    if (this.move) {
+      return this.sqs().includes(this.move.sq.next);
+    }
+
+    return false;
   }
 }
 

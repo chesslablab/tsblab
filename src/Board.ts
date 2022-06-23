@@ -70,6 +70,12 @@ class Board extends Map {
     return null;
   }
 
+  play(color: string, pgn: string): boolean {
+    const obj = Move.toObj(color, pgn);
+
+    return this.isValidMove(obj) && this.isLegalMove(obj);
+  }
+
   private pickPiece(move: MoveShape): Array<AbstractPiece>
   {
       let found = [];
@@ -116,18 +122,27 @@ class Board extends Map {
   private isLegalMove(move: MoveShape): boolean {
     let isLegalMove = false;
     const pieces = this.pickPiece(move);
+    const piece = pieces[0];
     if (pieces.length > 1) {
       for (let piece of pieces) {
         if (piece.isMovable() && !this.leavesInCheck(piece)) {
           return this.move(piece);
         }
       }
-    } else if (const piece = pieces[0]) {
+    } else if (piece) {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
-        if (piece instanceof King && piece.getMove().type === Move.CASTLE_SHORT) {
-          !piece.sqCastleShort() ?: isLegalMove = this.castle(piece);
-        } else if (piece instanceof King && piece.getMove().type === Move.CASTLE_LONG) {
-          !piece.sqCastleLong() ?: isLegalMove = this.castle(piece);
+        if (
+          piece instanceof King &&
+          piece.getMove().type === Move.CASTLE_SHORT &&
+          !piece.sqCastleShort()
+        ) {
+          isLegalMove = this.castle(piece);
+        } else if (
+          piece instanceof King &&
+          piece.getMove().type === Move.CASTLE_LONG &&
+          !piece.sqCastleLong()
+        ) {
+          isLegalMove = this.castle(piece);
         } else {
           isLegalMove = this.move(piece);
         }
@@ -135,12 +150,6 @@ class Board extends Map {
     }
 
     return isLegalMove;
-  }
-
-  play(color: string, pgn: string): boolean {
-    const obj = Move.toObj(color, pgn);
-
-    return this.isValidMove(obj) && this.isLegalMove(obj);
   }
 }
 

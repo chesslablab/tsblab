@@ -148,13 +148,13 @@ class Board extends Map {
         if (
           piece instanceof King &&
           piece.getMove().type === Move.CASTLE_SHORT &&
-          !piece.sqCastleShort()
+          piece.sqCastleShort()
         ) {
           isLegalMove = this.castle(piece);
         } else if (
           piece instanceof King &&
           piece.getMove().type === Move.CASTLE_LONG &&
-          !piece.sqCastleLong()
+          piece.sqCastleLong()
         ) {
           isLegalMove = this.castle(piece);
         } else {

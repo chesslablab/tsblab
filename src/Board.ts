@@ -45,6 +45,17 @@ class Board extends Map {
     this.set(30, new Pawn(Color.B, 'g7'));
     this.set(31, new Pawn(Color.B, 'h7'));
   }
+
+  public getPiecesByColor = (color: string): AbstractPiece[] => {
+    let pieces = [];
+    this.forEach((piece, key) => {
+      if (piece.getColor() === color) {
+        pieces.push(piece);
+      }
+    });
+
+    return pieces;
+  }
 }
 
 export default Board;

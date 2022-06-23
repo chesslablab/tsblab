@@ -1,3 +1,4 @@
+import CastlingAbility from './FEN/field/CastlingAbility';
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
 import Move from './PGN/Move';
@@ -13,6 +14,8 @@ import RookType from './piece/RookType';
 
 class Board extends Map {
   private turn: string;
+
+  private castlingAbility: string;
 
   constructor() {
     super();
@@ -48,6 +51,7 @@ class Board extends Map {
     this.set(29, new Pawn(Color.B, 'f7'));
     this.set(30, new Pawn(Color.B, 'g7'));
     this.set(31, new Pawn(Color.B, 'h7'));
+    this.castlingAbility = CastlingAbility.START;
   }
 
   getTurn(): string {
@@ -58,6 +62,10 @@ class Board extends Map {
     this.turn = new Color().validate(color);
 
     return this;
+  }
+
+  getCastlingAbility(): string {
+    return this.castlingAbility;
   }
 
   getPieceBySq(sq: string): AbstractPiece|null {

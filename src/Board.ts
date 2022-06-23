@@ -1,6 +1,7 @@
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
 import Move from './PGN/Move';
+import MoveJson from './PGN/MoveJson';
 import AbstractPiece from './piece/AbstractPiece';
 import Bishop from './piece/Bishop';
 import King from './piece/King';
@@ -11,6 +12,8 @@ import Rook from './piece/Rook';
 import RookType from './piece/RookType';
 
 class Board extends Map {
+  private turn: string;
+
   constructor() {
     super();
     this.set(0, new Rook(Color.W, 'a1', RookType.CASTLE_LONG));
@@ -47,6 +50,16 @@ class Board extends Map {
     this.set(31, new Pawn(Color.B, 'h7'));
   }
 
+  getTurn(): string {
+    return this.turn;
+  }
+
+  setTurn(color: string): Board {
+    this.turn = new Color().validate(color);
+
+    return this;
+  }
+
   getPieceBySq(sq: string): AbstractPiece|null {
     for (let piece of this.values()) {
       if (piece.getSq() === sq) {
@@ -57,14 +70,18 @@ class Board extends Map {
     return null;
   }
 
-  play(color: string, pgn: string): boolean {
-    const obj = Move.toObj(color, pgn);
-
-    return this.isValidMove(obj) && this.isLegalMove(obj);
-  }
-
-  private isValidMove(move: object): boolean {
-    // TODO
+  private isValidMove(move: MoveJson): boolean {
+    if (move.color !== this.turn) {
+      return false;
+    } else if (
+      move.isCapture &&
+      move.id !== Piece.P &&
+      !this.getPieceBySq(move.sq.next)
+    ) {
+      return false;
+    } else if (!move.isCapture && this.getPieceBySq(move.sq.next)) {
+      return false;
+    }
 
     return true;
   }
@@ -73,6 +90,12 @@ class Board extends Map {
     // TODO
 
     return true;
+  }
+
+  play(color: string, pgn: string): boolean {
+    const obj = Move.toObj(color, pgn);
+
+    return this.isValidMove(obj) && this.isLegalMove(obj);
   }
 }
 

@@ -1,15 +1,16 @@
 import UnknownNotationError from "../error/UnknownNotationError";
 import King from "../piece/King";
 import AbstractNotation from "./AbstractNotation";
+import MoveJson from "./MoveJson";
+import ValidationInterface from "./ValidationInterface";
 import Castle from "./AN/Castle";
 import Check from "./AN/Check";
 import Color from "./AN/Color";
 import Piece from "./AN/Piece";
 import Square from "./AN/Square";
-import ValidationInterface from "./ValidationInterface";
 
-class Move extends AbstractNotation implements ValidationInterface{
-  
+class Move extends AbstractNotation implements ValidationInterface {
+
   public static readonly CASTLE_SHORT: string = Castle.SHORT + Check.REGEX;
   public static readonly CASTLE_LONG: string = Castle.LONG + Check.REGEX;
   public static readonly KING = 'K' + Square.REGEX + Check.REGEX;
@@ -46,15 +47,15 @@ class Move extends AbstractNotation implements ValidationInterface{
       case value.match(new RegExp('^' + Move.PAWN_CAPTURES + '$')) !== null:
         return value
       case value.match(new RegExp('^' + Move.PAWN_PROMOTES + '$')) !== null:
-        return value 
+        return value
       case value.match(new RegExp('^' + Move.PAWN_CAPTURES_AND_PROMOTES + '$')) !== null:
-        return value               
+        return value
     }
 
     throw new UnknownNotationError;
   }
-  
-  static toObj = (color: string, pgn: string): Object => {
+
+  static toObj = (color: string, pgn: string): MoveJson => {
     const isCheck = pgn.slice(-1) === '+' || pgn.slice(-1) === '#'
     const validatedColor = new Color().validate(color)
     if (pgn.match(new RegExp('^' + Move.KING + '$'))) {
@@ -209,15 +210,15 @@ class Move extends AbstractNotation implements ValidationInterface{
           next: isCheck ? pgn.slice(-3, -1) : pgn.slice(-2)
         }
       };
-    }  
+    }
 
     throw new UnknownNotationError;
   }
-  
+
   values = (): string[] => {
     throw new Error("Method not implemented.");
   }
-    
+
 }
 
 export default Move;

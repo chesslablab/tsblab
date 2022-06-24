@@ -11,7 +11,7 @@ abstract class AbstractPiece {
 
   protected id: string;
 
-  protected move: object;
+  protected move: MoveShape;
 
   protected board: Board;
 
@@ -22,6 +22,8 @@ abstract class AbstractPiece {
   }
 
   protected abstract calcMobility(): AbstractPiece;
+
+  abstract sqs(): Array<string>;
 
   getMobility(): object {
     return this.mobility;

@@ -102,6 +102,14 @@ class King extends AbstractPiece {
     return this;
   }
 
+  sqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
+
   sqCastleShort(): null|string
   {
       const rule = King.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];

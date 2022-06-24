@@ -70,64 +70,14 @@ class Pawn extends AbstractPiece {
     return this;
   }
 
-  // public sqs(): string[] {
-  //   let sqs = [];
-  //   for (let sq of this.mobility) {
-  //     if (this.board.getSqEval().free.includes(sq)) {
-  //       sqs.push(sq);
-  //     } else {
-  //       break;
-  //     }
-  //   }
+  sqs(): Array<string> {
+    let sqs = [];
 
-  //   for (let sq of this.captureSqs) {
-  //     if (this.board.getSqEval().used[this.getOppColor()].includes(sq)) {
-  //       sqs.push(sq);
-  //     }
-  //   }
+    // TODO
 
-  //   if (this.board.getLastHistory() &&
-  //       this.board.getLastHistory().move.id === Piece.P &&
-  //       this.board.getLastHistory().move.color === this.getOppColor()) {
-  //     if (this.color === Color.W) {
-  //       if (Number(this.sq[1]) === 5) {
-  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] +
-  //         (this.board.getLastHistory().move.sq.next[1] + 1);
-  //         if (this.captureSqs.includes(captureSquare)) {
-  //           this.enPassantSq = this.board.getLastHistory().move.sq.next;
-  //           sqs.push(captureSquare);
-  //         }
-  //       }
-  //     } else if (this.color === Color.B) {
-  //       if (Number(this.sq[1]) === 4) {
-  //         let captureSquare = this.board.getLastHistory().move.sq.next[0] +
-  //         (this.board.getLastHistory().move.sq.next[1] - 1);
-  //         if (this.captureSqs.includes(captureSquare)) {
-  //           this.enPassantSq = this.board.getLastHistory().move.sq.next;
-  //           sqs.push(captureSquare);
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   return sqs;
-  // }
-
-  // public defendedSqs(): string[] {
-  //   let sqs = [];
-  //   for (let sq of this.captureSqs) {
-  //     if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
-  //       sqs.push(sq);
-  //     }
-  //   }
-
-  //   return sqs;
-  // }
-
-  // public getRanks(): PawnRanks {
-  //   return this.ranks;
-  // }
-
+    return sqs;
+  }
+  
   public getCaptureSqs(): string[] {
     return this.captureSqs;
   }

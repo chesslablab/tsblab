@@ -1,3 +1,4 @@
+import BoardError from './error/BoardError';
 import SpaceEval from './eval/SpaceEval';
 import SqEval from './eval/SqEval';
 import CastlingAbility from './FEN/field/CastlingAbility';
@@ -105,7 +106,7 @@ class Board extends Map {
 
     return pieces;
   }
-  
+
   getPieceBySq(sq: string): AbstractPiece|null {
     for (let piece of this.values()) {
       if (piece.getSq() === sq) {
@@ -124,11 +125,21 @@ class Board extends Map {
 
   private pickPiece(move: MoveShape): Array<AbstractPiece>
   {
-      let found = [];
+    let found = [];
+    for (let piece of this.getPiecesByColor(move.color)) {
+      if (piece.getId() === move.id) {
+        if (piece.getId() === Piece.K) {
+          return [piece.setMove(move)];
+        } else if (piece.getSq().match(new RegExp('^' + move.sq.current + '$'))) {
+          found.push(piece.setMove(move));
+        }
+      }
+    }
+    if (!found) {
+      throw new BoardError;
+    }
 
-      // TODO
-
-      return found;
+    return found;
   }
 
   private isValidMove(move: MoveShape): boolean {

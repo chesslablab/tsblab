@@ -37,6 +37,13 @@ abstract class AbstractPiece {
     return this.move;
   }
 
+  setMove(move: MoveShape): AbstractPiece
+  {
+      this.move = move;
+
+      return this;
+  }
+
   getSq(): string {
     return this.sq;
   }

@@ -1,9 +1,9 @@
 import Board from '../Board';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
-import AbstractEvaluation from './AbstractEvaluation';
+import AbstractEval from './AbstractEval';
 
-class MaterialEval extends AbstractEvaluation {
+class MaterialEval extends AbstractEval {
   static NAME: string = 'Material';
 
   constructor(board: Board) {
@@ -26,6 +26,7 @@ class MaterialEval extends AbstractEvaluation {
     });
     this.result[Color.B] = Math.round(this.result[Color.B] * 100) / 100;
     this.result[Color.W] = Math.round(this.result[Color.W] * 100) / 100;
+    
     return this.result;
   }
 }

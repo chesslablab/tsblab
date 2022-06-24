@@ -1,9 +1,10 @@
 import AbstractPiece from './AbstractPiece';
 import BishopMobility from './BishopMobility';
+import Slider from './Slider';
 import Square from '../PGN/AN/Square';
 import Piece from '../PGN/AN/Piece';
 
-class Bishop extends AbstractPiece {
+class Bishop extends Slider {
   protected mobility: BishopMobility = {
     upLeft: [],
     upRight: [],

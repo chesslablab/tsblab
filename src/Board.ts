@@ -1,3 +1,4 @@
+import SqEval from './eval/SqEval';
 import CastlingAbility from './FEN/field/CastlingAbility';
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
@@ -54,6 +55,17 @@ class Board extends Map {
     this.set(30, new Pawn(Color.B, 'g7'));
     this.set(31, new Pawn(Color.B, 'h7'));
     this.castlingAbility = CastlingAbility.START;
+
+    this.refresh();
+  }
+
+  refresh(): void {
+    this.turn = new Color().opp(this.turn);
+
+    this.sqEval = {
+      [SqEval.TYPE_FREE]: new SqEval(this).eval(SqEval.TYPE_FREE),
+      [SqEval.TYPE_USED]: new SqEval(this).eval(SqEval.TYPE_USED)
+    };
   }
 
   getTurn(): string {

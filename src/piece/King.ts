@@ -107,7 +107,7 @@ class King extends AbstractPiece {
       const rule = King.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];
 
       if (new CastlingAbility().short(this.board.getCastlingAbility(), this.getColor())) {
-          const arrayDiff = this.board.getSqEval().free.filter(sq => rule['sqs'].includes(sq));
+          const arrayDiff = this.board.getSqEval()['free']filter(sq => rule['sqs'].includes(sq));
           const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
           if (arrayDiff.length === 0 && arrayIntersect.length === 0) {
               return rule['sq']['next'];
@@ -122,7 +122,7 @@ class King extends AbstractPiece {
       const rule = King.CASTLING_RULE[this.getColor()][Piece.K][Castle.LONG];
 
       if (new CastlingAbility().long(this.board.getCastlingAbility(), this.getColor())) {
-          const arrayDiff = this.board.getSqEval().free.filter(sq => rule['sqs'].includes(sq));
+          const arrayDiff = this.board.getSqEval()['free']filter(sq => rule['sqs'].includes(sq));
           const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
           if (arrayDiff.length === 0 && arrayIntersect.length === 0) {
               return rule['sq']['next'];

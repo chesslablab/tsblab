@@ -1,3 +1,4 @@
+import SpaceEval from './eval/SpaceEval';
 import SqEval from './eval/SqEval';
 import CastlingAbility from './FEN/field/CastlingAbility';
 import Color from './PGN/AN/Color';
@@ -17,6 +18,8 @@ class Board extends Map {
   private turn: string;
 
   private castlingAbility: string;
+
+  private spaceEval: object;
 
   private sqEval: object;
 
@@ -66,6 +69,8 @@ class Board extends Map {
       [SqEval.TYPE_FREE]: new SqEval(this).eval(SqEval.TYPE_FREE),
       [SqEval.TYPE_USED]: new SqEval(this).eval(SqEval.TYPE_USED)
     };
+
+    this.spaceEval = new SpaceEval(this).eval();
   }
 
   getTurn(): string {
@@ -80,6 +85,10 @@ class Board extends Map {
 
   getCastlingAbility(): string {
     return this.castlingAbility;
+  }
+
+  getSpaceEval(): object {
+    return this.spaceEval;
   }
 
   getSqEval(): object {

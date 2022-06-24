@@ -1,9 +1,9 @@
 import Board from '../Board';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
-import AbstractEvaluation from './AbstractEvaluation';
+import AbstractEval from './AbstractEval';
 
-class MaterialEval extends AbstractEvaluation {
+class MaterialEval extends AbstractEval {
   static NAME: string = 'Material';
 
   constructor(board: Board) {

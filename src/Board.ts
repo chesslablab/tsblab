@@ -46,6 +46,17 @@ class Board extends Map {
     this.set(31, new Pawn(Color.B, 'h7'));
   }
 
+  public getPiecesByColor = (color: string): AbstractPiece[] => {
+    let pieces = [];
+    this.forEach((piece, key) => {
+      if (piece.getColor() === color) {
+        pieces.push(piece);
+      }
+    });
+
+    return pieces;
+  }
+  
   getPieceBySq(sq: string): AbstractPiece|null {
     for (let piece of this.values()) {
       if (piece.getSq() === sq) {

@@ -6,7 +6,7 @@ class Knight extends AbstractPiece {
   protected mobility: string[] = [];
 
   constructor(color: string, sq: string) {
-    super(color, sq, Piece.K);
+    super(color, sq, Piece.N);
     this.calcMobility();
   }
 

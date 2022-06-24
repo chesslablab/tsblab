@@ -31,10 +31,6 @@ abstract class AbstractPiece {
     return this.color;
   }
 
-  getOppColor(): string {
-    return new Color().opp(this.color);
-  }
-
   getMove(): MoveShape {
     return this.move;
   }
@@ -45,6 +41,10 @@ abstract class AbstractPiece {
 
   getId(): string {
     return this.id;
+  }
+
+  oppColor(): string {
+    return new Color().opp(this.color);
   }
 
   isMovable(): boolean {

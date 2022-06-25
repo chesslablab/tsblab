@@ -15,8 +15,16 @@ import Queen from './piece/Queen';
 import Rook from './piece/Rook';
 import RookType from './piece/RookType';
 
+interface HistoryShape {
+  castlingAbility: string,
+  sq: string,
+  move: MoveShape
+}
+
 class Board extends Map {
   private turn: string;
+
+  private history: Array<HistoryShape>;
 
   private castlingAbility: string;
 
@@ -80,6 +88,17 @@ class Board extends Map {
 
   setTurn(color: string): Board {
     this.turn = new Color().validate(color);
+
+    return this;
+  }
+
+  private pushHistory(piece: AbstractPiece): Board
+  {
+    this.history.push({
+      'castlingAbility': this.castlingAbility,
+      'sq': piece.getSq(),
+      'move': piece.getMove()
+    });
 
     return this;
   }

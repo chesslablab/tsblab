@@ -26,6 +26,7 @@ class MaterialEval extends AbstractEval {
     });
     this.result[Color.B] = Math.round(this.result[Color.B] * 100) / 100;
     this.result[Color.W] = Math.round(this.result[Color.W] * 100) / 100;
+    
     return this.result;
   }
 }

@@ -103,6 +103,13 @@ class Board extends Map {
     return this;
   }
 
+  private popHistory(): Board
+  {
+    this.history.pop();
+
+    return this;
+  }
+
   getCastlingAbility(): string {
     return this.castlingAbility;
   }

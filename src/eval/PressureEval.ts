@@ -29,21 +29,21 @@ class PressureEval extends AbstractEval {
         case Piece.K:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
+            ...this.sqEval[SqEval.TYPE_USED][piece.oppColor()]
               .filter(usedSq => Array.from(piece.getMobility()).forEach(sq => usedSq.includes(sq)))
           ];
           break;
         case Piece.P:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
+            ...this.sqEval[SqEval.TYPE_USED][piece.oppColor()]
               .filter(usedSq => piece.getCaptureSqs().includes(usedSq))
           ];
           break;
         default:
           this.result[piece.getColor()] = [
             ...this.result[piece.getColor()],
-            ...this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
+            ...this.sqEval[SqEval.TYPE_USED][piece.oppColor()]
               .filter(usedSq => piece.getSq().includes(usedSq))
           ];
           break;

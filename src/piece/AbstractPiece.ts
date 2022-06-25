@@ -1,4 +1,5 @@
 import Board from "../Board";
+import MoveShape from '../PGN/MoveShape';
 import Color from "../PGN/AN/Color";
 
 abstract class AbstractPiece {
@@ -10,10 +11,7 @@ abstract class AbstractPiece {
 
   protected id: string;
 
-  protected move: object;
-
-  // TODO:
-  // Add a basic Board to make the tests pass in the simplest possible way
+  protected move: MoveShape;
 
   protected board: Board;
 
@@ -25,6 +23,8 @@ abstract class AbstractPiece {
 
   protected abstract calcMobility(): AbstractPiece;
 
+  abstract sqs(): Array<string>;
+
   getMobility(): object {
     return this.mobility;
   }
@@ -33,12 +33,15 @@ abstract class AbstractPiece {
     return this.color;
   }
 
-  getOppColor(): string {
-    return new Color().opp(this.color);
+  getMove(): MoveShape {
+    return this.move;
   }
 
-  getMove(): object {
-    return this.move;
+  setMove(move: MoveShape): AbstractPiece
+  {
+      this.move = move;
+
+      return this;
   }
 
   getSq(): string {
@@ -47,6 +50,18 @@ abstract class AbstractPiece {
 
   getId(): string {
     return this.id;
+  }
+
+  oppColor(): string {
+    return new Color().opp(this.color);
+  }
+
+  isMovable(): boolean {
+    if (this.move) {
+      return this.sqs().includes(this.move.sq.next);
+    }
+
+    return false;
   }
 }
 

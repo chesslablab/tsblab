@@ -86,6 +86,14 @@ class Knight extends AbstractPiece {
 
     return this
   }
+
+  sqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
 }
 
 export default Knight;

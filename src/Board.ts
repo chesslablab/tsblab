@@ -1,5 +1,11 @@
+import BoardError from './error/BoardError';
+import SpaceEval from './eval/SpaceEval';
+import SqEval from './eval/SqEval';
+import CastlingAbility from './FEN/field/CastlingAbility';
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
+import Move from './PGN/Move';
+import MoveShape from './PGN/MoveShape';
 import AbstractPiece from './piece/AbstractPiece';
 import Bishop from './piece/Bishop';
 import King from './piece/King';
@@ -9,7 +15,23 @@ import Queen from './piece/Queen';
 import Rook from './piece/Rook';
 import RookType from './piece/RookType';
 
+interface HistoryShape {
+  castlingAbility: string,
+  sq: string,
+  move: MoveShape
+}
+
 class Board extends Map {
+  private turn: string;
+
+  private history: Array<HistoryShape>;
+
+  private castlingAbility: string;
+
+  private spaceEval: object;
+
+  private sqEval: object;
+
   constructor() {
     super();
     this.set(0, new Rook(Color.W, 'a1', RookType.CASTLE_LONG));
@@ -44,6 +66,60 @@ class Board extends Map {
     this.set(29, new Pawn(Color.B, 'f7'));
     this.set(30, new Pawn(Color.B, 'g7'));
     this.set(31, new Pawn(Color.B, 'h7'));
+    this.castlingAbility = CastlingAbility.START;
+
+    this.refresh();
+  }
+
+  refresh(): void {
+    this.turn = new Color().opp(this.turn);
+
+    this.sqEval = {
+      [SqEval.TYPE_FREE]: new SqEval(this).eval(SqEval.TYPE_FREE),
+      [SqEval.TYPE_USED]: new SqEval(this).eval(SqEval.TYPE_USED)
+    };
+
+    this.spaceEval = new SpaceEval(this).eval();
+  }
+
+  getTurn(): string {
+    return this.turn;
+  }
+
+  setTurn(color: string): Board {
+    this.turn = new Color().validate(color);
+
+    return this;
+  }
+
+  private pushHistory(piece: AbstractPiece): Board
+  {
+    this.history.push({
+      'castlingAbility': this.castlingAbility,
+      'sq': piece.getSq(),
+      'move': piece.getMove()
+    });
+
+    return this;
+  }
+
+  private popHistory(): Board
+  {
+    this.history.pop();
+
+    return this;
+  }
+
+  getCastlingAbility(): string {
+    return this.castlingAbility;
+  }
+
+  getSpaceEval(): object {
+    return this.spaceEval;
+  }
+
+  getSqEval(): object {
+    return this.sqEval;
   }
 
   public getPiecesByColor = (color: string): AbstractPiece[] => {
@@ -56,7 +132,7 @@ class Board extends Map {
 
     return pieces;
   }
-  
+
   getPieceBySq(sq: string): AbstractPiece|null {
     for (let piece of this.values()) {
       if (piece.getSq() === sq) {
@@ -65,6 +141,98 @@ class Board extends Map {
     }
 
     return null;
+  }
+
+  play(color: string, pgn: string): boolean {
+    const obj = Move.toObj(color, pgn);
+
+    return this.isValidMove(obj) && this.isLegalMove(obj);
+  }
+
+  private pickPiece(move: MoveShape): Array<AbstractPiece>
+  {
+    let found = [];
+    for (let piece of this.getPiecesByColor(move.color)) {
+      if (piece.getId() === move.id) {
+        if (piece.getId() === Piece.K) {
+          return [piece.setMove(move)];
+        } else if (piece.getSq().match(new RegExp('^' + move.sq.current + '$'))) {
+          found.push(piece.setMove(move));
+        }
+      }
+    }
+    if (!found) {
+      throw new BoardError;
+    }
+
+    return found;
+  }
+
+  private isValidMove(move: MoveShape): boolean {
+    if (move.color !== this.turn) {
+      return false;
+    } else if (
+      move.isCapture &&
+      move.id !== Piece.P &&
+      !this.getPieceBySq(move.sq.next)
+    ) {
+      return false;
+    } else if (!move.isCapture && this.getPieceBySq(move.sq.next)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private leavesInCheck(piece: AbstractPiece): boolean {
+    // TODO
+
+    return false;
+  }
+
+  private move(piece: AbstractPiece): boolean {
+    // TODO
+
+    return true;
+  }
+
+  private castle(king: King): boolean {
+    // TODO
+
+    return true;
+  }
+
+  private isLegalMove(move: MoveShape): boolean {
+    let isLegalMove = false;
+    const pieces = this.pickPiece(move);
+    const piece = pieces[0];
+    if (pieces.length > 1) {
+      for (let piece of pieces) {
+        if (piece.isMovable() && !this.leavesInCheck(piece)) {
+          return this.move(piece);
+        }
+      }
+    } else if (piece) {
+      if (piece.isMovable() && !this.leavesInCheck(piece)) {
+        if (
+          piece instanceof King &&
+          piece.getMove().type === Move.CASTLE_SHORT &&
+          piece.sqCastleShort()
+        ) {
+          isLegalMove = this.castle(piece);
+        } else if (
+          piece instanceof King &&
+          piece.getMove().type === Move.CASTLE_LONG &&
+          piece.sqCastleLong()
+        ) {
+          isLegalMove = this.castle(piece);
+        } else {
+          isLegalMove = this.move(piece);
+        }
+      }
+    }
+
+    return isLegalMove;
   }
 }
 

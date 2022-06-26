@@ -2,12 +2,18 @@ import PieceTypeError from '../error/PieceTypeError';
 import Square from "../PGN/AN/Square";
 import Piece from "../PGN/AN/Piece";
 import AbstractPiece from "./AbstractPiece";
-import RookMobility from './RookMobility';
 import RookType from './RookType';
 import Slider from "./Slider";
 
+interface MobilityShape {
+  up: string[],
+  down: string[],
+  left: string[],
+  right: string[]
+}
+
 class Rook extends Slider {
-  protected mobility: RookMobility = {
+  protected mobility: MobilityShape = {
     up: [],
     down: [],
     left: [],

@@ -2,6 +2,7 @@ import BoardError from './error/BoardError';
 import SpaceEval from './eval/SpaceEval';
 import SqEval from './eval/SqEval';
 import CastlingAbility from './FEN/field/CastlingAbility';
+import Castle from './PGN/AN/Castle';
 import Color from './PGN/AN/Color';
 import Piece from './PGN/AN/Piece';
 import Move from './PGN/Move';
@@ -227,6 +228,58 @@ class Board extends Map {
     }
 
     return false;
+  }
+
+  private updateCastle(pieceMoved: AbstractPiece): Board {
+    const castlingAbility = new CastlingAbility();
+    if (castlingAbility.can(this.castlingAbility, this.turn)) {
+      if (pieceMoved.getId() === Piece.K) {
+        this.castlingAbility = castlingAbility.remove(
+          this.castlingAbility,
+          this.turn,
+          [Piece.K, Piece.Q]
+        );
+      } else if (pieceMoved instanceof Rook) {
+        if (pieceMoved.getType() === RookType.CASTLE_SHORT) {
+            this.castlingAbility = castlingAbility.remove(
+            this.castlingAbility,
+            this.turn,
+            [Piece.K]
+          );
+        } else if (pieceMoved.getType() === RookType.CASTLE_LONG) {
+          this.castlingAbility = castlingAbility.remove(
+            this.castlingAbility,
+            this.turn,
+            [Piece.Q]
+          );
+        }
+      }
+    }
+    const oppColor = new Color().opp(this.turn);
+    if (castlingAbility.can(this.castlingAbility, oppColor)) {
+      if (pieceMoved.getMove().isCapture) {
+        if (pieceMoved.getMove().sq.next ===
+          King.CASTLING_RULE[oppColor][Piece.R][Castle.SHORT]['sq']['current']
+        ) {
+          this.castlingAbility = castlingAbility.remove(
+            this.castlingAbility,
+            oppColor,
+            [Piece.K]
+          );
+        } else if (
+          pieceMoved.getMove().sq.next ===
+          King.CASTLING_RULE[oppColor][Piece.R][Castle.LONG]['sq']['current']
+        ) {
+          this.castlingAbility = castlingAbility.remove(
+            this.castlingAbility,
+            oppColor,
+            [Piece.Q]
+          );
+        }
+      }
+    }
+
+    return this;
   }
 
   private isLegalMove(move: MoveShape): boolean {

@@ -201,9 +201,32 @@ class Board extends Map {
   }
 
   private castle(king: King): boolean {
-    // TODO
+    const rook = king.getCastleRook(this.entries());
+    if (rook) {
+      let pieceBySq = this.getPieceBySq(king.getSq());
+      this.delete(pieceBySq.key);
+      this.set(
+        pieceBySq.key,
+        new King(
+          king.getColor(),
+          King.CASTLING_RULE[king.getColor()][Piece.K][king.getMove().pgn]['sq']['next']
+        )
+      );
+      this.delete(rook.key);
+      this.set(
+        rook.key,
+        new Rook(
+          rook.value.getColor(),
+          King.CASTLING_RULE[king.getColor()][Piece.R][king.getMove().pgn]['sq']['next'],
+          rook.value.getType()
+        )
+      );
+      this.castlingAbility = new CastlingAbility().castle(this.castlingAbility, this.turn);
+      this.pushHistory(king).refresh();
+      return true;
+    }
 
-    return true;
+    return false;
   }
 
   private isLegalMove(move: MoveShape): boolean {

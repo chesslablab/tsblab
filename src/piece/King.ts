@@ -4,8 +4,8 @@ import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
 import AbstractPiece from './AbstractPiece';
 import Bishop from "./Bishop";
-import PieceShape from "./PieceShape";
 import Rook from "./Rook";
+import RookShape from "./RookShape";
 import RookType from "./RookType";
 
 class King extends AbstractPiece {
@@ -139,7 +139,7 @@ class King extends AbstractPiece {
     return null;
   }
 
-  getCastleRook(entries: any): PieceShape|null
+  getCastleRook(entries: any): RookShape|null
   {
     const rule = King.CASTLING_RULE[this.getColor()][Piece.R];
     for (let [key, piece] of entries) {

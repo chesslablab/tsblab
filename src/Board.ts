@@ -15,6 +15,11 @@ import Queen from './piece/Queen';
 import Rook from './piece/Rook';
 import RookType from './piece/RookType';
 
+interface PieceShape {
+  key: number,
+  value: AbstractPiece
+}
+
 interface HistoryShape {
   castlingAbility: string,
   sq: string,
@@ -133,10 +138,13 @@ class Board extends Map {
     return pieces;
   }
 
-  getPieceBySq(sq: string): AbstractPiece|null {
-    for (let piece of this.values()) {
+  getPieceBySq(sq: string): PieceShape|null {
+    for (let [key, piece] of this.entries()) {
       if (piece.getSq() === sq) {
-        return piece;
+        return {
+          key: key,
+          value: piece
+        }
       }
     }
 

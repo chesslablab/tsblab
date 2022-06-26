@@ -4,6 +4,7 @@ import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
 import AbstractPiece from './AbstractPiece';
 import Bishop from "./Bishop";
+import PieceShape from "./PieceShape";
 import Rook from "./Rook";
 import RookType from "./RookType";
 
@@ -140,19 +141,22 @@ class King extends AbstractPiece {
       return null;
   }
 
-  getCastleRook(map: any): null|Rook
+  getCastleRook(entries: any): PieceShape|null
   {
-      const rule = King.CASTLING_RULE[this.getColor()][Piece.R];
-      for (const [key, piece] of map) {
-        if (
-          piece.getId() === Piece.R &&
-          piece.getSq() === rule[this.getMove().pgn]['sq']['current']
-        ) {
-          return key;
+    const rule = King.CASTLING_RULE[this.getColor()][Piece.R];
+    for (let [key, piece] of entries) {
+      if (
+        piece.getId() === Piece.R &&
+        piece.getSq() === rule[this.getMove().pgn]['sq']['current']
+      ) {
+        return {
+          key: key,
+          value: piece
         }
       }
+    }
 
-      return null;
+    return null;
   }
 }
 

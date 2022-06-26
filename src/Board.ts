@@ -11,14 +11,10 @@ import Bishop from './piece/Bishop';
 import King from './piece/King';
 import Knight from './piece/Knight';
 import Pawn from './piece/Pawn';
+import PieceShape from './piece/PieceShape';
 import Queen from './piece/Queen';
 import Rook from './piece/Rook';
 import RookType from './piece/RookType';
-
-interface PieceShape {
-  key: number,
-  value: AbstractPiece
-}
 
 interface HistoryShape {
   castlingAbility: string,

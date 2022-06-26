@@ -25,6 +25,10 @@ class Rook extends Slider {
     this.calcMobility();
   }
 
+  getType(): string {
+    return this.type;
+  }
+
   protected calcMobility(): AbstractPiece {
     try {
       let file = this.sq[0];

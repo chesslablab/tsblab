@@ -1,4 +1,5 @@
 import BoardError from './error/BoardError';
+import PressureEval from './eval/PressureEval';
 import SpaceEval from './eval/SpaceEval';
 import SqEval from './eval/SqEval';
 import CastlingAbility from './FEN/field/CastlingAbility';
@@ -29,6 +30,8 @@ class Board extends Map {
   private history: Array<HistoryShape>;
 
   private castlingAbility: string;
+
+  private pressureEval: object;
 
   private spaceEval: object;
 
@@ -148,6 +151,19 @@ class Board extends Map {
     return null;
   }
 
+  getPiece(color: string, id: string): PieceShape|null {
+    for (let [key, piece] of this.entries()) {
+      if (piece.getColor() === color && piece.getId() === id) {
+        return {
+          key: key,
+          value: piece
+        }
+      }
+    }
+
+    return null;
+  }
+
   play(color: string, pgn: string): boolean {
     const obj = Move.toObj(color, pgn);
 
@@ -190,9 +206,27 @@ class Board extends Map {
   }
 
   private leavesInCheck(piece: AbstractPiece): boolean {
-    // TODO
+    let leavesInCheck = false;
+    if (piece instanceof King) {
+      const lastCastlingAbility = this.castlingAbility;
+      if (
+        piece.getMove().type === Move.CASTLE_SHORT ||
+        piece.getMove().type === Move.CASTLE_LONG
+      ) {
+          this.castle(piece);
+          const king = this.getPiece(piece.getColor(), Piece.K);
+          leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
+          this.undoCastle();
+      } else {
+          this.move(piece);
+          const king = this.getPiece(piece.getColor(), Piece.K);
+          leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
+          this.undoMove();
+      }
+      this.castlingAbility = lastCastlingAbility;
+    }
 
-    return false;
+    return leavesInCheck;
   }
 
   private move(piece: AbstractPiece): boolean {

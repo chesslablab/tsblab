@@ -264,6 +264,12 @@ class Board extends Map {
     return false;
   }
 
+  private undoCastle(): Board {
+    // TODO
+
+    return this;
+  }
+
   private updateCastle(pieceMoved: AbstractPiece): Board {
     const castlingAbility = new CastlingAbility();
     if (castlingAbility.can(this.castlingAbility, this.turn)) {

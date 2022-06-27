@@ -271,7 +271,39 @@ class Board extends Map {
   }
 
   private undoCastle(): Board {
-    // TODO
+    const last = this.history[this.history.length - 1];
+    const king = this.getPieceBySq(last.move.sq.next);
+    const kingUndone = new King(last.move.color, last.sq);
+    this.delete(king.key);
+    this.set(king.key, kingUndone);
+    if (Move.CASTLE_SHORT === last.move.type) {
+      const rook = this.getPieceBySq(
+        King.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['next']
+      );
+      if (rook instanceof Rook) {
+        const rookUndone = new Rook(
+          last.move.color,
+          King.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
+          rook.getType()
+        );
+        this.delete(rook.key);
+        this.set(rook.key, rookUndone);
+      }
+    } else if (Move.CASTLE_LONG === last.move.type) {
+      const rook = this.getPieceBySq(
+        King.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['next']
+      );
+      if (rook instanceof Rook) {
+        const rookUndone = new Rook(
+          last.move.color,
+          King.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
+          rook.getType()
+        );
+        this.delete(rook.key);
+        this.set(rook.key, rookUndone);
+      }
+    }
+    this.popHistory().refresh();
 
     return this;
   }

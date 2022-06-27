@@ -235,6 +235,12 @@ class Board extends Map {
     return true;
   }
 
+  private undoMove(): Board {
+    // TODO
+
+    return this;
+  }
+
   private castle(king: King): boolean {
     const rook = king.getCastleRook(this.entries());
     if (rook) {

@@ -4,7 +4,7 @@ import Square from "../PGN/AN/Square";
 import AbstractPiece from "./AbstractPiece";
 import PawnRanks from "./PawnRanks";
 
-class Pawn extends AbstractPiece {
+class P extends AbstractPiece {
   private file: string;
   private ranks: PawnRanks;
   private captureSqs: string[];
@@ -91,4 +91,4 @@ class Pawn extends AbstractPiece {
   // }
 }
 
-export default Pawn;
+export default P;

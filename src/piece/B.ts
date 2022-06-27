@@ -10,7 +10,7 @@ interface MobilityShape {
   downRight: string[]
 }
 
-class Bishop extends Slider {
+class B extends Slider {
   protected mobility: MobilityShape = {
     upLeft: [],
     upRight: [],
@@ -74,4 +74,4 @@ class Bishop extends Slider {
 
 }
 
-export default Bishop;
+export default B;

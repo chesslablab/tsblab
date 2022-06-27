@@ -9,14 +9,14 @@ import Piece from './PGN/AN/Piece';
 import Move from './PGN/Move';
 import MoveShape from './PGN/MoveShape';
 import AbstractPiece from './piece/AbstractPiece';
-import Bishop from './piece/Bishop';
-import King from './piece/King';
-import Knight from './piece/Knight';
-import Pawn from './piece/Pawn';
+import B from './piece/B';
+import K from './piece/K';
+import N from './piece/N';
+import P from './piece/P';
 import PieceShape from './piece/PieceShape';
-import Queen from './piece/Queen';
-import Rook from './piece/Rook';
-import RookType from './piece/RookType';
+import Q from './piece/Q';
+import R from './piece/R';
+import RType from './piece/RType';
 
 interface HistoryShape {
   castlingAbility: string,
@@ -39,38 +39,38 @@ class Board extends Map {
 
   constructor() {
     super();
-    this.set(0, new Rook(Color.W, 'a1', RookType.CASTLE_LONG));
-    this.set(1, new Knight(Color.W, 'b1'));
-    this.set(2, new Bishop(Color.W, 'c1'));
-    this.set(3, new Queen(Color.W, 'd1'));
-    this.set(4, new King(Color.W, 'e1'));
-    this.set(5, new Bishop(Color.W, 'f1'));
-    this.set(6, new Knight(Color.W, 'g1'));
-    this.set(7, new Rook(Color.W, 'h1', RookType.CASTLE_SHORT));
-    this.set(8, new Pawn(Color.W, 'a2'));
-    this.set(9, new Pawn(Color.W, 'b2'));
-    this.set(10, new Pawn(Color.W, 'c2'));
-    this.set(11, new Pawn(Color.W, 'd2'));
-    this.set(12, new Pawn(Color.W, 'e2'));
-    this.set(13, new Pawn(Color.W, 'f2'));
-    this.set(14, new Pawn(Color.W, 'g2'));
-    this.set(15, new Pawn(Color.W, 'h2'));
-    this.set(16, new Rook(Color.B, 'a8', RookType.CASTLE_LONG));
-    this.set(17, new Knight(Color.B, 'b8'));
-    this.set(18, new Bishop(Color.B, 'c8'));
-    this.set(19, new Queen(Color.B, 'd8'));
-    this.set(20, new King(Color.B, 'e8'));
-    this.set(21, new Bishop(Color.B, 'f8'));
-    this.set(22, new Knight(Color.B, 'g8'));
-    this.set(23, new Rook(Color.B, 'h8', RookType.CASTLE_SHORT));
-    this.set(24, new Pawn(Color.B, 'a7'));
-    this.set(25, new Pawn(Color.B, 'b7'));
-    this.set(26, new Pawn(Color.B, 'c7'));
-    this.set(27, new Pawn(Color.B, 'd7'));
-    this.set(28, new Pawn(Color.B, 'e7'));
-    this.set(29, new Pawn(Color.B, 'f7'));
-    this.set(30, new Pawn(Color.B, 'g7'));
-    this.set(31, new Pawn(Color.B, 'h7'));
+    this.set(0, new R(Color.W, 'a1', RType.CASTLE_LONG));
+    this.set(1, new N(Color.W, 'b1'));
+    this.set(2, new B(Color.W, 'c1'));
+    this.set(3, new Q(Color.W, 'd1'));
+    this.set(4, new K(Color.W, 'e1'));
+    this.set(5, new B(Color.W, 'f1'));
+    this.set(6, new N(Color.W, 'g1'));
+    this.set(7, new R(Color.W, 'h1', RType.CASTLE_SHORT));
+    this.set(8, new P(Color.W, 'a2'));
+    this.set(9, new P(Color.W, 'b2'));
+    this.set(10, new P(Color.W, 'c2'));
+    this.set(11, new P(Color.W, 'd2'));
+    this.set(12, new P(Color.W, 'e2'));
+    this.set(13, new P(Color.W, 'f2'));
+    this.set(14, new P(Color.W, 'g2'));
+    this.set(15, new P(Color.W, 'h2'));
+    this.set(16, new R(Color.B, 'a8', RType.CASTLE_LONG));
+    this.set(17, new N(Color.B, 'b8'));
+    this.set(18, new B(Color.B, 'c8'));
+    this.set(19, new Q(Color.B, 'd8'));
+    this.set(20, new K(Color.B, 'e8'));
+    this.set(21, new B(Color.B, 'f8'));
+    this.set(22, new N(Color.B, 'g8'));
+    this.set(23, new R(Color.B, 'h8', RType.CASTLE_SHORT));
+    this.set(24, new P(Color.B, 'a7'));
+    this.set(25, new P(Color.B, 'b7'));
+    this.set(26, new P(Color.B, 'c7'));
+    this.set(27, new P(Color.B, 'd7'));
+    this.set(28, new P(Color.B, 'e7'));
+    this.set(29, new P(Color.B, 'f7'));
+    this.set(30, new P(Color.B, 'g7'));
+    this.set(31, new P(Color.B, 'h7'));
     this.castlingAbility = CastlingAbility.START;
 
     this.refresh();
@@ -213,7 +213,7 @@ class Board extends Map {
 
   private leavesInCheck(piece: AbstractPiece): boolean {
     let leavesInCheck = false;
-    if (piece instanceof King) {
+    if (piece instanceof K) {
       const lastCastlingAbility = this.castlingAbility;
       if (
         piece.getMove().type === Move.CASTLE_SHORT ||
@@ -247,24 +247,24 @@ class Board extends Map {
     return this;
   }
 
-  private castle(king: King): boolean {
+  private castle(king: K): boolean {
     const rook = king.getCastleRook(this.entries());
     if (rook) {
       let pieceBySq = this.getPieceBySq(king.getSq());
       this.delete(pieceBySq.key);
       this.set(
         pieceBySq.key,
-        new King(
+        new K(
           king.getColor(),
-          King.CASTLING_RULE[king.getColor()][Piece.K][king.getMove().pgn]['sq']['next']
+          K.CASTLING_RULE[king.getColor()][Piece.K][king.getMove().pgn]['sq']['next']
         )
       );
       this.delete(rook.key);
       this.set(
         rook.key,
-        new Rook(
+        new R(
           rook.value.getColor(),
-          King.CASTLING_RULE[king.getColor()][Piece.R][king.getMove().pgn]['sq']['next'],
+          K.CASTLING_RULE[king.getColor()][Piece.R][king.getMove().pgn]['sq']['next'],
           rook.value.getType()
         )
       );
@@ -279,17 +279,17 @@ class Board extends Map {
   private undoCastle(): Board {
     const last = this.history[this.history.length - 1];
     const king = this.getPieceBySq(last.move.sq.next);
-    const kingUndone = new King(last.move.color, last.sq);
+    const kingUndone = new K(last.move.color, last.sq);
     this.delete(king.key);
     this.set(king.key, kingUndone);
     if (Move.CASTLE_SHORT === last.move.type) {
       const rook = this.getPieceBySq(
-        King.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['next']
+        K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['next']
       );
-      if (rook instanceof Rook) {
-        const rookUndone = new Rook(
+      if (rook instanceof R) {
+        const rookUndone = new R(
           last.move.color,
-          King.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
+          K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
           rook.getType()
         );
         this.delete(rook.key);
@@ -297,12 +297,12 @@ class Board extends Map {
       }
     } else if (Move.CASTLE_LONG === last.move.type) {
       const rook = this.getPieceBySq(
-        King.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['next']
+        K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['next']
       );
-      if (rook instanceof Rook) {
-        const rookUndone = new Rook(
+      if (rook instanceof R) {
+        const rookUndone = new R(
           last.move.color,
-          King.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
+          K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
           rook.getType()
         );
         this.delete(rook.key);
@@ -323,14 +323,14 @@ class Board extends Map {
           this.turn,
           [Piece.K, Piece.Q]
         );
-      } else if (pieceMoved instanceof Rook) {
-        if (pieceMoved.getType() === RookType.CASTLE_SHORT) {
+      } else if (pieceMoved instanceof R) {
+        if (pieceMoved.getType() === RType.CASTLE_SHORT) {
             this.castlingAbility = castlingAbility.remove(
             this.castlingAbility,
             this.turn,
             [Piece.K]
           );
-        } else if (pieceMoved.getType() === RookType.CASTLE_LONG) {
+        } else if (pieceMoved.getType() === RType.CASTLE_LONG) {
           this.castlingAbility = castlingAbility.remove(
             this.castlingAbility,
             this.turn,
@@ -343,7 +343,7 @@ class Board extends Map {
     if (castlingAbility.can(this.castlingAbility, oppColor)) {
       if (pieceMoved.getMove().isCapture) {
         if (pieceMoved.getMove().sq.next ===
-          King.CASTLING_RULE[oppColor][Piece.R][Castle.SHORT]['sq']['current']
+          K.CASTLING_RULE[oppColor][Piece.R][Castle.SHORT]['sq']['current']
         ) {
           this.castlingAbility = castlingAbility.remove(
             this.castlingAbility,
@@ -352,7 +352,7 @@ class Board extends Map {
           );
         } else if (
           pieceMoved.getMove().sq.next ===
-          King.CASTLING_RULE[oppColor][Piece.R][Castle.LONG]['sq']['current']
+          K.CASTLING_RULE[oppColor][Piece.R][Castle.LONG]['sq']['current']
         ) {
           this.castlingAbility = castlingAbility.remove(
             this.castlingAbility,
@@ -379,13 +379,13 @@ class Board extends Map {
     } else if (piece) {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
         if (
-          piece instanceof King &&
+          piece instanceof K &&
           piece.getMove().type === Move.CASTLE_SHORT &&
           piece.sqCastleShort()
         ) {
           isLegalMove = this.castle(piece);
         } else if (
-          piece instanceof King &&
+          piece instanceof K &&
           piece.getMove().type === Move.CASTLE_LONG &&
           piece.sqCastleLong()
         ) {

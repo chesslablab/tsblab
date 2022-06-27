@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import Queen from '../../../src/piece/Queen';
+import Q from '../../../src/piece/Q';
 
 describe('queen.getMobility()', () => {
   it ('a2', () => {
-    let queen = new Queen('w', 'a2');
+    let queen = new Q('w', 'a2');
     let mobility = {
       up: ['a3', 'a4', 'a5', 'a6', 'a7', 'a8'],
       down: ['a1'],
@@ -17,7 +17,7 @@ describe('queen.getMobility()', () => {
     expect(queen.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let queen = new Queen('w', 'd5');
+    let queen = new Q('w', 'd5');
     let mobility = {
       up: ['d6', 'd7', 'd8'],
       down: ['d4', 'd3', 'd2', 'd1'],

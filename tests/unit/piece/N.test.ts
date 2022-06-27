@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import Knight from '../../../src/piece/Knight';
+import N from '../../../src/piece/N';
 
 describe('knight.getMobility()', () => {
   it ('d4', () => {
-    let knight = new Knight('w', 'd4');
+    let knight = new N('w', 'd4');
     let mobility = [
       'c6',
       'b5',
@@ -17,7 +17,7 @@ describe('knight.getMobility()', () => {
     expect(knight.getMobility()).to.eql(mobility);
   });
   it ('h1', () => {
-    let knight = new Knight('w', 'h1');
+    let knight = new N('w', 'h1');
     let mobility = [
       'g3',
       'f2'
@@ -25,7 +25,7 @@ describe('knight.getMobility()', () => {
     expect(knight.getMobility()).to.eql(mobility);
   });
   it ('b1', () => {
-    let knight = new Knight('w', 'b1');
+    let knight = new N('w', 'b1');
     let mobility = [
       'a3',
       'd2',

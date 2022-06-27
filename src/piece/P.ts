@@ -2,11 +2,16 @@ import Color from "../PGN/AN/Color";
 import Piece from "../PGN/AN/Piece";
 import Square from "../PGN/AN/Square";
 import AbstractPiece from "./AbstractPiece";
-import PawnRanks from "./PawnRanks";
+
+interface RanksShape {
+  initial: number,
+  next: number,
+  promotion: number
+}
 
 class P extends AbstractPiece {
   private file: string;
-  private ranks: PawnRanks;
+  private ranks: RanksShape;
   private captureSqs: string[];
   private enPassantSq: string = '';
   protected mobility: string[];
@@ -77,7 +82,7 @@ class P extends AbstractPiece {
 
     return sqs;
   }
-  
+
   public getCaptureSqs(): string[] {
     return this.captureSqs;
   }

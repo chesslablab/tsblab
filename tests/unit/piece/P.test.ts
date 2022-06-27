@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import Pawn from '../../../src/piece/Pawn';
+import P from '../../../src/piece/P';
 
 describe('pawn.getMobility()', () => {
   it ('a2', () => {
-    let pawn = new Pawn('w', 'a2');
+    let pawn = new P('w', 'a2');
     let position = 'a2';
     let mobility = ['a3', 'a4'];
     let captureSquares = ['b3'];
@@ -12,7 +12,7 @@ describe('pawn.getMobility()', () => {
     expect(pawn.getCaptureSqs()).to.eql(captureSquares);
   });
   it ('d5', () => {
-    let pawn = new Pawn('w', 'd5');
+    let pawn = new P('w', 'd5');
     let position = 'd5';
     let mobility = ['d6'];
     let captureSquares = ['c6', 'e6'];
@@ -21,7 +21,7 @@ describe('pawn.getMobility()', () => {
     expect(pawn.getCaptureSqs()).to.eql(captureSquares);
   });
   it ('f7', () => {
-    let pawn = new Pawn('w', 'f7');
+    let pawn = new P('w', 'f7');
     let position = 'f7';
     let mobility = ['f8'];
     let captureSquares = ['e8', 'g8'];
@@ -30,7 +30,7 @@ describe('pawn.getMobility()', () => {
     expect(pawn.getCaptureSqs()).to.eql(captureSquares);
   });
   it ('f8', () => {
-    let pawn = new Pawn('w', 'f8');
+    let pawn = new P('w', 'f8');
     let position = 'f8';
     let mobility = [];
     let captureSquares = [];
@@ -39,7 +39,7 @@ describe('pawn.getMobility()', () => {
     expect(pawn.getCaptureSqs()).to.eql(captureSquares);
   });
   it ('a2', () => {
-    let pawn = new Pawn('b', 'a2');
+    let pawn = new P('b', 'a2');
     let position = 'a2';
     let mobility = ['a1'];
     let captureSquares = ['b1'];
@@ -48,7 +48,7 @@ describe('pawn.getMobility()', () => {
     expect(pawn.getCaptureSqs()).to.eql(captureSquares);
   });
   it ('d5', () => {
-    let pawn = new Pawn('b', 'd5');
+    let pawn = new P('b', 'd5');
     let position = 'd5';
     let mobility = ['d4'];
     let captureSquares = ['c4', 'e4'];

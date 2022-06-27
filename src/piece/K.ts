@@ -3,12 +3,12 @@ import Castle from '../PGN/AN/Castle';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
 import AbstractPiece from './AbstractPiece';
-import Bishop from "./Bishop";
-import Rook from "./Rook";
-import RookShape from "./RookShape";
-import RookType from "./RookType";
+import B from "./B";
+import R from "./R";
+import RShape from "./RShape";
+import RType from "./RType";
 
-class King extends AbstractPiece {
+class K extends AbstractPiece {
   public static readonly CASTLING_RULE: object = {
     [Color.W]: {
       [Piece.K]: {
@@ -76,14 +76,14 @@ class King extends AbstractPiece {
     }
   }
 
-  private rook: Rook;
+  private rook: R;
 
-  private bishop: Bishop;
+  private bishop: B;
 
   constructor(color: string, sq: string) {
     super(color, sq, Piece.K);
-    this.rook = new Rook(color, sq, RookType.SLIDER);
-    this.bishop = new Bishop(color, sq);
+    this.rook = new R(color, sq, RType.SLIDER);
+    this.bishop = new B(color, sq);
     this.calcMobility();
   }
 
@@ -113,7 +113,7 @@ class King extends AbstractPiece {
 
   sqCastleShort(): null|string
   {
-    const rule = King.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];
+    const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];
     if (new CastlingAbility().short(this.board.getCastlingAbility(), this.getColor())) {
       const arrayDiff = this.board.getSqEval()['free'].filter(sq => rule['sqs'].includes(sq));
       const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
@@ -127,7 +127,7 @@ class King extends AbstractPiece {
 
   sqCastleLong(): null|string
   {
-    const rule = King.CASTLING_RULE[this.getColor()][Piece.K][Castle.LONG];
+    const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.LONG];
     if (new CastlingAbility().long(this.board.getCastlingAbility(), this.getColor())) {
       const arrayDiff = this.board.getSqEval()['free'].filter(sq => rule['sqs'].includes(sq));
       const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
@@ -139,9 +139,9 @@ class King extends AbstractPiece {
     return null;
   }
 
-  getCastleRook(entries: any): RookShape|null
+  getCastleRook(entries: any): RShape|null
   {
-    const rule = King.CASTLING_RULE[this.getColor()][Piece.R];
+    const rule = K.CASTLING_RULE[this.getColor()][Piece.R];
     for (let [key, piece] of entries) {
       if (
         piece.getId() === Piece.R &&
@@ -158,4 +158,4 @@ class King extends AbstractPiece {
   }
 }
 
-export default King;
+export default K;

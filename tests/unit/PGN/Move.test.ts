@@ -3,7 +3,7 @@ import Move from '../../../src/PGN/Move';
 import Piece from '../../../src/PGN/AN/Piece';
 import { expect } from 'chai';
 import Castle from '../../../src/PGN/AN/Castle';
-import King from '../../../src/piece/King';
+import K from '../../../src/piece/K';
 
 describe('Move.toObj()', () => {  
   it ('Ua5 throws UnknownNotationError', () => {
@@ -170,7 +170,7 @@ describe('Move.toObj()', () => {
       type: Move.CASTLE_SHORT,
       color: 'w',
       id: 'K',
-      sq: King.CASTLING_RULE['w'][Piece.K][Castle.SHORT]['sq']  
+      sq: K.CASTLING_RULE['w'][Piece.K][Castle.SHORT]['sq']  
     };  
     expect(Move.toObj('w', move)).to.eql(example)
   });
@@ -183,7 +183,7 @@ describe('Move.toObj()', () => {
       type: Move.CASTLE_LONG,
       color: 'w',
       id: 'K',
-      sq: King.CASTLING_RULE['w'][Piece.K][Castle.LONG]['sq']  
+      sq: K.CASTLING_RULE['w'][Piece.K][Castle.LONG]['sq']  
     };  
     expect(Move.toObj('w', move)).to.eql(example)
   });

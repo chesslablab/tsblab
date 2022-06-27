@@ -1,5 +1,5 @@
 import UnknownNotationError from "../error/UnknownNotationError";
-import King from "../piece/King";
+import K from "../piece/K";
 import AbstractNotation from "./AbstractNotation";
 import MoveShape from "./MoveShape";
 import ValidationInterface from "./ValidationInterface";
@@ -79,7 +79,7 @@ class Move extends AbstractNotation implements ValidationInterface {
         type: Move.CASTLE_SHORT,
         color: validatedColor,
         id: Piece.K,
-        sq: King.CASTLING_RULE[color][Piece.K][Castle.SHORT]['sq']
+        sq: K.CASTLING_RULE[color][Piece.K][Castle.SHORT]['sq']
       };
     } else if (pgn.match(new RegExp('^' + Move.CASTLE_LONG + '$'))) {
       return {
@@ -89,7 +89,7 @@ class Move extends AbstractNotation implements ValidationInterface {
         type: Move.CASTLE_LONG,
         color: validatedColor,
         id: Piece.K,
-        sq: King.CASTLING_RULE[color][Piece.K][Castle.LONG]['sq']
+        sq: K.CASTLING_RULE[color][Piece.K][Castle.LONG]['sq']
       };
     } else if (pgn.match(new RegExp('^' + Move.KING_CAPTURES + '$'))) {
       return {

@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import Rook from '../../../src/piece/Rook';
-import RookType from '../../../src/piece/RookType';
+import R from '../../../src/piece/R';
+import RType from '../../../src/piece/RType';
 
 describe('rook.getMobility()', () => {
   it ('a2', () => {
-    let rook = new Rook('w', 'a2', RookType.PROMOTED);
+    let rook = new R('w', 'a2', RType.PROMOTED);
     let mobility = {
       up: ['a3', 'a4', 'a5', 'a6', 'a7', 'a8'],
       down: ['a1'],
@@ -14,7 +14,7 @@ describe('rook.getMobility()', () => {
     expect(rook.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let rook = new Rook('w', 'd5', RookType.PROMOTED);
+    let rook = new R('w', 'd5', RType.PROMOTED);
     let mobility = {
       up: ['d6', 'd7', 'd8'],
       down: ['d4', 'd3', 'd2', 'd1'],

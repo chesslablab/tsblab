@@ -189,6 +189,12 @@ class Board extends Map {
     return found;
   }
 
+  private capture(piece: AbstractPiece): Board {
+    // TODO
+
+    return this;
+  }
+
   private isValidMove(move: MoveShape): boolean {
     if (move.color !== this.turn) {
       return false;

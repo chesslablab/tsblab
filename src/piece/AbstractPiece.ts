@@ -25,7 +25,7 @@ abstract class AbstractPiece {
 
   protected abstract calcMobility(): AbstractPiece;
 
-  getMobility(): object {
+  getMobility(): any {
     return this.mobility;
   }
 

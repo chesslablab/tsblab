@@ -170,8 +170,7 @@ class Board extends Map {
     return this.isValidMove(obj) && this.isLegalMove(obj);
   }
 
-  private pickPiece(move: MoveShape): Array<AbstractPiece>
-  {
+  private pickPiece(move: MoveShape): Array<AbstractPiece> {
     let found = [];
     for (let piece of this.getPiecesByColor(move.color)) {
       if (piece.getId() === move.id) {
@@ -187,6 +186,45 @@ class Board extends Map {
     }
 
     return found;
+  }
+
+  private capture(piece: AbstractPiece): Board {
+    // TODO
+
+    return this;
+  }
+
+  private promote(pawn: P): Board {
+    const pieceBySq = this.getPieceBySq(pawn.getMove().sq.next);
+    this.delete(pieceBySq.key);
+    switch (pawn.getMove().newId) {
+      case Piece.N:
+        this.set(
+          pieceBySq.key,
+          new N(pawn.getColor(), pawn.getMove().sq.next)
+        );
+        break;
+      case Piece.B:
+        this.set(
+          pieceBySq.key,
+          new B(pawn.getColor(), pawn.getMove().sq.next)
+        );
+        break;
+      case Piece.R:
+        this.set(
+          pieceBySq.key,
+          new R(pawn.getColor(), pawn.getMove().sq.next, RType.PROMOTED)
+        );
+        break;
+      default:
+        this.set(
+          pieceBySq.key,
+          new Q(pawn.getColor(), pawn.getMove().sq.next)
+        );
+        break;
+    }
+
+    return this;
   }
 
   private isValidMove(move: MoveShape): boolean {
@@ -230,7 +268,18 @@ class Board extends Map {
   }
 
   private move(piece: AbstractPiece): boolean {
-    // TODO
+    if (piece.getMove().isCapture) {
+      this.capture(piece);
+    }
+    const pieceBySq = this.getPieceBySq(piece.getSq());
+    this.delete(pieceBySq.key);
+    this.setElemById(pieceBySq.key, piece);
+    if (piece instanceof P) {
+      if (piece.isPromoted()) {
+        this.promote(piece);
+      }
+    }
+    this.updateCastle(piece).pushHistory(piece).refresh();
 
     return true;
   }
@@ -391,6 +440,73 @@ class Board extends Map {
     }
 
     return isLegalMove;
+  }
+
+  // TODO
+  // This is a workaround method to be replaced with a one-liner.
+  // Find out how to dynamically create an object from a string.
+  private setElemById(key: number, piece: AbstractPiece): void {
+    switch (piece.getId()) {
+      case 'P':
+        this.set(
+          key,
+          new P(
+            piece.getColor(),
+            piece.getMove().sq.next
+          )
+        );
+        break;
+      case 'N':
+        this.set(
+          key,
+          new N(
+            piece.getColor(),
+            piece.getMove().sq.next
+          )
+        );
+        break;
+      case 'B':
+        this.set(
+          key,
+          new B(
+            piece.getColor(),
+            piece.getMove().sq.next
+          )
+        );
+        break;
+      case 'R':
+        if (piece instanceof R) {
+          this.set(
+            key,
+            new R(
+              piece.getColor(),
+              piece.getMove().sq.next,
+              piece.getId() === Piece.R ? piece.getType() : null
+            )
+          );
+        }
+        break;
+      case 'Q':
+        this.set(
+          key,
+          new Q(
+            piece.getColor(),
+            piece.getMove().sq.next
+          )
+        );
+        break;
+      case 'K':
+        this.set(
+          key,
+          new K(
+            piece.getColor(),
+            piece.getMove().sq.next
+          )
+        );
+        break;
+      default:
+        break;
+    }
   }
 }
 

@@ -83,7 +83,7 @@ class P extends AbstractPiece {
     return sqs;
   }
 
-  public getCaptureSqs(): string[] {
+  getCaptureSqs(): string[] {
     return this.captureSqs;
   }
 
@@ -91,9 +91,9 @@ class P extends AbstractPiece {
   //   return this.enPassantSq;
   // }
 
-  // public isPromoted(): boolean {
-  //   return (this.move.newId && Number(this.getMove().sq.next[1]) === this.ranks.promotion);
-  // }
+  isPromoted(): boolean {
+    return (this.move.newId && Number(this.getMove().sq.next[1]) === this.ranks.promotion);
+  }
 }
 
 export default P;

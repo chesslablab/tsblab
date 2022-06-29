@@ -87,9 +87,9 @@ class P extends AbstractPiece {
     return this.captureSqs;
   }
 
-  // public getEnPassantSqs(): string {
-  //   return this.enPassantSq;
-  // }
+  getEnPassantSq(): string {
+    return this.enPassantSq;
+  }
 
   isPromoted(): boolean {
     return (this.move.newId && Number(this.getMove().sq.next[1]) === this.ranks.promotion);

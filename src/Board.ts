@@ -18,6 +18,19 @@ import Q from './piece/Q';
 import R from './piece/R';
 import RType from './piece/RType';
 
+interface CaptureShape {
+  capturing: {
+    id: string,
+    sq: string,
+    type: null|string
+  },
+  captured: {
+    id: string,
+    sq: string,
+    type: null|string
+  }
+}
+
 interface HistoryShape {
   castlingAbility: string,
   sq: string,
@@ -26,6 +39,8 @@ interface HistoryShape {
 
 class Board extends Map {
   private turn: string;
+
+  private captures: Array<CaptureShape>;
 
   private history: Array<HistoryShape>;
 
@@ -97,6 +112,13 @@ class Board extends Map {
     return this;
   }
 
+  private pushCapture(color: string, capture: any): Board
+  {
+      this.captures[color].push(capture);
+
+      return this;
+  }
+
   private pushHistory(piece: AbstractPiece): Board
   {
     this.history.push({
@@ -127,7 +149,7 @@ class Board extends Map {
     return this.sqEval;
   }
 
-  public getPiecesByColor = (color: string): AbstractPiece[] => {
+  getPiecesByColor(color: string): Array<AbstractPiece> {
     let pieces = [];
     this.forEach((piece, key) => {
       if (piece.getColor() === color) {
@@ -189,7 +211,42 @@ class Board extends Map {
   }
 
   private capture(piece: AbstractPiece): Board {
-    // TODO
+    piece.sqs(); // creates the enPassantSquare property if the piece is a pawn
+    const pieceBySq = this.getPieceBySq(piece.getMove().sq.next);
+    let captured, capturingData, capturedData, capture;
+    if (piece instanceof P && piece.getEnPassantSq() && !pieceBySq) {
+      captured = this.getPieceBySq(piece.getEnPassantSq());
+      if (captured) {
+        const capturedData = {
+          id: captured.value.getId(),
+          sq: piece.getEnPassantSq()
+        };
+      }
+    } else {
+      captured = this.getPieceBySq(piece.getMove().sq.next);
+      if (captured) {
+        capturedData = {
+          id: captured.value.getId(),
+          sq: captured.value.getSq(),
+          type: null
+        };
+      }
+    }
+    if (captured) {
+      capturingData = {
+        id: piece.getId(),
+        sq: piece.getSq(),
+        type: null
+      };
+      piece instanceof R ? capturingData.type = piece.getType() : null;
+      captured instanceof R ? capturedData.type = captured.getType() : null;
+      capture = {
+        capturing: capturingData,
+        captured: capturedData,
+      };
+      this.pushCapture(piece.getColor(), capture);
+      this.delete(captured.key);
+    }
 
     return this;
   }

@@ -35,28 +35,21 @@ class ConnectivityEval extends AbstractEval {
       let check;
       switch (piece.getId()) {
         case Piece.K:
-          
+          console.log()
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
           .filter(usedSq => Array.from(piece.getMobility()).includes(usedSq)).length;
-          
           break;
         case Piece.N:
-          
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
           .filter(usedSq => piece.getMobility().includes(usedSq)).length;
-          
           break;
         case Piece.P:
-          
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
-          .filter(usedSq => piece.getCaptureSqs().includes(usedSq)).length;
-          
+          .filter(usedSq => piece.getCaptureSqs().includes(usedSq)).length; 
           break;
         default:
-          console.log(piece.getId());
           for (const key in piece.getMobility()) {
             const val = piece.getMobility()[key];
-            console.log(val)
             for (let sq of val) {
               if (this.sqEval[SqEval.TYPE_USED][color].includes(sq)) {
                 this.result[color] += 1;

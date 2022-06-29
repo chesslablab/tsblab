@@ -11,11 +11,11 @@ describe('new Board', () => {
 
 describe('board.getPieceBySq()', () => {
   it('a1 is a rook', () => {
-    const piece = new Board().getPieceBySq('a1');
-    expect(piece.getId()).to.eql(Piece.R);
+    const entry = new Board().getPieceBySq('a1');
+    expect(entry.value.getId()).to.eql(Piece.R);
   });
   it('h8 is a rook', () => {
-    const piece = new Board().getPieceBySq('h8');
-    expect(piece.getId()).to.eql(Piece.R);
+    const entry = new Board().getPieceBySq('h8');
+    expect(entry.value.getId()).to.eql(Piece.R);
   });
 });

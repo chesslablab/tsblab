@@ -2,12 +2,18 @@ import PieceTypeError from '../error/PieceTypeError';
 import Square from "../PGN/AN/Square";
 import Piece from "../PGN/AN/Piece";
 import AbstractPiece from "./AbstractPiece";
-import RookMobility from './RookMobility';
-import RookType from './RookType';
+import RType from './RType';
 import Slider from "./Slider";
 
-class Rook extends Slider {
-  protected mobility: RookMobility = {
+interface MobilityShape {
+  up: string[],
+  down: string[],
+  left: string[],
+  right: string[]
+}
+
+class R extends Slider {
+  protected mobility: MobilityShape = {
     up: [],
     down: [],
     left: [],
@@ -17,12 +23,16 @@ class Rook extends Slider {
   private type: string;
 
   constructor(color: string, sq: string, type: string) {
-    if (!RookType.all().includes(type)) {
+    if (!RType.all().includes(type)) {
       throw new PieceTypeError;
     }
     super(color, sq, Piece.R);
     this.type = type;
     this.calcMobility();
+  }
+
+  getType(): string {
+    return this.type;
   }
 
   protected calcMobility(): AbstractPiece {
@@ -71,4 +81,4 @@ class Rook extends Slider {
   }
 }
 
-export default Rook;
+export default R;

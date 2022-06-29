@@ -50,7 +50,7 @@ class SpaceEval extends AbstractEval {
           ];
           break;
         default:
-          sqs = this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]
+          sqs = this.sqEval[SqEval.TYPE_USED][piece.oppColor()]
             .filter(usedSq => piece.getSq().includes(usedSq));
           this.result[piece.getColor()] = [
             ...new Set([

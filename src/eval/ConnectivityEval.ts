@@ -32,31 +32,45 @@ class ConnectivityEval extends AbstractEval {
 
   private color = (color: string): void => {
     this.board.getPiecesByColor(color).forEach(piece => {
+      let check;
       switch (piece.getId()) {
         case Piece.K:
+          
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
           .filter(usedSq => Array.from(piece.getMobility()).includes(usedSq)).length;
+          
           break;
         case Piece.N:
+          
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
           .filter(usedSq => piece.getMobility().includes(usedSq)).length;
+          
           break;
         case Piece.P:
+          
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
           .filter(usedSq => piece.getCaptureSqs().includes(usedSq)).length;
+          
+          break;
         default:
+          console.log(piece.getId());
           for (const key in piece.getMobility()) {
             const val = piece.getMobility()[key];
-            val.forEach(sq => {
+            console.log(val)
+            for (let sq of val) {
               if (this.sqEval[SqEval.TYPE_USED][color].includes(sq)) {
                 this.result[color] += 1;
-              } else if (this.sqEval[SqEval.TYPE_USED][piece.getOppColor()]) {
-                
+                break;
+              } else if (this.sqEval[SqEval.TYPE_USED][piece.oppColor()].includes(sq)) {
+                break;
               }
-            });
+            }
           }
+          
           break;
       }
     });
   }
 }
+
+export default ConnectivityEval;

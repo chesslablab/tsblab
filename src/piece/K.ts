@@ -1,12 +1,14 @@
+import CastlingAbility from '../FEN/field/CastlingAbility';
 import Castle from '../PGN/AN/Castle';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
 import AbstractPiece from './AbstractPiece';
-import Bishop from "./Bishop";
-import Rook from "./Rook";
-import RookType from "./RookType";
+import B from "./B";
+import R from "./R";
+import RShape from "./RShape";
+import RType from "./RType";
 
-class King extends AbstractPiece {
+class K extends AbstractPiece {
   public static readonly CASTLING_RULE: object = {
     [Color.W]: {
       [Piece.K]: {
@@ -74,14 +76,14 @@ class King extends AbstractPiece {
     }
   }
 
-  private rook: Rook;
+  private rook: R;
 
-  private bishop: Bishop;
+  private bishop: B;
 
   constructor(color: string, sq: string) {
     super(color, sq, Piece.K);
-    this.rook = new Rook(color, sq, RookType.SLIDER);
-    this.bishop = new Bishop(color, sq);
+    this.rook = new R(color, sq, RType.SLIDER);
+    this.bishop = new B(color, sq);
     this.calcMobility();
   }
 
@@ -100,6 +102,60 @@ class King extends AbstractPiece {
 
     return this;
   }
+
+  sqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
+
+  sqCastleShort(): null|string
+  {
+    const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];
+    if (new CastlingAbility().short(this.board.getCastlingAbility(), this.getColor())) {
+      const arrayDiff = this.board.getSqEval()['free'].filter(sq => rule['sqs'].includes(sq));
+      const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
+      if (arrayDiff.length === 0 && arrayIntersect.length === 0) {
+        return rule['sq']['next'];
+      }
+    }
+
+    return null;
+  }
+
+  sqCastleLong(): null|string
+  {
+    const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.LONG];
+    if (new CastlingAbility().long(this.board.getCastlingAbility(), this.getColor())) {
+      const arrayDiff = this.board.getSqEval()['free'].filter(sq => rule['sqs'].includes(sq));
+      const arrayIntersect = this.board.getSpaceEval()[this.oppColor()].filter(sq => rule['sqs'].includes(sq));
+      if (arrayDiff.length === 0 && arrayIntersect.length === 0) {
+        return rule['sq']['next'];
+      }
+    }
+
+    return null;
+  }
+
+  getCastleRook(entries: any): RShape|null
+  {
+    const rule = K.CASTLING_RULE[this.getColor()][Piece.R];
+    for (let [key, piece] of entries) {
+      if (
+        piece.getId() === Piece.R &&
+        piece.getSq() === rule[this.getMove().pgn]['sq']['current']
+      ) {
+        return {
+          key: key,
+          value: piece
+        }
+      }
+    }
+
+    return null;
+  }
 }
 
-export default King;
+export default K;

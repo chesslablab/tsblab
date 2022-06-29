@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import Bishop from '../../../src/piece/Bishop';
+import B from '../../../src/piece/B';
 
 describe('bishop.getMobility()', () => {
   it ('a2', () => {
-    let bishop = new Bishop('w', 'a2');
+    let bishop = new B('w', 'a2');
     let mobility = {
       upLeft: [],
       upRight: ['b3', 'c4', 'd5', 'e6', 'f7', 'g8'],
@@ -13,7 +13,7 @@ describe('bishop.getMobility()', () => {
     expect(bishop.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let bishop = new Bishop('w', 'd5');
+    let bishop = new B('w', 'd5');
     let mobility = {
       upLeft: ['c6', 'b7', 'a8'],
       upRight: ['e6', 'f7', 'g8'],
@@ -23,7 +23,7 @@ describe('bishop.getMobility()', () => {
     expect(bishop.getMobility()).to.eql(mobility);
   });
   it ('a8', () => {
-    let bishop = new Bishop('w', 'a8');
+    let bishop = new B('w', 'a8');
     let mobility = {
       upLeft: [],
       upRight: [],

@@ -2,7 +2,7 @@ import Piece from "../PGN/AN/Piece";
 import Square from "../PGN/AN/Square";
 import AbstractPiece from "./AbstractPiece";
 
-class Knight extends AbstractPiece {
+class N extends AbstractPiece {
   protected mobility: string[] = [];
 
   constructor(color: string, sq: string) {
@@ -86,6 +86,14 @@ class Knight extends AbstractPiece {
 
     return this
   }
+
+  sqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
 }
 
-export default Knight;
+export default N;

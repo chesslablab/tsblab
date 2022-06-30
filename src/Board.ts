@@ -149,7 +149,7 @@ class Board extends Map {
     return this.sqEval;
   }
 
-  getPiecesByColor(color: string): Array<AbstractPiece> {
+  public getPiecesByColor = (color: string): any[] => {
     let pieces = [];
     this.forEach((piece, key) => {
       if (piece.getColor() === color) {

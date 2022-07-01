@@ -25,6 +25,7 @@ interface CaptureShape {
     type: null|string
   },
   captured: {
+    key: number,
     id: string,
     sq: string,
     type: null|string
@@ -112,11 +113,16 @@ class Board extends Map {
     return this;
   }
 
-  private pushCapture(color: string, capture: any): Board
-  {
+  private pushCapture(color: string, capture: any): Board {
       this.captures[color].push(capture);
 
       return this;
+  }
+
+  private popCapture(color: string): Board {
+    this.captures[color].pop();
+
+    return this;
   }
 
   private pushHistory(piece: AbstractPiece): Board
@@ -218,6 +224,7 @@ class Board extends Map {
       captured = this.getPieceBySq(piece.getEnPassantSq());
       if (captured) {
         const capturedData = {
+          key: captured.key,
           id: captured.value.getId(),
           sq: piece.getEnPassantSq()
         };
@@ -226,6 +233,7 @@ class Board extends Map {
       captured = this.getPieceBySq(piece.getMove().sq.next);
       if (captured) {
         capturedData = {
+          key: captured.key,
           id: captured.value.getId(),
           sq: captured.value.getSq(),
           type: null
@@ -350,7 +358,38 @@ class Board extends Map {
   }
 
   private undoMove(): Board {
-    // TODO
+    const last = this.history[this.history.length - 1];
+    if (last) {
+      const piece = this.getPieceBySq(last.move.sq.next);
+      this.delete(piece.key);
+      if (
+        last.move.type === Move.PAWN_PROMOTES ||
+        last.move.type === Move.PAWN_CAPTURES_AND_PROMOTES
+      ) {
+        const pieceUndone = new P(last.move.color, last.sq);
+        this.set(piece.key, pieceUndone);
+      } else {
+        const pieceUndone = this.createPiece(
+          piece.value.getId(),
+          piece.value.getColor(),
+          piece.value.getMove().sq.next,
+          piece.value instanceof R ? piece.value.getType() : null
+        );
+        this.set(piece.key, pieceUndone);
+      }
+      const capture = this.captures[last.move.color][this.captures[last.move.color] - 1];
+      if (last.move.isCapture && capture) {
+        const pieceCaptured = this.createPiece(
+          capture.captured.id,
+          last.move.color === Color.W ? Color.B : Color.W,
+          capture.captured.sq,
+          capture.captured.id === Piece.R ? capture.captured.type : null
+        );
+        this.set(capture.captured.key, pieceCaptured);
+        this.popCapture(last.move.color);
+      }
+      this.popHistory().refresh();
+    }
 
     return this;
   }

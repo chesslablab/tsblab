@@ -310,24 +310,22 @@ class Board extends Map {
 
   private leavesInCheck(piece: AbstractPiece): boolean {
     let leavesInCheck = false;
-    if (piece instanceof K) {
-      const lastCastlingAbility = this.castlingAbility;
-      if (
-        piece.getMove().type === Move.CASTLE_SHORT ||
-        piece.getMove().type === Move.CASTLE_LONG
-      ) {
-          this.castle(piece);
-          const king = this.getPiece(piece.getColor(), Piece.K);
-          leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
-          this.undoCastle();
-      } else {
-          this.move(piece);
-          const king = this.getPiece(piece.getColor(), Piece.K);
-          leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
-          this.undoMove();
-      }
-      this.castlingAbility = lastCastlingAbility;
+    const lastCastlingAbility = this.castlingAbility;
+    if (
+      piece.getMove().type === Move.CASTLE_SHORT ||
+      piece.getMove().type === Move.CASTLE_LONG
+    ) {
+        this.castle(<K>piece);
+        const king = this.getPiece(piece.getColor(), Piece.K);
+        leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
+        this.undoCastle();
+    } else {
+        this.move(piece);
+        const king = this.getPiece(piece.getColor(), Piece.K);
+        leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
+        this.undoMove();
     }
+    this.castlingAbility = lastCastlingAbility;
 
     return leavesInCheck;
   }

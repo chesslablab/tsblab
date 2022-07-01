@@ -332,7 +332,12 @@ class Board extends Map {
     this.delete(pieceBySq.key);
     this.set(
       pieceBySq.key,
-      this.createPiece(piece.getColor(), piece.getMove().sq.next, piece)
+      this.createPiece(
+        piece.getId(),
+        piece.getColor(),
+        piece.getMove().sq.next,
+        piece instanceof R ? piece.getType() : null
+      )
     );
     if (piece instanceof P) {
       if (piece.isPromoted()) {
@@ -505,8 +510,13 @@ class Board extends Map {
   // TODO
   // This is a workaround method to be replaced with a one-liner.
   // Find out how to dynamically create an object from a string.
-  private createPiece(color: string, sq: string, piece: AbstractPiece): AbstractPiece {
-    switch (piece.getId()) {
+  private createPiece(
+    id: string,
+    color: string,
+    sq: string,
+    type?: string
+  ): AbstractPiece {
+    switch (id) {
       case 'P':
         return new P(color, sq);
       case 'N':
@@ -518,13 +528,7 @@ class Board extends Map {
       case 'K':
         return new K(color, sq);
       case 'R':
-        if (piece instanceof R) {
-          return new R(
-            color,
-            sq,
-            piece.getId() === Piece.R ? piece.getType() : null
-          );
-        }
+        return new R(color, sq, type);
       default:
         return null;
     }

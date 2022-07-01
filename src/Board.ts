@@ -522,17 +522,15 @@ class Board extends Map {
     } else if (piece) {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
         if (
-          piece instanceof K &&
           piece.getMove().type === Move.CASTLE_SHORT &&
-          piece.sqCastleShort()
+          (<K>piece).sqCastleShort()
         ) {
-          isLegalMove = this.castle(piece);
+          isLegalMove = this.castle(<K>piece);
         } else if (
-          piece instanceof K &&
           piece.getMove().type === Move.CASTLE_LONG &&
-          piece.sqCastleLong()
+          (<K>piece).sqCastleLong()
         ) {
-          isLegalMove = this.castle(piece);
+          isLegalMove = this.castle(<K>piece);
         } else {
           isLegalMove = this.move(piece);
         }

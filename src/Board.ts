@@ -330,7 +330,10 @@ class Board extends Map {
     }
     const pieceBySq = this.getPieceBySq(piece.getSq());
     this.delete(pieceBySq.key);
-    this.setElemById(pieceBySq.key, piece);
+    this.set(
+      pieceBySq.key,
+      this.createPiece(piece.getColor(), piece.getMove().sq.next, piece)
+    );
     if (piece instanceof P) {
       if (piece.isPromoted()) {
         this.promote(piece);
@@ -502,67 +505,28 @@ class Board extends Map {
   // TODO
   // This is a workaround method to be replaced with a one-liner.
   // Find out how to dynamically create an object from a string.
-  private setElemById(key: number, piece: AbstractPiece): void {
+  private createPiece(color: string, sq: string, piece: AbstractPiece): AbstractPiece {
     switch (piece.getId()) {
       case 'P':
-        this.set(
-          key,
-          new P(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new P(color, sq);
       case 'N':
-        this.set(
-          key,
-          new N(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new N(color, sq);
       case 'B':
-        this.set(
-          key,
-          new B(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new B(color, sq);
+      case 'Q':
+        return new Q(color, sq);
+      case 'K':
+        return new K(color, sq);
       case 'R':
         if (piece instanceof R) {
-          this.set(
-            key,
-            new R(
-              piece.getColor(),
-              piece.getMove().sq.next,
-              piece.getId() === Piece.R ? piece.getType() : null
-            )
+          return new R(
+            color,
+            sq,
+            piece.getId() === Piece.R ? piece.getType() : null
           );
         }
-        break;
-      case 'Q':
-        this.set(
-          key,
-          new Q(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
-      case 'K':
-        this.set(
-          key,
-          new K(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
       default:
-        break;
+        return null;
     }
   }
 }

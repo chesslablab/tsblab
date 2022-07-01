@@ -433,28 +433,24 @@ class Board extends Map {
       const rook = this.getPieceBySq(
         K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['next']
       );
-      if (rook instanceof R) {
-        const rookUndone = new R(
-          last.move.color,
-          K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
-          rook.getType()
-        );
-        this.delete(rook.key);
-        this.set(rook.key, rookUndone);
-      }
+      const rookUndone = new R(
+        last.move.color,
+        K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
+        (<R>rook.value).getType()
+      );
+      this.delete(rook.key);
+      this.set(rook.key, rookUndone);
     } else if (Move.CASTLE_LONG === last.move.type) {
       const rook = this.getPieceBySq(
         K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['next']
       );
-      if (rook instanceof R) {
-        const rookUndone = new R(
-          last.move.color,
-          K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
-          rook.getType()
-        );
-        this.delete(rook.key);
-        this.set(rook.key, rookUndone);
-      }
+      const rookUndone = new R(
+        last.move.color,
+        K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
+        (<R>rook.value).getType()
+      );
+      this.delete(rook.key);
+      this.set(rook.key, rookUndone);
     }
     this.popHistory().refresh();
 

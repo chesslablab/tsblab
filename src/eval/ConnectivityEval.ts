@@ -1,6 +1,7 @@
 import Board from '../Board';
 import Color from '../PGN/AN/Color';
 import Piece from '../PGN/AN/Piece';
+import P from '../piece/P';
 import AbstractEval from './AbstractEval';
 import SqEval from './SqEval';
 
@@ -32,25 +33,22 @@ class ConnectivityEval extends AbstractEval {
 
   private color = (color: string): void => {
     this.board.getPiecesByColor(color).forEach(piece => {
-      let check;
       switch (piece.getId()) {
         case Piece.K:
-          console.log()
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
-          .filter(usedSq => Array.from(piece.getMobility()).includes(usedSq)).length;
+            .filter(sq => Object.values(piece.getMobility()).includes(sq)).length;
           break;
         case Piece.N:
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
-          .filter(usedSq => piece.getMobility().includes(usedSq)).length;
+            .filter(sq => piece.getMobility().includes(sq)).length;
           break;
         case Piece.P:
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
-          .filter(usedSq => piece.getCaptureSqs().includes(usedSq)).length; 
+            .filter(sq => (<P>piece).getCaptureSqs().includes(sq)).length;
           break;
         default:
           for (const key in piece.getMobility()) {
-            const val = piece.getMobility()[key];
-            for (let sq of val) {
+            for (let sq of piece.getMobility()[key]) {
               if (this.sqEval[SqEval.TYPE_USED][color].includes(sq)) {
                 this.result[color] += 1;
                 break;
@@ -59,7 +57,6 @@ class ConnectivityEval extends AbstractEval {
               }
             }
           }
-          
           break;
       }
     });

@@ -25,6 +25,7 @@ interface CaptureShape {
     type: null|string
   },
   captured: {
+    key: number,
     id: string,
     sq: string,
     type: null|string
@@ -112,11 +113,16 @@ class Board extends Map {
     return this;
   }
 
-  private pushCapture(color: string, capture: any): Board
-  {
+  private pushCapture(color: string, capture: any): Board {
       this.captures[color].push(capture);
 
       return this;
+  }
+
+  private popCapture(color: string): Board {
+    this.captures[color].pop();
+
+    return this;
   }
 
   private pushHistory(piece: AbstractPiece): Board
@@ -149,7 +155,7 @@ class Board extends Map {
     return this.sqEval;
   }
 
-  public getPiecesByColor = (color: string): any[] => {
+  getPiecesByColor(color: string): Array<AbstractPiece> {
     let pieces = [];
     this.forEach((piece, key) => {
       if (piece.getColor() === color) {
@@ -218,6 +224,7 @@ class Board extends Map {
       captured = this.getPieceBySq(piece.getEnPassantSq());
       if (captured) {
         const capturedData = {
+          key: captured.key,
           id: captured.value.getId(),
           sq: piece.getEnPassantSq()
         };
@@ -226,9 +233,10 @@ class Board extends Map {
       captured = this.getPieceBySq(piece.getMove().sq.next);
       if (captured) {
         capturedData = {
+          key: captured.key,
           id: captured.value.getId(),
           sq: captured.value.getSq(),
-          type: null
+          type: (<R>captured.value).getType()
         };
       }
     }
@@ -236,10 +244,8 @@ class Board extends Map {
       capturingData = {
         id: piece.getId(),
         sq: piece.getSq(),
-        type: null
+        type: (<R>piece).getType()
       };
-      piece instanceof R ? capturingData.type = piece.getType() : null;
-      captured instanceof R ? capturedData.type = captured.getType() : null;
       capture = {
         capturing: capturingData,
         captured: capturedData,
@@ -302,24 +308,22 @@ class Board extends Map {
 
   private leavesInCheck(piece: AbstractPiece): boolean {
     let leavesInCheck = false;
-    if (piece instanceof K) {
-      const lastCastlingAbility = this.castlingAbility;
-      if (
-        piece.getMove().type === Move.CASTLE_SHORT ||
-        piece.getMove().type === Move.CASTLE_LONG
-      ) {
-          this.castle(piece);
-          const king = this.getPiece(piece.getColor(), Piece.K);
-          leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
-          this.undoCastle();
-      } else {
-          this.move(piece);
-          const king = this.getPiece(piece.getColor(), Piece.K);
-          leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
-          this.undoMove();
-      }
-      this.castlingAbility = lastCastlingAbility;
+    const lastCastlingAbility = this.castlingAbility;
+    if (
+      piece.getMove().type === Move.CASTLE_SHORT ||
+      piece.getMove().type === Move.CASTLE_LONG
+    ) {
+        this.castle(<K>piece);
+        const king = this.getPiece(piece.getColor(), Piece.K);
+        leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
+        this.undoCastle();
+    } else {
+        this.move(piece);
+        const king = this.getPiece(piece.getColor(), Piece.K);
+        leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
+        this.undoMove();
     }
+    this.castlingAbility = lastCastlingAbility;
 
     return leavesInCheck;
   }
@@ -330,11 +334,17 @@ class Board extends Map {
     }
     const pieceBySq = this.getPieceBySq(piece.getSq());
     this.delete(pieceBySq.key);
-    this.setElemById(pieceBySq.key, piece);
-    if (piece instanceof P) {
-      if (piece.isPromoted()) {
-        this.promote(piece);
-      }
+    this.set(
+      pieceBySq.key,
+      this.createPiece(
+        piece.getId(),
+        piece.getColor(),
+        piece.getMove().sq.next,
+        (<R>piece).getType()
+      )
+    );
+    if ((<P>piece).isPromoted()) {
+      this.promote(<P>piece);
     }
     this.updateCastle(piece).pushHistory(piece).refresh();
 
@@ -342,7 +352,38 @@ class Board extends Map {
   }
 
   private undoMove(): Board {
-    // TODO
+    const last = this.history[this.history.length - 1];
+    if (last) {
+      const piece = this.getPieceBySq(last.move.sq.next);
+      this.delete(piece.key);
+      if (
+        last.move.type === Move.PAWN_PROMOTES ||
+        last.move.type === Move.PAWN_CAPTURES_AND_PROMOTES
+      ) {
+        const pieceUndone = new P(last.move.color, last.sq);
+        this.set(piece.key, pieceUndone);
+      } else {
+        const pieceUndone = this.createPiece(
+          piece.value.getId(),
+          piece.value.getColor(),
+          piece.value.getMove().sq.next,
+          (<R>piece.value).getType()
+        );
+        this.set(piece.key, pieceUndone);
+      }
+      const capture = this.captures[last.move.color][this.captures[last.move.color] - 1];
+      if (last.move.isCapture && capture) {
+        const pieceCaptured = this.createPiece(
+          capture.captured.id,
+          last.move.color === Color.W ? Color.B : Color.W,
+          capture.captured.sq,
+          capture.captured.id === Piece.R ? capture.captured.type : null
+        );
+        this.set(capture.captured.key, pieceCaptured);
+        this.popCapture(last.move.color);
+      }
+      this.popHistory().refresh();
+    }
 
     return this;
   }
@@ -386,28 +427,24 @@ class Board extends Map {
       const rook = this.getPieceBySq(
         K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['next']
       );
-      if (rook instanceof R) {
-        const rookUndone = new R(
-          last.move.color,
-          K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
-          rook.getType()
-        );
-        this.delete(rook.key);
-        this.set(rook.key, rookUndone);
-      }
+      const rookUndone = new R(
+        last.move.color,
+        K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
+        (<R>rook.value).getType()
+      );
+      this.delete(rook.key);
+      this.set(rook.key, rookUndone);
     } else if (Move.CASTLE_LONG === last.move.type) {
       const rook = this.getPieceBySq(
         K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['next']
       );
-      if (rook instanceof R) {
-        const rookUndone = new R(
-          last.move.color,
-          K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
-          rook.getType()
-        );
-        this.delete(rook.key);
-        this.set(rook.key, rookUndone);
-      }
+      const rookUndone = new R(
+        last.move.color,
+        K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
+        (<R>rook.value).getType()
+      );
+      this.delete(rook.key);
+      this.set(rook.key, rookUndone);
     }
     this.popHistory().refresh();
 
@@ -479,17 +516,15 @@ class Board extends Map {
     } else if (piece) {
       if (piece.isMovable() && !this.leavesInCheck(piece)) {
         if (
-          piece instanceof K &&
           piece.getMove().type === Move.CASTLE_SHORT &&
-          piece.sqCastleShort()
+          (<K>piece).sqCastleShort()
         ) {
-          isLegalMove = this.castle(piece);
+          isLegalMove = this.castle(<K>piece);
         } else if (
-          piece instanceof K &&
           piece.getMove().type === Move.CASTLE_LONG &&
-          piece.sqCastleLong()
+          (<K>piece).sqCastleLong()
         ) {
-          isLegalMove = this.castle(piece);
+          isLegalMove = this.castle(<K>piece);
         } else {
           isLegalMove = this.move(piece);
         }
@@ -502,67 +537,27 @@ class Board extends Map {
   // TODO
   // This is a workaround method to be replaced with a one-liner.
   // Find out how to dynamically create an object from a string.
-  private setElemById(key: number, piece: AbstractPiece): void {
-    switch (piece.getId()) {
+  private createPiece(
+    id: string,
+    color: string,
+    sq: string,
+    type?: string
+  ): AbstractPiece {
+    switch (id) {
       case 'P':
-        this.set(
-          key,
-          new P(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new P(color, sq);
       case 'N':
-        this.set(
-          key,
-          new N(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new N(color, sq);
       case 'B':
-        this.set(
-          key,
-          new B(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
-      case 'R':
-        if (piece instanceof R) {
-          this.set(
-            key,
-            new R(
-              piece.getColor(),
-              piece.getMove().sq.next,
-              piece.getId() === Piece.R ? piece.getType() : null
-            )
-          );
-        }
-        break;
+        return new B(color, sq);
       case 'Q':
-        this.set(
-          key,
-          new Q(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new Q(color, sq);
       case 'K':
-        this.set(
-          key,
-          new K(
-            piece.getColor(),
-            piece.getMove().sq.next
-          )
-        );
-        break;
+        return new K(color, sq);
+      case 'R':
+        return new R(color, sq, type);
       default:
-        break;
+        return null;
     }
   }
 }

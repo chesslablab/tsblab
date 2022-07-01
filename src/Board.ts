@@ -236,7 +236,7 @@ class Board extends Map {
           key: captured.key,
           id: captured.value.getId(),
           sq: captured.value.getSq(),
-          type: null
+          type: (<R>captured.value).getType()
         };
       }
     }
@@ -244,10 +244,8 @@ class Board extends Map {
       capturingData = {
         id: piece.getId(),
         sq: piece.getSq(),
-        type: null
+        type: (<R>piece).getType()
       };
-      piece instanceof R ? capturingData.type = piece.getType() : null;
-      captured instanceof R ? capturedData.type = captured.getType() : null;
       capture = {
         capturing: capturingData,
         captured: capturedData,
@@ -342,7 +340,7 @@ class Board extends Map {
         piece.getId(),
         piece.getColor(),
         piece.getMove().sq.next,
-        piece instanceof R ? piece.getType() : null
+        (<R>piece).getType()
       )
     );
     if ((<P>piece).isPromoted()) {
@@ -369,7 +367,7 @@ class Board extends Map {
           piece.value.getId(),
           piece.value.getColor(),
           piece.value.getMove().sq.next,
-          piece.value instanceof R ? piece.value.getType() : null
+          (<R>piece.value).getType()
         );
         this.set(piece.key, pieceUndone);
       }

@@ -204,7 +204,7 @@ class Board extends Map {
       if (piece.getId() === move.id) {
         if (piece.getId() === Piece.K) {
           return [piece.setMove(move)];
-        } else if (piece.getSq().match(new RegExp('^' + move.sq.current + '$'))) {
+        } else if (piece.getSq().match(move.sq.current)) {
           found.push(piece.setMove(move));
         }
       }

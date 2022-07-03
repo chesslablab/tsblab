@@ -18,6 +18,14 @@ import Q from './piece/Q';
 import R from './piece/R';
 import RType from './piece/RType';
 
+interface SqEvalShape {
+  free: Array<string>,
+  used: {
+    w: Array<string>,
+    b: Array<string>
+  }
+}
+
 interface CaptureShape {
   capturing: {
     id: string,
@@ -51,7 +59,7 @@ class Board extends Map {
 
   private spaceEval: object;
 
-  private sqEval: object;
+  private sqEval: SqEvalShape;
 
   constructor() {
     super();
@@ -96,8 +104,8 @@ class Board extends Map {
     this.turn = new Color().opp(this.turn);
 
     this.sqEval = {
-      [SqEval.TYPE_FREE]: new SqEval(this).eval(SqEval.TYPE_FREE),
-      [SqEval.TYPE_USED]: new SqEval(this).eval(SqEval.TYPE_USED)
+      free: new SqEval(this).eval(SqEval.TYPE_FREE),
+      used: new SqEval(this).eval(SqEval.TYPE_USED)
     };
 
     this.spaceEval = new SpaceEval(this).eval();
@@ -143,6 +151,10 @@ class Board extends Map {
     return this;
   }
 
+  getHistory(): Array<HistoryShape> {
+    return this.history;
+  }
+
   getCastlingAbility(): string {
     return this.castlingAbility;
   }
@@ -151,7 +163,7 @@ class Board extends Map {
     return this.spaceEval;
   }
 
-  getSqEval(): object {
+  getSqEval(): SqEvalShape {
     return this.sqEval;
   }
 

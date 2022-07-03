@@ -77,8 +77,46 @@ class P extends AbstractPiece {
 
   sqs(): Array<string> {
     let sqs = [];
+    const end = this.board.getHistory()[this.board.getHistory().length - 1];
 
-    // TODO
+    // mobility squares
+    for (let sq of this.mobility) {
+      if (this.board.getSqEval().free.includes(sq)) {
+        sqs.push(sq);
+      } else {
+        break;
+      }
+    }
+
+    // capture squares
+    for (let sq of this.captureSqs) {
+      if (this.board.getSqEval().used[this.oppColor()].includes(sq)) {
+        sqs.push(sq);
+      } else {
+        break;
+      }
+    }
+
+    // en passant squares
+    if (end && end.move.id === Piece.P && end.move.color === this.oppColor()) {
+      if (this.color === Color.W) {
+        if (Number(this.sq.charAt(1)) === 5) {
+          const captureSq = end.move.sq.next.charAt(0) + String.fromCharCode(end.move.sq.next.charCodeAt(1) + 1);
+          if (this.captureSqs.includes(captureSq)) {
+            this.enPassantSq = end.move.sq.next;
+            sqs.push(captureSq);
+          }
+        }
+      } else if (this.color === Color.B) {
+        if (Number(this.sq.charAt(1)) === 4) {
+          const captureSq = end.move.sq.next.charAt(0) + String.fromCharCode(end.move.sq.next.charCodeAt(1) - 1);
+          if (this.captureSqs.includes(captureSq)) {
+            this.enPassantSq = end.move.sq.next;
+            sqs.push(captureSq);
+          }
+        }
+      }
+    }
 
     return sqs;
   }

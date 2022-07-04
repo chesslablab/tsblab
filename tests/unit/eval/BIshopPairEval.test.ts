@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import Board from '../../../src/Board';
-
 import BishopPairEval from '../../../src/eval/BishopPairEval';
 
 describe('bishopPairEval.eval()', () => {

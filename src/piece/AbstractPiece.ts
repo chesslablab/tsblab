@@ -25,7 +25,7 @@ abstract class AbstractPiece {
 
   abstract sqs(): Array<string>;
 
-  getMobility(): any {
+  getMobility(): object {
     return this.mobility;
   }
 

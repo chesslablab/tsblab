@@ -8,6 +8,17 @@ import R from "./R";
 import RShape from "./RShape";
 import RType from "./RType";
 
+interface MobilityShape {
+  up: string,
+  down: string,
+  left: string,
+  right: string,
+  upLeft: string,
+  upRight: string,
+  downLeft: string,
+  downRight: string
+}
+
 class K extends AbstractPiece {
   public static readonly CASTLING_RULE: object = {
     [Color.W]: {
@@ -76,6 +87,17 @@ class K extends AbstractPiece {
     }
   }
 
+  protected mobility: MobilityShape = {
+    up: '',
+    down: '',
+    left: '',
+    right: '',
+    upLeft: '',
+    upRight: '',
+    downLeft: '',
+    downRight: ''
+  };
+
   private rook: R;
 
   private bishop: B;
@@ -88,7 +110,6 @@ class K extends AbstractPiece {
   }
 
   protected calcMobility(): AbstractPiece {
-    this.mobility = {};
     const queenMobility = {
       ...this.rook.getMobility(),
       ...this.bishop.getMobility()

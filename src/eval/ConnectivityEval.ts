@@ -40,7 +40,7 @@ class ConnectivityEval extends AbstractEval {
           break;
         case Piece.N:
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]
-            .filter(sq => piece.getMobility().includes(sq)).length;
+            .filter(sq => Object.values(piece.getMobility()).includes(sq)).length;
           break;
         case Piece.P:
           this.result[color] += this.sqEval[SqEval.TYPE_USED][color]

@@ -7,6 +7,7 @@ import Slider from "./Slider";
 
 class Q extends Slider {
   private rook: R;
+
   private bishop: B;
 
   constructor(color: string, sq: string) {

@@ -51,9 +51,11 @@ class Board extends Map {
 
   private captures: Array<CaptureShape>;
 
-  private history: Array<HistoryShape>;
+  private history: Array<HistoryShape> = [];
 
   private castlingAbility: string;
+
+  private observers: Array<AbstractPiece>;
 
   private pressureEval: object;
 
@@ -108,7 +110,13 @@ class Board extends Map {
       used: new SqEval(this).eval(SqEval.TYPE_USED)
     };
 
+    this.detachPieces().attachPieces().notifyPieces();
+
     this.spaceEval = new SpaceEval(this).eval();
+    this.pressureEval = new PressureEval(this).eval();
+    // this.defenseEval = new DefenseEval(this).eval();
+
+    this.notifyPieces();
   }
 
   getTurn(): string {
@@ -571,6 +579,26 @@ class Board extends Map {
       default:
         return null;
     }
+  }
+
+  notifyPieces(): void {
+    this.observers.forEach(piece => {
+      piece.updateBoard(this);
+    });
+  }
+
+  attachPieces() {
+    for (let [key, piece] of this.entries()) {
+      this.observers.push(piece);
+    }
+
+    return this;
+  }
+
+  detachPieces() {
+    this.observers = [];
+
+    return this;
   }
 }
 

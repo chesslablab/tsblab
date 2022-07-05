@@ -51,7 +51,7 @@ class Board extends Map {
 
   private captures: Array<CaptureShape>;
 
-  private history: Array<HistoryShape>;
+  private history: Array<HistoryShape> = [];
 
   private castlingAbility: string;
 

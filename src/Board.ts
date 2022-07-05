@@ -371,8 +371,10 @@ class Board extends Map {
         piece instanceof R ? piece.getType() : null
       )
     );
-    if ((<P>piece).isPromoted()) {
-      this.promote(<P>piece);
+    if (piece instanceof P) {
+      if (piece.isPromoted()) {
+        this.promote(<P>piece);
+      }
     }
     this.updateCastle(piece).pushHistory(piece).refresh();
 

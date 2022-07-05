@@ -25,7 +25,7 @@ abstract class AbstractPiece {
 
   abstract sqs(): Array<string>;
 
-  getMobility(): any {
+  getMobility(): object {
     return this.mobility;
   }
 
@@ -39,9 +39,9 @@ abstract class AbstractPiece {
 
   setMove(move: MoveShape): AbstractPiece
   {
-      this.move = move;
+    this.move = move;
 
-      return this;
+    return this;
   }
 
   getSq(): string {
@@ -62,6 +62,11 @@ abstract class AbstractPiece {
     }
 
     return false;
+  }
+
+  setBoard(board: Board): void
+  {
+    this.board = board;
   }
 }
 

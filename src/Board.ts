@@ -51,9 +51,11 @@ class Board extends Map {
 
   private captures: Array<CaptureShape>;
 
-  private history: Array<HistoryShape>;
+  private history: Array<HistoryShape> = [];
 
   private castlingAbility: string;
+
+  private observers: Array<AbstractPiece>;
 
   private pressureEval: object;
 
@@ -108,7 +110,13 @@ class Board extends Map {
       used: new SqEval(this).eval(SqEval.TYPE_USED)
     };
 
+    this.detachPieces().attachPieces().notifyPieces();
+
     this.spaceEval = new SpaceEval(this).eval();
+    this.pressureEval = new PressureEval(this).eval();
+    // this.defenseEval = new DefenseEval(this).eval();
+
+    this.notifyPieces();
   }
 
   getTurn(): string {
@@ -256,7 +264,7 @@ class Board extends Map {
       capturingData = {
         id: piece.getId(),
         sq: piece.getSq(),
-        type: (<R>piece).getType()
+        type: piece instanceof R ? piece.getType() : null
       };
       capture = {
         capturing: capturingData,
@@ -352,7 +360,7 @@ class Board extends Map {
         piece.getId(),
         piece.getColor(),
         piece.getMove().sq.next,
-        (<R>piece).getType()
+        piece instanceof R ? piece.getType() : null
       )
     );
     if ((<P>piece).isPromoted()) {
@@ -379,7 +387,7 @@ class Board extends Map {
           piece.value.getId(),
           piece.value.getColor(),
           piece.value.getMove().sq.next,
-          (<R>piece.value).getType()
+          piece instanceof R ? piece.getType() : null
         );
         this.set(piece.key, pieceUndone);
       }
@@ -442,7 +450,7 @@ class Board extends Map {
       const rookUndone = new R(
         last.move.color,
         K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
-        (<R>rook.value).getType()
+        rook instanceof R ? rook.getType() : null
       );
       this.delete(rook.key);
       this.set(rook.key, rookUndone);
@@ -453,7 +461,7 @@ class Board extends Map {
       const rookUndone = new R(
         last.move.color,
         K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
-        (<R>rook.value).getType()
+        rook instanceof R ? rook.getType() : null
       );
       this.delete(rook.key);
       this.set(rook.key, rookUndone);
@@ -571,6 +579,26 @@ class Board extends Map {
       default:
         return null;
     }
+  }
+
+  notifyPieces(): void {
+    this.observers.forEach(piece => {
+      piece.setBoard(this);
+    });
+  }
+
+  attachPieces() {
+    for (let [key, piece] of this.entries()) {
+      this.observers.push(piece);
+    }
+
+    return this;
+  }
+
+  detachPieces() {
+    this.observers = [];
+
+    return this;
   }
 }
 

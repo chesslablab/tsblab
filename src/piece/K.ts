@@ -9,14 +9,14 @@ import RShape from "./RShape";
 import RType from "./RType";
 
 interface MobilityShape {
-  up: string,
-  down: string,
-  left: string,
-  right: string,
-  upLeft: string,
-  upRight: string,
-  downLeft: string,
-  downRight: string
+  up?: string,
+  down?: string,
+  left?: string,
+  right?: string,
+  upLeft?: string,
+  upRight?: string,
+  downLeft?: string,
+  downRight?: string
 }
 
 class K extends AbstractPiece {
@@ -114,10 +114,12 @@ class K extends AbstractPiece {
       ...this.rook.getMobility(),
       ...this.bishop.getMobility()
     };
-    const entries = Object.entries(queenMobility).forEach(item => {
-      item[1] = item[1][0];
-      if (item[1]) {
-        this.mobility[item[0]] = item[1]
+    const entries = Object.entries(queenMobility).forEach((val, key) => {
+      val[1] = val[1][0];
+      if (val[1]) {
+        this.mobility[val[0]] = val[1];
+      } else {
+        delete this.mobility[val[0]];
       }
     });
 

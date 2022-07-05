@@ -64,7 +64,7 @@ abstract class AbstractPiece {
     return false;
   }
 
-  updateBoard(board: Board): void
+  setBoard(board: Board): void
   {
     this.board = board;
   }

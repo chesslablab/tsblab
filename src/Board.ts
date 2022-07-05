@@ -583,7 +583,7 @@ class Board extends Map {
 
   notifyPieces(): void {
     this.observers.forEach(piece => {
-      piece.updateBoard(this);
+      piece.setBoard(this);
     });
   }
 

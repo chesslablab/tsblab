@@ -530,7 +530,6 @@ class Board extends Map {
   }
 
   private isLegalMove(move: MoveShape): boolean {
-    let isLegalMove = false;
     const pieces = this.pickPiece(move);
     const piece = pieces[0];
     if (pieces.length > 1) {
@@ -545,19 +544,19 @@ class Board extends Map {
           piece.getMove().type === Move.CASTLE_SHORT &&
           (<K>piece).sqCastleShort()
         ) {
-          isLegalMove = this.castle(<K>piece);
+          return this.castle(<K>piece);
         } else if (
           piece.getMove().type === Move.CASTLE_LONG &&
           (<K>piece).sqCastleLong()
         ) {
-          isLegalMove = this.castle(<K>piece);
+          return this.castle(<K>piece);
         } else {
-          isLegalMove = this.move(piece);
+          return this.move(piece);
         }
       }
     }
 
-    return isLegalMove;
+    return false;
   }
 
   // TODO

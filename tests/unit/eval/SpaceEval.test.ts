@@ -4,8 +4,8 @@ import SpaceEval from '../../../src/eval/SpaceEval';
 
 describe('spaceEval.eval()', () => {
   it('is started', () => {
-    let spEval = (new SpaceEval(new Board())).eval();
-    let expected = {
+    const spEval = (new SpaceEval(new Board())).eval();
+    const expected = {
       'w': [
         'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3'
       ],
@@ -16,8 +16,8 @@ describe('spaceEval.eval()', () => {
     expect(spEval).to.eql(expected);
   });
   // it('is OpenSicilian', () => {
-  //   let spEval = (new SpaceEval(new Board())).eval();
-  //   let expected = {
+  //   const spEval = (new SpaceEval(new Board())).eval();
+  //   const expected = {
   //     'w': [
   //       'a3', 'a4', 'a6', 'b1', 'b3', 'b5', 'c4', 'c6',
   //       'd2', 'd3', 'd5', 'e2', 'e3', 'e6', 'f3', 'f4',
@@ -32,8 +32,8 @@ describe('spaceEval.eval()', () => {
   //   expect(spEval).to.eql(expected);
   // });
   // it('is ClosedSicilian', () => {
-  //   let spEval = (new SpaceEval(new Board())).eval();
-  //   let expected = {
+  //   const spEval = (new SpaceEval(new Board())).eval();
+  //   const expected = {
   //     'w': [
   //       'a3', 'a4', 'b1', 'b3', 'b5', 'c4', 'd2', 'd5',
   //       'e2', 'e3', 'f1', 'f3', 'f4', 'f5', 'g4', 'g5',

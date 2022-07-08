@@ -4,9 +4,9 @@ import SqEval from '../../../src/eval/SqEval';
 
 describe('sqEval.eval()', () => {
   it('is started', () => {
-    let board = new Board();
-    let sqEval = new SqEval(board).eval(SqEval.TYPE_FREE);
-    let expected = [
+    const board = new Board();
+    const sqEval = new SqEval(board).eval(SqEval.TYPE_FREE);
+    const expected = [
       'a3', 'a4', 'a5', 'a6', 'b3',
       'b4', 'b5', 'b6', 'c3', 'c4',
       'c5', 'c6', 'd3', 'd4', 'd5',

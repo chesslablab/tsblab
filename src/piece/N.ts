@@ -99,6 +99,14 @@ class N extends AbstractPiece {
 
     return sqs;
   }
+
+  defendedSqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
 }
 
 export default N;

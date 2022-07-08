@@ -3,8 +3,8 @@ import Q from '../../../src/piece/Q';
 
 describe('queen.getMobility()', () => {
   it ('a2', () => {
-    let queen = new Q('w', 'a2');
-    let mobility = {
+    const queen = new Q('w', 'a2');
+    const mobility = {
       up: ['a3', 'a4', 'a5', 'a6', 'a7', 'a8'],
       down: ['a1'],
       left: [],
@@ -17,8 +17,8 @@ describe('queen.getMobility()', () => {
     expect(queen.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let queen = new Q('w', 'd5');
-    let mobility = {
+    const queen = new Q('w', 'd5');
+    const mobility = {
       up: ['d6', 'd7', 'd8'],
       down: ['d4', 'd3', 'd2', 'd1'],
       left: ['c5', 'b5', 'a5'],
@@ -33,8 +33,8 @@ describe('queen.getMobility()', () => {
 });
 
 describe('queen.sqs()', () => {
-  // let board = new BenoniFianchettoVariation(new Board()).play();
-  // let queen = board.getPieceBySq('d1');
-  // let expected = ['e1', 'c2', 'b3'];
+  // const board = new BenoniFianchettoVariation(new Board()).play();
+  // const queen = board.getPieceBySq('d1');
+  // const expected = ['e1', 'c2', 'b3'];
   // expect(queen.sqs()).to.eql(expected);
 });

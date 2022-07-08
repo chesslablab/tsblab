@@ -4,8 +4,8 @@ import RType from '../../../src/piece/RType';
 
 describe('rook.getMobility()', () => {
   it ('a2', () => {
-    let rook = new R('w', 'a2', RType.PROMOTED);
-    let mobility = {
+    const rook = new R('w', 'a2', RType.PROMOTED);
+    const mobility = {
       up: ['a3', 'a4', 'a5', 'a6', 'a7', 'a8'],
       down: ['a1'],
       left: [],
@@ -14,8 +14,8 @@ describe('rook.getMobility()', () => {
     expect(rook.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let rook = new R('w', 'd5', RType.PROMOTED);
-    let mobility = {
+    const rook = new R('w', 'd5', RType.PROMOTED);
+    const mobility = {
       up: ['d6', 'd7', 'd8'],
       down: ['d4', 'd3', 'd2', 'd1'],
       left: ['c5', 'b5', 'a5'],

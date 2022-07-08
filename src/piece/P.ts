@@ -121,6 +121,14 @@ class P extends AbstractPiece {
     return sqs;
   }
 
+  defendedSqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
+
   getCaptureSqs(): string[] {
     return this.captureSqs;
   }

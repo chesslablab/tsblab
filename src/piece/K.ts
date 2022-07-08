@@ -134,6 +134,14 @@ class K extends AbstractPiece {
     return sqs;
   }
 
+  defendedSqs(): Array<string> {
+    let sqs = [];
+
+    // TODO
+
+    return sqs;
+  }
+
   sqCastleShort(): null|string
   {
     const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];

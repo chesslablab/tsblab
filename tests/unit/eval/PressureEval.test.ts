@@ -4,33 +4,33 @@ import PressureEval from '../../../src/eval/PressureEval';
 
 describe('pressEval.eval()', () => {
   it('is started', () => {
-    let pressEval = (new PressureEval(new Board())).eval();
-    let expected = {
+    const pressEval = (new PressureEval(new Board())).eval();
+    const expected = {
       'w': [],
       'b': [],
     };
     expect(pressEval).to.eql(expected);
   });
   // it('is Open Sicilian', () => {
-  //   let board = new OpenSicilian(new Board()).play();
-  //   let pressEval = (new PressureEval(board)).eval();
-  //   let expected = {
+  //   const board = new OpenSicilian(new Board()).play();
+  //   const pressEval = (new PressureEval(board)).eval();
+  //   const expected = {
   //     'w': [],
   //     'b': ['e4'],
   //   };
   //   expect(pressEval).to.eql(expected);
   // });
   // it('is Closed Sicilian', () => {
-  //   let board = new ClosedSicilian(new Board()).play();
-  //   let pressEval = (new PressureEval(board)).eval();
-  //   let expected = {
+  //   const board = new ClosedSicilian(new Board()).play();
+  //   const pressEval = (new PressureEval(board)).eval();
+  //   const expected = {
   //     'w': [],
   //     'b': ['c3'],
   //   };
   //   expect(pressEval).to.eql(expected);
   // });
   // it('play e4_e5_Nf3_Nc6_Bb5_a6_Nxe5', () => {
-  //   let board = new Board();
+  //   const board = new Board();
   //   board.play('w', 'e4');
   //   board.play('b', 'e5');
   //   board.play('w', 'Nf3');
@@ -38,8 +38,8 @@ describe('pressEval.eval()', () => {
   //   board.play('w', 'Bb5');
   //   board.play('b', 'a6');
   //   board.play('w', 'Nxe5');
-  //   let pressEval = (new PressureEval(board)).eval();
-  //   let expected = {
+  //   const pressEval = (new PressureEval(board)).eval();
+  //   const expected = {
   //     'w': ['a6', 'c6', 'c6', 'd7', 'f7'],
   //     'b': ['b5', 'e5'],
   //   };

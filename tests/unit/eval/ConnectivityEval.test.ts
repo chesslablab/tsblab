@@ -4,20 +4,20 @@ import ConnectivityEval from '../../../src/eval/ConnectivityEval';
 
 describe('connectivityEval.eval()', () => {
   it('is started', () => {
-    let connEval = (new ConnectivityEval(new Board())).eval();
-    let expected = {
+    const connEval = (new ConnectivityEval(new Board())).eval();
+    const expected = {
       'w': 20,
       'b': 20,
     };
     expect(connEval).to.eql(expected);
   });
   // it('is ruy_lopez_lucena_defense', () => {
-  //     let board = (new RuyLopezLucenaDefense(new Board())).play();
-  //     let expected = {
+  //     const board = (new RuyLopezLucenaDefense(new Board())).play();
+  //     const expected = {
   //       'w': 19,
   //       'b': 23,
   //     };
-  //     let connEval = (new ConnectivityEval(board)).eval()
+  //     const connEval = (new ConnectivityEval(board)).eval()
   //     expect(connEval).to.eql(expected);
   // });
 });

@@ -40,6 +40,11 @@ interface CaptureShape {
   }
 }
 
+interface CapturesShape {
+  w: Array<CaptureShape>,
+  b: Array<CaptureShape>
+}
+
 interface HistoryShape {
   castlingAbility: string,
   sq: string,
@@ -49,7 +54,10 @@ interface HistoryShape {
 class Board extends Map {
   private turn: string;
 
-  private captures: Array<CaptureShape>;
+  private captures: CapturesShape = {
+    w: [],
+    b: []
+  };
 
   private history: Array<HistoryShape> = [];
 
@@ -336,12 +344,12 @@ class Board extends Map {
         this.castle(<K>piece);
         const king = this.getPiece(piece.getColor(), Piece.K);
         leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
-        this.undoCastle();
+        this.undoCastle(piece.getSq(), piece.getMove());
     } else {
         this.move(piece);
         const king = this.getPiece(piece.getColor(), Piece.K);
         leavesInCheck = this.pressureEval[king.value.oppColor()].includes(king.value.getSq());
-        this.undoMove();
+        this.undoMove(piece.getSq(), piece.getMove());
     }
     this.castlingAbility = lastCastlingAbility;
 
@@ -363,47 +371,46 @@ class Board extends Map {
         piece instanceof R ? piece.getType() : null
       )
     );
-    if ((<P>piece).isPromoted()) {
-      this.promote(<P>piece);
+    if (piece instanceof P) {
+      if (piece.isPromoted()) {
+        this.promote(<P>piece);
+      }
     }
     this.updateCastle(piece).pushHistory(piece).refresh();
 
     return true;
   }
 
-  private undoMove(): Board {
-    const last = this.history[this.history.length - 1];
-    if (last) {
-      const piece = this.getPieceBySq(last.move.sq.next);
-      this.delete(piece.key);
-      if (
-        last.move.type === Move.PAWN_PROMOTES ||
-        last.move.type === Move.PAWN_CAPTURES_AND_PROMOTES
-      ) {
-        const pieceUndone = new P(last.move.color, last.sq);
-        this.set(piece.key, pieceUndone);
-      } else {
-        const pieceUndone = this.createPiece(
-          piece.value.getId(),
-          piece.value.getColor(),
-          piece.value.getMove().sq.next,
-          piece instanceof R ? piece.getType() : null
-        );
-        this.set(piece.key, pieceUndone);
-      }
-      const capture = this.captures[last.move.color][this.captures[last.move.color] - 1];
-      if (last.move.isCapture && capture) {
-        const pieceCaptured = this.createPiece(
-          capture.captured.id,
-          last.move.color === Color.W ? Color.B : Color.W,
-          capture.captured.sq,
-          capture.captured.id === Piece.R ? capture.captured.type : null
-        );
-        this.set(capture.captured.key, pieceCaptured);
-        this.popCapture(last.move.color);
-      }
-      this.popHistory().refresh();
+  private undoMove(sq: string, move: MoveShape): Board {
+    const piece = this.getPieceBySq(move.sq.next);
+    this.delete(piece.key);
+    if (
+      move.type === Move.PAWN_PROMOTES ||
+      move.type === Move.PAWN_CAPTURES_AND_PROMOTES
+    ) {
+      const pieceUndone = new P(move.color, sq);
+      this.set(piece.key, pieceUndone);
+    } else {
+      const pieceUndone = this.createPiece(
+        piece.value.getId(),
+        move.color,
+        sq,
+        piece instanceof R ? piece.getType() : null
+      );
+      this.set(piece.key, pieceUndone);
     }
+    const capture = this.captures[move.color][this.captures[move.color].length - 1];
+    if (move.isCapture && capture) {
+      const pieceCaptured = this.createPiece(
+        capture.captured.id,
+        new Color().opp(move.color),
+        capture.captured.sq,
+        capture.captured.id === Piece.R ? capture.captured.type : null
+      );
+      this.set(capture.captured.key, pieceCaptured);
+      this.popCapture(move.color);
+    }
+    this.popHistory().refresh();
 
     return this;
   }
@@ -437,30 +444,29 @@ class Board extends Map {
     return false;
   }
 
-  private undoCastle(): Board {
-    const last = this.history[this.history.length - 1];
-    const king = this.getPieceBySq(last.move.sq.next);
-    const kingUndone = new K(last.move.color, last.sq);
+  private undoCastle(sq: string, move: MoveShape): Board {
+    const king = this.getPieceBySq(move.sq.next);
+    const kingUndone = new K(move.color, sq);
     this.delete(king.key);
     this.set(king.key, kingUndone);
-    if (Move.CASTLE_SHORT === last.move.type) {
+    if (Move.CASTLE_SHORT === move.type) {
       const rook = this.getPieceBySq(
-        K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['next']
+        K.CASTLING_RULE[move.color][Piece.R][Castle.SHORT]['sq']['next']
       );
       const rookUndone = new R(
-        last.move.color,
-        K.CASTLING_RULE[last.move.color][Piece.R][Castle.SHORT]['sq']['current'],
+        move.color,
+        K.CASTLING_RULE[move.color][Piece.R][Castle.SHORT]['sq']['current'],
         rook instanceof R ? rook.getType() : null
       );
       this.delete(rook.key);
       this.set(rook.key, rookUndone);
-    } else if (Move.CASTLE_LONG === last.move.type) {
+    } else if (Move.CASTLE_LONG === move.type) {
       const rook = this.getPieceBySq(
-        K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['next']
+        K.CASTLING_RULE[move.color][Piece.R][Castle.LONG]['sq']['next']
       );
       const rookUndone = new R(
-        last.move.color,
-        K.CASTLING_RULE[last.move.color][Piece.R][Castle.LONG]['sq']['current'],
+        move.color,
+        K.CASTLING_RULE[move.color][Piece.R][Castle.LONG]['sq']['current'],
         rook instanceof R ? rook.getType() : null
       );
       this.delete(rook.key);
@@ -524,7 +530,6 @@ class Board extends Map {
   }
 
   private isLegalMove(move: MoveShape): boolean {
-    let isLegalMove = false;
     const pieces = this.pickPiece(move);
     const piece = pieces[0];
     if (pieces.length > 1) {
@@ -539,19 +544,19 @@ class Board extends Map {
           piece.getMove().type === Move.CASTLE_SHORT &&
           (<K>piece).sqCastleShort()
         ) {
-          isLegalMove = this.castle(<K>piece);
+          return this.castle(<K>piece);
         } else if (
           piece.getMove().type === Move.CASTLE_LONG &&
           (<K>piece).sqCastleLong()
         ) {
-          isLegalMove = this.castle(<K>piece);
+          return this.castle(<K>piece);
         } else {
-          isLegalMove = this.move(piece);
+          return this.move(piece);
         }
       }
     }
 
-    return isLegalMove;
+    return false;
   }
 
   // TODO

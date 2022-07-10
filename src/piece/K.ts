@@ -137,37 +137,45 @@ class K extends AbstractPiece {
     return sqs;
   }
 
-  // protected sqsKing(): Array<string> {
-  //   let sqsKing = this.board.getSqEval().free.filter((sq) => {
-  //     for (let key in this.mobility) {
-  //       if (this.mobility[key].includes(sq)) {
-  //         return true;
-  //       }
-  //     }
-  //   });
+  defendedSqs(): Array<string> {
+    let sqs = [];
 
-  //   return sqsKing.filter((sq) => {
-  //     if(!this.board.getSpaceEval()[this.oppColor()].includes(sq)) {
-  //       return true;
-  //     } 
-  //   });
-  // }
+    // TODO
 
-  // protected sqsCaptures(): Array<string> {
-  //   let sqsCaptures = this.board.getSqEval().used[this.oppColor()].filter((sq) => {
-  //     for (let key in this.mobility) {
-  //       if (this.mobility[key].includes(sq)) {
-  //         return true;
-  //       }
-  //     }
-  //   });
+    return sqs;
+  }
 
-  //   return sqsCaptures.filter((sq) => {
-  //     if(!this.board.getDefenceEval()[this.oppColor()].includes(sq)) {
-  //       return true;
-  //     } 
-  //   });
-  // }
+  protected sqsKing(): Array<string> {
+    let sqsKing = this.board.getSqEval().free.filter((sq) => {
+      for (let key in this.mobility) {
+        if (this.mobility[key].includes(sq)) {
+          return true;
+        }
+      }
+    });
+
+    return sqsKing.filter((sq) => {
+      if(!this.board.getSpaceEval()[this.oppColor()].includes(sq)) {
+        return true;
+      }
+    });
+  }
+
+  protected sqsCaptures(): Array<string> {
+    let sqsCaptures = this.board.getSqEval().used[this.oppColor()].filter((sq) => {
+      for (let key in this.mobility) {
+        if (this.mobility[key].includes(sq)) {
+          return true;
+        }
+      }
+    });
+
+    return sqsCaptures.filter((sq) => {
+      if(!this.board.getDefenseEval()[this.oppColor()].includes(sq)) {
+        return true;
+      }
+    });
+  }
 
   sqCastleShort(): null|string
   {

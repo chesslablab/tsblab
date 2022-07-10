@@ -25,8 +25,8 @@ describe('K.CASTLING_RULE', () => {
 
 describe('king.getMobility()', () => {
   it ('a2', () => {
-    let king = new K('w', 'a2');
-    let mobility = {
+    const king = new K('w', 'a2');
+    const mobility = {
       up: 'a3',
       down: 'a1',
       right: 'b2',
@@ -36,8 +36,8 @@ describe('king.getMobility()', () => {
     expect(king.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let king = new K('w', 'd5');
-    let mobility = {
+    const king = new K('w', 'd5');
+    const mobility = {
       up: 'd6',
       down: 'd4',
       left: 'c5',

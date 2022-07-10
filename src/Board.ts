@@ -65,6 +65,8 @@ class Board extends Map {
 
   private observers: Array<AbstractPiece>;
 
+  private defenseEval: object;
+
   private pressureEval: object;
 
   private spaceEval: object;
@@ -175,12 +177,16 @@ class Board extends Map {
     return this.castlingAbility;
   }
 
+  getSqEval(): SqEvalShape {
+    return this.sqEval;
+  }
+
   getSpaceEval(): object {
     return this.spaceEval;
   }
 
-  getSqEval(): SqEvalShape {
-    return this.sqEval;
+  getDefenseEval(): object {
+    return this.defenseEval;
   }
 
   getPiecesByColor(color: string): Array<AbstractPiece> {

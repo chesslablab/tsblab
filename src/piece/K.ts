@@ -127,9 +127,12 @@ class K extends AbstractPiece {
   }
 
   sqs(): Array<string> {
-    let sqs = [];
-
-    // TODO
+    let sqs = [
+      ...this.sqsKing(),
+      ...this.sqsCaptures(),
+      ...[this.sqCastleLong()],
+      ...[this.sqCastleShort()]
+    ];
 
     return sqs;
   }
@@ -140,6 +143,38 @@ class K extends AbstractPiece {
     // TODO
 
     return sqs;
+  }
+
+  protected sqsKing(): Array<string> {
+    let sqsKing = this.board.getSqEval().free.filter((sq) => {
+      for (let key in this.mobility) {
+        if (this.mobility[key].includes(sq)) {
+          return true;
+        }
+      }
+    });
+
+    return sqsKing.filter((sq) => {
+      if(!this.board.getSpaceEval()[this.oppColor()].includes(sq)) {
+        return true;
+      }
+    });
+  }
+
+  protected sqsCaptures(): Array<string> {
+    let sqsCaptures = this.board.getSqEval().used[this.oppColor()].filter((sq) => {
+      for (let key in this.mobility) {
+        if (this.mobility[key].includes(sq)) {
+          return true;
+        }
+      }
+    });
+
+    return sqsCaptures.filter((sq) => {
+      if(!this.board.getDefenseEval()[this.oppColor()].includes(sq)) {
+        return true;
+      }
+    });
   }
 
   sqCastleShort(): null|string

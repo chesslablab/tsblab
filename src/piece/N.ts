@@ -90,9 +90,9 @@ class N extends AbstractPiece {
   sqs(): Array<string> {
     let sqs = [];
     this.mobility.forEach(sq => {
-      if (this.board.getSqEval()['free'].includes(sq)) {
+      if (this.board.getSqEval().free.includes(sq)) {
         sqs.push(sq);
-      } else if (this.board.getSqEval()['used'][this.oppColor()]) {
+      } else if (this.board.getSqEval().used[this.oppColor()]) {
         sqs.push(sq);
       }
     });
@@ -102,8 +102,11 @@ class N extends AbstractPiece {
 
   defendedSqs(): Array<string> {
     let sqs = [];
-
-    // TODO
+    this.mobility.forEach(sq => {
+      if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
+        sqs.push(sq);
+      }
+    });
 
     return sqs;
   }

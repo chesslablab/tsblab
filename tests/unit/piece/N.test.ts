@@ -3,8 +3,8 @@ import N from '../../../src/piece/N';
 
 describe('knight.getMobility()', () => {
   it ('d4', () => {
-    let knight = new N('w', 'd4');
-    let mobility = [
+    const knight = new N('w', 'd4');
+    const mobility = [
       'c6',
       'b5',
       'b3',
@@ -17,16 +17,16 @@ describe('knight.getMobility()', () => {
     expect(knight.getMobility()).to.eql(mobility);
   });
   it ('h1', () => {
-    let knight = new N('w', 'h1');
-    let mobility = [
+    const knight = new N('w', 'h1');
+    const mobility = [
       'g3',
       'f2'
     ];
     expect(knight.getMobility()).to.eql(mobility);
   });
   it ('b1', () => {
-    let knight = new N('w', 'b1');
-    let mobility = [
+    const knight = new N('w', 'b1');
+    const mobility = [
       'a3',
       'd2',
       'c3'

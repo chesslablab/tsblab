@@ -137,40 +137,39 @@ class K extends AbstractPiece {
     return sqs;
   }
 
-  // protected sqsKing(): Array<string> {
-  //   let sqsKing = this.board.getSqEval().free.filter((sq) => {
-  //     for (let key in this.mobility) {
-  //       if (this.mobility[key].includes(sq)) {
-  //         return true;
-  //       }
-  //     }
-  //   });
+  defendedSqs(): Array<string> {
+    let sqs = [];
 
-  //   return sqsKing.filter((sq) => {
-  //     if(!this.board.getSpaceEval()[this.oppColor()].includes(sq)) {
-  //       return true;
-  //     } 
-  //   });
-  // }
+    // TODO
 
-  // protected sqsCaptures(): Array<string> {
-  //   let sqsCaptures = this.board.getSqEval().used[this.oppColor()].filter((sq) => {
-  //     for (let key in this.mobility) {
-  //       if (this.mobility[key].includes(sq)) {
-  //         return true;
-  //       }
-  //     }
-  //   });
+    return sqs;
+  }
 
-  //   return sqsCaptures.filter((sq) => {
-  //     if(!this.board.getDefenceEval()[this.oppColor()].includes(sq)) {
-  //       return true;
-  //     } 
-  //   });
-  // }
+  protected sqsKing(): Array<string> {
+    let sqsKing = this.board.getSqEval().free.filter((sq) => {
+      for (let key in this.mobility) {
+        if (this.mobility[key].includes(sq)) {
+          return true;
+        }
+      }
+    }).filter(sq => !this.board.getSpaceEval()[this.oppColor()].includes(sq));
 
-  sqCastleShort(): null|string
-  {
+    return sqsKing;
+  }
+
+  protected sqsCaptures(): Array<string> {
+    let sqsCaptures = this.board.getSqEval().used[this.oppColor()].filter((sq) => {
+      for (let key in this.mobility) {
+        if (this.mobility[key].includes(sq)) {
+          return true;
+        }
+      }
+    }).filter(sq => !this.board.getDefenseEval()[this.oppColor()].includes(sq));
+
+    return sqsCaptures;
+  }
+
+  sqCastleShort(): null|string {
     const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.SHORT];
     if (new CastlingAbility().short(this.board.getCastlingAbility(), this.getColor())) {
       const arrayDiff = this.board.getSqEval().free.filter(sq => rule['sqs'].includes(sq));
@@ -183,8 +182,7 @@ class K extends AbstractPiece {
     return null;
   }
 
-  sqCastleLong(): null|string
-  {
+  sqCastleLong(): null|string {
     const rule = K.CASTLING_RULE[this.getColor()][Piece.K][Castle.LONG];
     if (new CastlingAbility().long(this.board.getCastlingAbility(), this.getColor())) {
       const arrayDiff = this.board.getSqEval().free.filter(sq => rule['sqs'].includes(sq));
@@ -197,8 +195,7 @@ class K extends AbstractPiece {
     return null;
   }
 
-  getCastleRook(entries: any): RShape|null
-  {
+  getCastleRook(entries: any): RShape|null {
     const rule = K.CASTLING_RULE[this.getColor()][Piece.R];
     for (let [key, piece] of entries) {
       if (

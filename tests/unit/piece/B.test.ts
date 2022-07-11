@@ -3,8 +3,8 @@ import B from '../../../src/piece/B';
 
 describe('bishop.getMobility()', () => {
   it ('a2', () => {
-    let bishop = new B('w', 'a2');
-    let mobility = {
+    const bishop = new B('w', 'a2');
+    const mobility = {
       upLeft: [],
       upRight: ['b3', 'c4', 'd5', 'e6', 'f7', 'g8'],
       downLeft: [],
@@ -13,8 +13,8 @@ describe('bishop.getMobility()', () => {
     expect(bishop.getMobility()).to.eql(mobility);
   });
   it ('d5', () => {
-    let bishop = new B('w', 'd5');
-    let mobility = {
+    const bishop = new B('w', 'd5');
+    const mobility = {
       upLeft: ['c6', 'b7', 'a8'],
       upRight: ['e6', 'f7', 'g8'],
       downLeft: ['c4', 'b3', 'a2'],
@@ -23,8 +23,8 @@ describe('bishop.getMobility()', () => {
     expect(bishop.getMobility()).to.eql(mobility);
   });
   it ('a8', () => {
-    let bishop = new B('w', 'a8');
-    let mobility = {
+    const bishop = new B('w', 'a8');
+    const mobility = {
       upLeft: [],
       upRight: [],
       downLeft: [],

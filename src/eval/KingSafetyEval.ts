@@ -22,6 +22,8 @@ class KingSafetyEval extends AbstractEval {
 
     this.color(Color.W, pressEval, spEval);
     this.color(Color.B, pressEval, spEval);
+
+    return this.result;
   }
 
   public color = (color: string, pressEval: any, spEval: any): void => {

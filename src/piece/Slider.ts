@@ -29,8 +29,16 @@ abstract class Slider extends AbstractPiece {
 
   defendedSqs(): Array<string> {
     let sqs = [];
-
-    // TODO
+    for (let direction of Object.values(this.mobility)) {
+      for (let sq of direction) {
+        if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
+          sqs.push(sq);
+          break;
+        } else if (this.board.getSqEval().used[this.oppColor()].includes(sq)) {
+          break;
+        }
+      }
+    }
 
     return sqs;
   }

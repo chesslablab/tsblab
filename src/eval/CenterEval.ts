@@ -28,7 +28,7 @@ class CenterEval extends AbstractEval {
   public eval = (): any => {
     let spEval = (new SpaceEval(this.board)).eval();
     for (let sq in this.center) {
-      let piece = this.board.getPieceBySq(sq);
+      let piece = this.board.getPieceBySq(sq).value;
       if (piece) {
         this.result[piece.getColor()] += this.value[piece.getId()] * this.center[sq];
       }

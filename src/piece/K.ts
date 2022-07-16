@@ -139,8 +139,11 @@ class K extends AbstractPiece {
 
   defendedSqs(): Array<string> {
     let sqs = [];
-
-    // TODO
+    for (const [key, sq] of Object.entries(this.mobility)) {
+      if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
+        sqs.push(sq);
+      }
+    }
 
     return sqs;
   }

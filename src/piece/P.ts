@@ -123,8 +123,11 @@ class P extends AbstractPiece {
 
   defendedSqs(): Array<string> {
     let sqs = [];
-
-    // TODO
+    this.captureSqs.forEach(sq => {
+      if (this.board.getSqEval().used[this.getColor()].includes(sq)) {
+        sqs.push(sq);
+      }
+    });
 
     return sqs;
   }

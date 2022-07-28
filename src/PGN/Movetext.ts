@@ -1,4 +1,4 @@
-import MoveTextError from '../error/MoveTextError';
+import MovetextError from '../error/MovetextError';
 import Termination from './AN/Termination';
 import Move from './Move';
 
@@ -25,7 +25,7 @@ class Movetext {
 
   public validate = (): string => {
     if (!this.isOrdered()) {
-      throw new MoveTextError();
+      throw new MovetextError();
     }
 
     this.movetext.moves.forEach(move => {

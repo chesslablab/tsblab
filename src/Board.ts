@@ -1,4 +1,5 @@
 import BoardError from './error/BoardError';
+import DefenseEval from './eval/DefenseEval';
 import PressureEval from './eval/PressureEval';
 import SpaceEval from './eval/SpaceEval';
 import SqEval from './eval/SqEval';
@@ -124,7 +125,7 @@ class Board extends Map {
 
     this.spaceEval = new SpaceEval(this).eval();
     this.pressureEval = new PressureEval(this).eval();
-    // this.defenseEval = new DefenseEval(this).eval();
+    this.defenseEval = new DefenseEval(this).eval();
 
     this.notifyPieces();
   }

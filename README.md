@@ -6,7 +6,7 @@ A chess library for TypeScript.
 
 ### License
 
-The GNU General Public License.
+The [GNU General Public License](https://github.com/SmashedFrenzy16/ts-chess/blob/master/LICENSE).
 
 ### Contributions
 

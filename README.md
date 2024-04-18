@@ -10,6 +10,10 @@ The GNU General Public License.
 
 ### Contributions
 
-See the [contributing guidelines](https://github.com/chesslablab/ts-chess/blob/master/CONTRIBUTING.md).
+We encourage you to contribute to TsBlab! Please follow the [Contributing Guidelines](https://github.com/chesslablab/tsblab/blob/main/CONTRIBUTING.md).
 
-Happy learning and coding! Thank you, and keep it up.
+<a href="https://github.com/chesslablab/tsblab/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chesslablab/tsblab" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
